@@ -20,6 +20,8 @@ public class openChatController {
 		mView.setViewName("chat/openChatBoxAjax");
 		return mView;
 	}
+	
+	
 	@RequestMapping("/uploadOpenChat")
 	public String uploadOpenChat(String id,String occomment) {
 		openChatDto dto=new openChatDto();
