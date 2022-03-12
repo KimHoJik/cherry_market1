@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	//여기에 일단 임시 ID 세션 바로 등록했습니다
-	session.setAttribute("id","정동욱"); 
+	session.setAttribute("id","김호직"); 
 %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +29,7 @@
 			<input type="text" id="occomment" name="occomment" placeholder="메세지 보내기"/>
 		</div>
 	</div>
-	<a href="">개인톡리스트</a>
+	<a href="private/personalChatList">개인톡리스트</a>
 </div>
 <script>
 	var before;
