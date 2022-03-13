@@ -10,4 +10,37 @@
 	<insert id="uploadOpenChat" parameterType="com.acorn.cherryM1.ChatDto.openChatDto">
 		insert into openchatlog values(#{id},to_number(to_char(systimestamp,'yymmddhh24missff3')),#{occomment})
 	</insert>
+	
+	<select id="getPerChatList" parameterType="String" resultType="com.acorn.cherryM1.ChatDto.perChatListDto">
+		select num,saller,buyer,lastcomment,lastregdate from perChatlist 
+		where saller=#{name} or buyer=#{name} 
+		order by lastregdate desc
+	</select>
+	
+	<select id="getPerChatLog" parameterType="com.acorn.cherryM1.ChatDto.perChatDto"
+	 resultType="com.acorn.cherryM1.ChatDto.perChatDto">
+		select talker,pccomment,regdate from perchatlog 
+		where saller=#{saller} and buyer=#{buyer} and num=#{num} 
+		order by regdate asc
+	</select>
+	
+	<insert id="uploadPerChatLog" parameterType="com.acorn.cherryM1.ChatDto.perChatDto">
+		insert into perchatlog 
+		values(#{num},#{saller},#{buyer},#{talker},#{pccomment},#{regdate})
+	</insert>
+	
+	<select id="CheckPerChatList" parameterType="com.acorn.cherryM1.ChatDto.perChatListDto" resultType="int">
+		select count(*) as count from perChatlist 
+		where saller=#{saller} and buyer=#{buyer} and num=#{num}
+	</select>
+	
+	<insert id="uploadPerChatList" parameterType="com.acorn.cherryM1.ChatDto.perChatListDto">
+		insert into perchatlist 
+		values(#{num},#{saller},#{buyer},#{lastcomment},#{lastregdate})
+	</insert>
+	
+	<update id="updatePerChatList">
+		update perchatlist set lastcomment=#{lastcomment},lastregdate=#{lastregdate} 
+		where num=#{num} and saller=#{saller} and buyer=#{buyer}
+	</update>
 </mapper>
