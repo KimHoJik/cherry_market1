@@ -7,28 +7,37 @@
 <meta charset="UTF-8">
 <title>chat</title>
 <style>
-	#inputBox{
-		position:fixed;
-		top:450px;
-	}
-	#chatbox{
-		width:500px;
-		height:450px;
-		overflow: auto;
-		overflow-y:450px;
-	}
+	*{ margin: 0; padding: 0; }
+ 
+	.chat_wrap .header {position:fixed; font-size: 14px; width:100%;padding: 15px 0; background: #F18C7E; color: white; text-align: center;  }
+	.chat_wrap .chat { padding:50px 5px 110px 5px;}
+	.chat_wrap .chat ul { width: 100%; list-style: none; }
+	.chat_wrap .chat ul li { width: 100%; }
+	.chat_wrap .chat ul li.left { text-align: left; }
+	.chat_wrap .chat ul li.right { text-align: right; }
+	 
+	.chat_wrap .chat ul li > div { font-size: 13px;  }
+	.chat_wrap .chat ul li > div.sender { margin: 10px 20px 0 20px; font-weight: bold; }
+	.chat_wrap .chat ul li > div.message { display: inline-block; word-break:break-all; margin: 5px 20px; max-width: 75%; border: 1px solid #888; padding: 10px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
+	 
+	.chat_wrap .input-div { position: fixed; bottom: 0; width: 100%; background-color: #FFF; text-align: center; border-top: 1px solid #F18C7E; }
+	.chat_wrap .input-div > textarea { width: 100%; height: 80px; border: none; padding: 10px; }
 </style>
 </head>
 <body>
-<div class="container" id="app">
-	<div id="chatbox">
-		
-	</div>
-	<div id="inputBox">
-		<input type="text" id="text" name="text" placeholder="메세지 보내기"/>
-	</div>
+<div class="chat_wrap" id="X">
+    <div class="header">
+        CHAT
+    </div>
+    <div class="chat">
+        <ul id="chatbox">
+            <!-- 동적 생성 -->
+        </ul>
+    </div>
+    <div class="input-div">
+        <textarea id="text" placeholder="Press Enter for send message."></textarea>
+    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	var before;
 	let updateBox=function(){
@@ -45,9 +54,7 @@
 			data=data.replaceAll('\r','');
 			if(before!=data){
 				document.querySelector("#chatbox").innerHTML=data;
-				var objDiv = document.getElementById("chatbox");
-				objDiv.scrollTop = objDiv.scrollHeight;
-				console.log("scrolldown");
+				window.scrollTo(0,document.body.scrollHeight);
 			}
 		})
 	}
