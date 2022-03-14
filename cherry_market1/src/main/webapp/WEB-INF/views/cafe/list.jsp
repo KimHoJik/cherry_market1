@@ -1,25 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-	//여기에 일단 임시 ID 세션 바로 등록했습니다
-	session.setAttribute("id","김호직"); 
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CherryMarket</title>
-
 <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <style>
 	body {
 		font-family: 'Varela Round', sans-serif;
@@ -110,13 +102,7 @@
 		.navbar .input-group {
 			width: 100%;
 		}
-	#textBox{
-		width:500px;
-		height:450px;
-		overflow: auto;
-		overflow-y:450px;
 	}
-}	
 </style>
 <script>
 	$(document).ready(function(){
@@ -135,11 +121,10 @@
 </script>
 </head>
 <body>
-
 <nav class="navbar navbar-default navbar-expand-lg navbar-light">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="${pageContext.request.contextPath }/">Cherry<b>Market</b></a>  		
-		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+		<a class="navbar-brand" href="${pageContext.request.contextPath }/">Cherry<b>Market</b></a>
+		 	<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
 			<span class="navbar-toggler-icon"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -155,17 +140,11 @@
   			<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
 			</a></li>
+			
 			<li><a href="${pageContext.request.contextPath }/">Home</a></li>
 			<li><a href="${pageContext.request.contextPath}/cafe/list.do">Market</a></li>			
-				<li class="dropdown">
-				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
-				<ul class="dropdown-menu">					
-					<li><a href="#">남성의류</a></li>
-					<li><a href="#">여성의류</a></li>
-					<li><a href="#">가전/IT</a></li>
-					<li><a href="#">삽니다</a></li>
-				</ul>
-			</li>
+			
+			
 		</ul>		
 		<ul class="nav navbar-nav navbar-right">			
 			<li class="dropdown">
@@ -187,71 +166,85 @@
 		</ul>
 	</div>
 </nav>
-
-<h1>안녕하세요!!!</h1>
-<div id="main">
-	<div id="openchat">
-		<div id="textBox">
-		
-		</div>
-		<div id="inputBox">
-			<input type="text" id="occomment" name="occomment" placeholder="메세지 보내기"/>
-		</div>
-	</div>
-	<a href="private/personalChatList">개인톡리스트</a>
-</div>
-<script>
-	var before;
-	var id="${sessionScope.id}";
-	//채팅박스 업로드 함수
-	let updateBox=function(){
-		fetch("updateOpenChatBox")
-		.then(function(response){
-			return response.text();
-		})
-		.then(function(data){
-			before=document.querySelector("#textBox").innerHTML;
-			//js와 html에서 개행기호가 달라서 replaceAll 함수로 개행기호 삭제시켰습니다
-			data=data.replaceAll('\r','');
-			//업로드했을때 이전에 업로드한것과 변경점이 있을시만 채팅 업데이트
-			if(before!=data){
-				document.querySelector("#textBox").innerHTML=data;
-			//스크롤바 맨아래로 자동으로 내리기
-				var objDiv = document.getElementById("textBox");
-				objDiv.scrollTop = objDiv.scrollHeight;
-			}
-		})
-	};
-	//채팅박스 업로드 함수를 를 0.1초에 한번씩 자동반복실행
-	let interval=setInterval(updateBox,100);
-	//채팅입력 함수 채팅바에 키가 눌렀다 떼면(keyup) 실행되도록 설정
-	document.querySelector("#occomment").addEventListener("keyup",function(e){
-		// 만약 엔터키가 눌렸는데 채팅파에 텍스트가 있는 상태면 다음 진행
-		if (e.key=="Enter"&&this.value!=''){
-			//로그인 되어있는지 확인 아닐시 알림출력
-			if (id=="" || id==null){
-				alert("로그인 후 이용해주세요")
-			//로그인돼있고 입력텍스트가 있을시 id와 텍스트를 전송
-			} else {
-				fetch("uploadOpenChat",{
-					method:"POST",
-					headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
-					body:"id="+id+"&"+
-					"occomment="+document.querySelector("#occomment").value
-				})
-				.then();
-			//전송후 수동으로 채팅박스 업데이트
-				updateBox();
-				document.querySelector("#occomment").value="";
-				document.querySelector("#occomment").placeholder="메세지 보내기";
-			}
-		}
-	});
-</script>
-
 <div class="container">
-<a href="${pageContext.request.contextPath}/users/loginform.jsp">로그인</a>
-<a href="${pageContext.request.contextPath}/users/logout.jsp">로그아웃</a>
+	<a href="private/insertform.do">
+	<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="skyblue" class="bi bi-bag-plus-fill" viewBox="0 0 16 16" id="plus">
+  	<path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+	</svg>	
+	</a>
+	<h1 class="h1">CherryMarket
+	<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
+  	<path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
+	</svg></h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>글번호</th>
+				<th>작성자</th>
+				<th>제목</th>
+				<th>조회수</th>
+				<th>등록일</th>
+			</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="tmp" items="${list }">
+			<tr>
+				<td>${tmp.num }</td>
+				<td>${tmp.writer }</td>
+				<td>
+					<a href="detail.do?num=${tmp.num }&keyword=${encodedK }&condition=${condition}">${tmp.title }</a>
+				</td>
+				<td>${tmp.viewCount }</td>
+				<td>${tmp.regdate }</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+	<div class="page-ui clearfix">
+		<ul>
+			<c:if test="${startPageNum ne 1 }">
+				<li>
+					<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a>
+				</li>
+			</c:if>
+			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+				<li>
+					<c:choose>
+						<c:when test="${pageNum eq i }">
+							<a  class="active" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+						</c:when>
+						<c:otherwise>
+							<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+			</c:forEach>
+			<c:if test="${endPageNum lt totalPageCount }">
+				<li>
+					<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a>
+				</li>
+			</c:if>
+		</ul>
+	</div>
+
+	<div style="clear:both;"></div>
+
+	<form action="list.do" method="get"> 
+		<label for="condition">검색조건</label>
+		<select name="condition" id="condition">
+			<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
+			<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+		</select>
+		<input type="text" id="keyword" name="keyword" placeholder="검색어..." value="${keyword }"/>
+		<button type="submit">검색</button>
+	</form>	
+	<c:if test="${ not empty condition }">
+		<p>
+			<strong>${totalRow }</strong> 개의 글이 검색 되었습니다.
+		</p>
+	</c:if>
 </div>
+
 </body>
 </html>
