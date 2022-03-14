@@ -199,6 +199,9 @@
 		</div>
 	</div>
 	<a href="private/personalChatList">개인톡리스트</a>
+	<br />
+	<a href="${pageContext.request.contextPath}/users/signup_form.do">회원가입하러가기</a>
+
 </div>
 <script>
 	var before;
