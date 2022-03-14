@@ -79,5 +79,10 @@
 		}
 	});
 </script>
+
+<div class="container">
+<a href="${pageContext.request.contextPath}/users/loginform.jsp">로그인</a>
+<a href="${pageContext.request.contextPath}/users/logout.jsp">로그아웃</a>
+</div>
 </body>
 </html>
