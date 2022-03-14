@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/signup_form.jsp</title>
+<title>/views/users/signup_form.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 </head>
 <body>
@@ -62,6 +62,7 @@
 		<button class="btn btn-primary" type="submit">가입</button>
 	</form>
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script>
 	
 	let isIdValid=false;
@@ -146,7 +147,6 @@
 		}
 	});
 	
-	
 	//폼에 submit 이벤트가 발생했을때 실행할 함수 등록
 	document.querySelector("#myForm").addEventListener("submit", function(e){
 		//console.log(e);
@@ -162,6 +162,7 @@
 			e.preventDefault();
 		}	
 	});
+	
 </script>
 </body>
 </html>
