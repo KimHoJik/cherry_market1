@@ -30,6 +30,9 @@
 		</div>
 	</div>
 	<a href="private/personalChatList">개인톡리스트</a>
+	<br />
+	<a href="users/signup_form.jsp">회원가입하러가기</a>
+
 </div>
 <script>
 	var before;

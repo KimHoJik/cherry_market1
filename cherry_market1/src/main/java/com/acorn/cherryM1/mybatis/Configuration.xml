@@ -3,7 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<typeAliases>
+		<typeAlias type="com.acorn.cherryM1.users.dto.UsersDto" alias="usersDto"/>
+	</typeAliases>
 	<mappers>
 		<mapper resource="com/acorn/cherryM1/mybatis/ChatBatis.xml"/>
+		<mapper resource="com/acorn/cherryM1/mybatis/UsersMapper.xml"/>
 	</mappers>
 </configuration>

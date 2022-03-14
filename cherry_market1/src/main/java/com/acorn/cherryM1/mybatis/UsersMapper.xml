@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
-
-<!--    parameterType="usersDto" 아 준형아 이거 왜 오류나지?
-
-
+	
 	<select id="isExist" parameterType="java.lang.String" resultType="string">
 		SELECT id 
 		FROM users
@@ -13,8 +10,8 @@
 
 	<insert id="insert" parameterType="usersDto">
 		INSERT INTO users
-		(id, pwd, email, regdate)
-		VALUES(#{id}, #{pwd}, #{email}, SYSDATE)
+		(num, id, name, pwd, email, profile, addr, regdate)
+		VALUES(users_seq.NEXTVAL, #{id}, #{name}, #{pwd}, #{email}, #{profile}, #{addr}, SYSDATE)
 	</insert>
 	
 	<select id="getData" parameterType="string" 
@@ -23,27 +20,6 @@
 		FROM users
 		WHERE id=#{id}
 	</select>
-	
-	조장님꺼 일단 적었음
-	<update id="pwdUpdate" parameterType="usersDto">
-		UPDATE users
-		SET pwd=#{newPwd}
-		WHERE id=#{id}
-	</update>
-	
-	조장님꺼 일단 적었음
-	<update id="update" parameterType="usersDto">
-		UPDATE users
-		SET email=#{email}, profile=#{profile}
-		WHERE id=#{id}
-	</update>
-	
-	조장님꺼 일단 적었음
-	<delete id="delete" parameterType="string">
-		DELETE FROM users
-		WHERE id=#{id}   
-	</delete>          -->
-	
 	
 </mapper>
 
