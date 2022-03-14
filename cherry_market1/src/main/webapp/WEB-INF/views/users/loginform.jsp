@@ -11,7 +11,7 @@
 <body>
 	<div class="container">
 	<h1>로그인 폼 입니다.</h1>
-	<form action="${pageContext.request.contextPath}/users/login.jsp" method="post">
+	<form action="login" method="post">
 		<c:choose>
 			<c:when test="${ empty param.url }">
 				<input type="hidden" name="url" value="${pageContext.request.contextPath}/"/>
@@ -29,9 +29,13 @@
 			<input type="password" name="pwd" id="pwd" placeholder="비밀번호"/>
 		</div>
 		<button class="btn" type="submit" >로그인</button>
-		<button class="join" <a href="/users/signup"></a>>회원가입</button>
-		
 	</form>
+	<button id="join">회원가입</button>
+	<script>
+		document.querySelector("#join").addEventListener("click",function(){
+			location.href="signup_form";
+		})
+	</script>
 </div>	
 </body>
 </html>
