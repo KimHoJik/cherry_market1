@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <title>/views/cafe/insertform.jsp</title>
 <link rel="stylesheet" 
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
@@ -13,12 +12,10 @@
 		height: 500px;
 	}
 </style>
-
 </head>
 <body>
-
 <div class="container">
-	<h1>새 상품 등록</h1>
+	<h1>새글 작성 폼</h1>
 	<form action="insert.do" method="post" id="insertForm">
 		<div class="mb-3">
 			<label class="form-label" for="title">제목</label>
@@ -82,6 +79,7 @@
 		var sHTML = oEditors.getById["content"].getIR();
 		alert(sHTML);
 	}
+
 	
 	function setDefaultFont() {
 		var sDefaultFont = '궁서';
@@ -109,3 +107,6 @@
 </script>
 </body>
 </html>
+
+
+

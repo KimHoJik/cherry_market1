@@ -39,7 +39,7 @@
 	<insert id="insert" parameterType="cafeDto">
 		INSERT INTO cherryboard
 		(num,writer,title,content,viewCount,regdate)
-		VALUES(board_cafe_seq.NEXTVAL, #{writer}, #{title},
+		VALUES(cherryboard_seq.NEXTVAL, #{writer}, #{title},
 			#{content}, #{viewCount}, SYSDATE)
 	</insert>
 
