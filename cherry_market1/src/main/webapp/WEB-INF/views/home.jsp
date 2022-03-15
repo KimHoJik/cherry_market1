@@ -113,6 +113,11 @@
 		overflow: auto;
 		overflow-y:450px;
 	}
+	.loginbar{
+		width:100%;
+		float:right;
+		display:inline-block;
+	}
 }	
 </style>
 <script>
@@ -132,7 +137,11 @@
 </script>
 </head>
 <body>
-
+<div id="loginbar" style="text-align:right;">
+	<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
+	<a href="${pageContext.request.contextPath}/users/loginform">로그인</a>
+	<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>
+</div>
 <nav class="navbar navbar-default navbar-expand-lg navbar-light">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/">Cherry<b>Market</b></a>  		
@@ -146,7 +155,7 @@
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="">
+			<li><a href="${pageContext.request.contextPath}/users/loginform">
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
   			<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
   			<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -197,7 +206,7 @@
 	</div>
 	<a href="private/personalChatList">개인톡리스트</a>
 	<br />
-	<a href="${pageContext.request.contextPath}/users/signup_form.do">회원가입하러가기</a>
+	
 
 </div>
 <script>
@@ -249,9 +258,6 @@
 	});
 </script>
 
-<div class="container">
-<a href="users/loginform">로그인</a>
-<a href="users/logout">로그아웃</a>
-</div>
+
 </body>
 </html>
