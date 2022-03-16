@@ -32,7 +32,6 @@
 			<input type="text" id="occomment" name="occomment" placeholder="메세지 보내기"/>
 		</div>
 	</div>
-	<a href="private/personalChatList">개인톡리스트</a>
 
 </div>
 <script>

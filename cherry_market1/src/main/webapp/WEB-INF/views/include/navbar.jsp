@@ -42,6 +42,7 @@
 					<li><a href="#">삽니다</a></li>
 				</ul>
 			</li>
+			<li><a href="${pageContext.request.contextPath }/private/personalChatList">Chat</a></li>
 		</ul>		
 		<ul class="nav navbar-nav navbar-right">			
 			<li class="dropdown">
