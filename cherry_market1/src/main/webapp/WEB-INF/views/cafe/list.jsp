@@ -123,8 +123,8 @@
 <body>
 <nav class="navbar navbar-default navbar-expand-lg navbar-light">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="${pageContext.request.contextPath }/">Cherry<b>Market</b></a>
-		 	<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+		<a class="navbar-brand" href="${pageContext.request.contextPath }/">Cherry<b>Market</b></a>  		
+		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
 			<span class="navbar-toggler-icon"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -134,17 +134,23 @@
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="">
+			<li><a href="${pageContext.request.contextPath}/users/loginform">
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
   			<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
   			<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
 			</a></li>
-			
 			<li><a href="${pageContext.request.contextPath }/">Home</a></li>
 			<li><a href="${pageContext.request.contextPath}/cafe/list.do">Market</a></li>			
-			
-			
+				<li class="dropdown">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
+				<ul class="dropdown-menu">					
+					<li><a href="#">남성의류</a></li>
+					<li><a href="#">여성의류</a></li>
+					<li><a href="#">가전/IT</a></li>
+					<li><a href="#">삽니다</a></li>
+				</ul>
+			</li>
 		</ul>		
 		<ul class="nav navbar-nav navbar-right">			
 			<li class="dropdown">
@@ -167,7 +173,7 @@
 	</div>
 </nav>
 <div class="container">
-	<a href="private/insertform.do">
+	<a href="insertform.do">
 	<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="skyblue" class="bi bi-bag-plus-fill" viewBox="0 0 16 16" id="plus">
   	<path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
 	</svg>	

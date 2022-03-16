@@ -138,9 +138,21 @@
 </head>
 <body>
 <div id="loginbar" style="text-align:right;">
-	<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
-	<a href="${pageContext.request.contextPath}/users/loginform">로그인</a>
-	<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>
+<c:choose>
+		<c:when test="${ empty sessionScope.id}">
+			<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
+			<a href="${pageContext.request.contextPath}/users/loginform">로그인</a>
+			<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>
+		</c:when>
+		<c:otherwise>
+			<p>
+				<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
+				<a href="#">${sessionScope.id }</a> 로그인중... 
+				<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
+			</p>
+		</c:otherwise>
+	</c:choose>
+
 </div>
 <nav class="navbar navbar-default navbar-expand-lg navbar-light">
 	<div class="navbar-header">
@@ -163,6 +175,7 @@
 			</a></li>
 			<li><a href="${pageContext.request.contextPath }/">Home</a></li>
 			<li><a href="${pageContext.request.contextPath}/cafe/list.do">Market</a></li>			
+			<li><a href="${pageContext.request.contextPath }/gallery/list.do">상품 올리기</a></li>
 				<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
 				<ul class="dropdown-menu">					
