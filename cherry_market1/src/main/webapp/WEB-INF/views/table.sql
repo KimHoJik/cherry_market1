@@ -41,7 +41,7 @@ CREATE TABLE cherrygallery(
 	num NUMBER PRIMARY KEY,
 	writer VARCHAR2(100),
 	caption VARCHAR2(100), -- 이미지에 대한 설명
-	imagePath VARCHAR2(100), -- 업로드된 이미지의 경로  ex) /upload/xxx.jpg
+	imagePath VARCHAR2(400), -- 업로드된 이미지의 경로  ex) /upload/xxx.jpg
 	regdate DATE -- 이미지 업로드 날짜 
 );
 
