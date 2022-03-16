@@ -8,7 +8,7 @@
 			FROM
 				(SELECT num,writer,title,orgFileName,saveFileName,
 					fileSize,regdate
-				FROM board_file
+				FROM CHERRYFILE
 				<choose>
 					<when test="title != null and orgFileName != null">
 						WHERE title LIKE '%${title}%' 
@@ -27,7 +27,7 @@
 
 	<select id="getCount" parameterType="fileDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
-		FROM board_file
+		FROM CHERRYFILE
 		<choose>
 			<when test="title != null and orgFileName != null">
 				WHERE title LIKE '%${title}%' 
@@ -43,20 +43,20 @@
 	</select>
 
 	<insert id="insert" parameterType="fileDto">
-		INSERT INTO board_file
+		INSERT INTO CHERRYFILE
 		(num, writer, title, orgFileName, saveFileName, fileSize, regdate)
-		VALUES(board_file_seq.NEXTVAL, #{writer}, #{title}, 
+		VALUES(CHERRYFILE_seq.NEXTVAL, #{writer}, #{title}, 
 			#{orgFileName}, #{saveFileName}, #{fileSize}, SYSDATE)
 	</insert>
 
 	<select id="getData" parameterType="int" resultType="fileDto">
 		SELECT num,writer,title,orgFileName,saveFileName,fileSize,regdate
-		FROM board_file
+		FROM CHERRYFILE
 		WHERE num=#{num}
 	</select>
 
 	<delete id="delete" parameterType="int">
-		DELETE FROM board_file
+		DELETE FROM CHERRYFILE
 		WHERE num=#{num}
 	</delete>	
 </mapper>

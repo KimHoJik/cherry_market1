@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +8,6 @@
 <title>/views/cafe/insertform.jsp</title>
 <link rel="stylesheet" 
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
-<style>
-	#content{
-		height: 500px;
-	}
-</style>
 </head>
 <body>
 <div class="container">
@@ -79,7 +75,6 @@
 		var sHTML = oEditors.getById["content"].getIR();
 		alert(sHTML);
 	}
-
 	
 	function setDefaultFont() {
 		var sDefaultFont = '궁서';
@@ -107,6 +102,3 @@
 </script>
 </body>
 </html>
-
-
-

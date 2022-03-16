@@ -35,7 +35,7 @@
 </head>
 <body>
 <div class="container">
-	<a href="private/upload_form.do">업로드 하러가기</a>
+	<a href="upload_form.do">업로드 하러가기</a>
 	<h1>자료실 목록입니다.</h1>
 	<table class="table table-striped">
   	  <thead>
@@ -116,7 +116,7 @@
 	function deleteConfirm(num){
 		const isDelete=confirm(num+" 번 자료를 삭제 하겠습니까?");
 		if(isDelete){
-			location.href="private/delete.do?num="+num;
+			location.href="delete.do?num="+num;
 		}
 	}
 </script>
