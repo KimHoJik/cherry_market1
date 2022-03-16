@@ -138,9 +138,15 @@
 </head>
 <body>
 <div id="loginbar" style="text-align:right;">
-	<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
-	<a href="${pageContext.request.contextPath}/users/loginform">로그인</a>
-	<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>
+	<c:choose>
+		<c:when test="${sessionScope.id eq null }">
+			<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
+			<a href="${pageContext.request.contextPath}/users/loginform">로그인</a>
+		</c:when>
+		<c:otherwise>
+			<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>
+		</c:otherwise>
+	</c:choose>
 </div>
 <nav class="navbar navbar-default navbar-expand-lg navbar-light">
 	<div class="navbar-header">
@@ -197,16 +203,16 @@
 <h1>안녕하세요!!!</h1>
 <div id="main">
 	<div id="openchat">
-		<div id="textBox">
-		
+		<div>
+			<ul id="textBox">
+			
+			</ul>
 		</div>
 		<div id="inputBox">
 			<input type="text" id="occomment" name="occomment" placeholder="메세지 보내기"/>
 		</div>
 	</div>
 	<a href="private/personalChatList">개인톡리스트</a>
-	<br />
-	
 
 </div>
 <script>
