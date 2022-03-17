@@ -7,11 +7,12 @@
 <meta charset="UTF-8">
 <title>/views/users/signup_form.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 <body>
 <div class="container">
-	<h1>체리마켓에 오신 것을 환영합니다~</h1>
-<form action="${pageContext.request.contextPath}/users/signup.do" method="post" id="myForm">
+	<h1 class="animate__animated animate__flipInY">체리마켓에 오신 것을 환영합니다~</h1>
+<form class="animate__animated animate__backInLeft" action="${pageContext.request.contextPath}/users/signup.do" method="post" id="myForm">
 		<br />
 		<div>
 			<label class="control-label" for="id">아이디</label>
@@ -59,7 +60,7 @@
 		</div>
 		<br />
 		<br />
-		<button class="btn btn-primary" type="submit">가입</button>
+		<button id="submitBtn" class="btn btn-primary" type="submit">가입</button>
 	</form>
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
@@ -161,6 +162,18 @@
 			//폼 전송 막기 
 			e.preventDefault();
 		}	
+	});
+	
+	// CSS
+	document.querySelector("#submitBtn").addEventListener("click", function(e){
+		//폼 전송이 되지 않도록 기본 동작을 막아준다.
+		e.preventDefault();
+		document.querySelector("#myForm").classList.add("animate__backOutRight");
+		document.querySelector("#myForm").addEventListener("animationend", function(){
+			// 폼 강제제출
+			this.submit();
+			
+		});
 	});
 	
 </script>
