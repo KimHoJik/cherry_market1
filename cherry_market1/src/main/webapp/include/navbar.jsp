@@ -8,7 +8,10 @@
 			<a href="${pageContext.request.contextPath}/users/loginform.do">로그인</a>
 		</c:when>
 		<c:otherwise>
-			<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
+			<p>
+				<a href="${pageContext.request.contextPath}/users/mypage">${sessionScope.id }</a> 로그인중...
+				<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
+			</p>
 		</c:otherwise>
 	</c:choose>
 </div>
