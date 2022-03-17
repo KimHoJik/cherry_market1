@@ -41,7 +41,7 @@ public class FileDownView extends AbstractView {
 		//다운로드 시켜줄 파일의 실제 경로 구성하기 
 		// File.separator 는 window 에서는 \ , linux 에서는 /  를 얻어오게 된다. 
 		String path=request.getServletContext().getRealPath("/upload")+
-						File.separator+saveFileName;
+				File.separator+saveFileName;
 		//다운로드할 파일에서 읽어들일 스트림 객체 생성하기
 		FileInputStream fis=new FileInputStream(path);
 		//다운로드 시켜주는 작업을 한다. (실제 파일 데이터와 원본파일명을 보내줘야한다.)

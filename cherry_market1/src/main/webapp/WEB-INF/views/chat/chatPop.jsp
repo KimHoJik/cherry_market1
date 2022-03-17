@@ -41,7 +41,7 @@
 <script>
 	var before;
 	let updateBox=function(){
-		fetch("updatePerChatBox",{
+		fetch("updatePerChatBox.do",{
 			method:"POST",
 			headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"},
 			body:"num=${param.num}&saller=${param.saller}&buyer=${param.buyer}"
@@ -61,7 +61,7 @@
 	let interval=setInterval(updateBox,100);
 	document.querySelector("#text").addEventListener("keyup",function(e){
 		if (e.key=="Enter"){
-			fetch("uploadPerChatLog",{
+			fetch("uploadPerChatLog.do",{
 				method:"POST",
 				headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"},
 				body:"pccomment="+document.querySelector("#text").value+"&num=${param.num}&saller=${param.saller}&buyer=${param.buyer}"

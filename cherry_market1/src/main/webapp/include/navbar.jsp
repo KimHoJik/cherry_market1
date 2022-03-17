@@ -5,10 +5,10 @@
 	<c:choose>
 		<c:when test="${sessionScope.id eq null }">
 			<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
-			<a href="${pageContext.request.contextPath}/users/loginform">로그인</a>
+			<a href="${pageContext.request.contextPath}/users/loginform.do">로그인</a>
 		</c:when>
 		<c:otherwise>
-			<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
 		</c:otherwise>
 	</c:choose>
 </div>
@@ -31,7 +31,8 @@
   			<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
 			</a></li>
-			<li><a href="${pageContext.request.contextPath }/">Home</a></li>
+			<li><a href="${pageContext.request.contextPath }/home.do">Home</a></li>
+			<li><a href="${pageContext.request.contextPath }/gallery/list.do">Photo</a></li>
 			<li><a href="${pageContext.request.contextPath}/cafe/list.do">Market</a></li>			
 				<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
@@ -42,7 +43,7 @@
 					<li><a href="#">삽니다</a></li>
 				</ul>
 			</li>
-			<li><a href="${pageContext.request.contextPath }/private/personalChatList">Chat</a></li>
+			<li><a href="${pageContext.request.contextPath }/private/personalChatList.do">Chat</a></li>
 		</ul>		
 		<ul class="nav navbar-nav navbar-right">			
 			<li class="dropdown">
