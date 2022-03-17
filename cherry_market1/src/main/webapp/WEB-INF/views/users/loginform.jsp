@@ -11,7 +11,7 @@
 <body>
 	<div class="container">
 	<h1>로그인 폼 입니다.</h1>
-	<form action="login" method="post">
+	<form action="login.do" method="post">
 		<c:choose>
 			<c:when test="${ empty param.url }">
 				<input type="hidden" name="url" value="${pageContext.request.contextPath}/"/>
@@ -33,7 +33,7 @@
 	<button id="join">회원가입</button>
 	<script>
 		document.querySelector("#join").addEventListener("click",function(){
-			location.href="signup_form";
+			location.href="signup_form.do";
 		})
 	</script>
 </div>	

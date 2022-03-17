@@ -14,7 +14,7 @@ public class openChatController {
 	@Autowired
 	private openChatService Service;
 	
-	@RequestMapping("/updateOpenChatBox")
+	@RequestMapping("/updateOpenChatBox.do")
 	public ModelAndView updateOpenChatBox(ModelAndView mView) {
 		Service.getOpenChatLog(mView);
 		mView.setViewName("chat/openChatBoxAjax");
@@ -22,7 +22,7 @@ public class openChatController {
 	}
 	
 	
-	@RequestMapping("/uploadOpenChat")
+	@RequestMapping("/uploadOpenChat.do")
 	public String uploadOpenChat(String id,String occomment) {
 		openChatDto dto=new openChatDto();
 		dto.setId(id);

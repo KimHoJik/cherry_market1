@@ -17,29 +17,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
+<style>
+	
+</style>
 </head>
 <body>
-<jsp:include page="include/navbar.jsp"/>
-<h1>안녕하세요!!!</h1>
-<div id="main">
-	<div id="openchat">
-		<div>
-			<ul id="textBox">
-			
-			</ul>
-		</div>
-		<div id="inputBox">
-			<input type="text" id="occomment" name="occomment" placeholder="메세지 보내기"/>
+<div style="display:flex; justify-content:center;">
+	<div id="main" style="width:1200px; height:900px;">
+		<jsp:include page="/include/navbar.jsp"/>
+		<div id="goods" style="width:1000px;height:800px;float:left;"></div>
+		<div id="openchat" style="width:200px;height:800px;display:inline-block;">
+			<div>
+				<ul id="textBox">
+				
+				</ul>
+			</div>
+			<div id="inputBox">
+				<input type="text" id="occomment" name="occomment" placeholder="메세지 보내기"/>
+			</div>
 		</div>
 	</div>
-
 </div>
 <script>
 	var before;
 	var id="${sessionScope.id}";
 	//채팅박스 업로드 함수
 	let updateBox=function(){
-		fetch("updateOpenChatBox")
+		fetch("updateOpenChatBox.do")
 		.then(function(response){
 			return response.text();
 		})
@@ -67,7 +71,7 @@
 				alert("로그인 후 이용해주세요")
 			//로그인돼있고 입력텍스트가 있을시 id와 텍스트를 전송
 			} else {
-				fetch("uploadOpenChat",{
+				fetch("uploadOpenChat.do",{
 					method:"POST",
 					headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
 					body:"id="+id+"&"+
