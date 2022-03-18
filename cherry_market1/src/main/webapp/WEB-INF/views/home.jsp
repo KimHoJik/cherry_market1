@@ -25,7 +25,12 @@
 <div style="display:flex; justify-content:center;">
 	<div id="main" style="width:1200px; height:900px;">
 		<jsp:include page="/include/navbar.jsp"/>
-		<div id="goods" style="width:1000px;height:800px;float:left;"></div>
+		<div id="goods" style="width:1000px;height:800px;float:left;">
+			<a href="${pageContext.request.contextPath }/private/goodsUploadForm.do">상품등록</a>
+			<ul>
+				
+			</ul>
+		</div>
 		<div id="openchat" style="width:200px;height:800px;display:inline-block;">
 			<div>
 				<ul id="textBox">
@@ -39,6 +44,7 @@
 	</div>
 </div>
 <script>
+	
 	var before;
 	var id="${sessionScope.id}";
 	//채팅박스 업로드 함수
