@@ -9,21 +9,20 @@
 </head>
 <body>
 <div class="container">
-	<h1>알림</h1>
-	<c:choose>
+<c:choose>
 		<c:when test="${not empty sessionScope.id }">
-			<p>
-				<strong>${id }</strong>님 로그인 되었습니다.
-				<a href="${url }">확인</a>
-			</p>
+			<script>
+				alert("${param.id}님 로그인 되었습니다.");
+				location.href="${pageContext.request.contextPath}/";
+			</script>
 		</c:when>
 		<c:otherwise>
-			<p>
-				아이디 또는 비밀번호가 틀렸습니다
-				<a href="loginform.do?url=${encodedUrl }">다시 시도</a>
-			</p>
+			<script>
+				alert("회원정보가 틀립니다.");
+				location.href="${pageContext.request.contextPath }/users/loginform.do";
+			</script>
 		</c:otherwise>
-	</c:choose>
+</c:choose>
 </div>	
 </body>
 </html>
