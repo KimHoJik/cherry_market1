@@ -36,6 +36,8 @@
 			location.href="signup_form.do";
 		})
 	</script>
+	<p>
+	<a href="${pageContext.request.contextPath}/users/findid_form.do">아이디</a> 가 생각나지 않으시나요?</p>
 </div>	
 </body>
 </html>

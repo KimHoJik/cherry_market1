@@ -21,6 +21,8 @@ public interface UsersService {
 			MultipartFile mFile);
 	public void updateUser(UsersDto dto, HttpSession session);
 	public void deleteUser(HttpSession session, ModelAndView mView);
+	public void findid(HttpServletRequest req, ModelAndView mView);
+	//public void findPwd(HttpServletResponse resp, UsersDto dto) ;
 }
 
 

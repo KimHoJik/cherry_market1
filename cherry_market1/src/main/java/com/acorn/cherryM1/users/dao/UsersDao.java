@@ -9,4 +9,5 @@ public interface UsersDao {
 	public void updatePwd(UsersDto dto);
 	public void update(UsersDto dto);
 	public void delete(String id);
+	public UsersDto findid(UsersDto dto);
 }

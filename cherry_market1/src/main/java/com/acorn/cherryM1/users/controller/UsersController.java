@@ -139,4 +139,19 @@ public class UsersController {
 		mView.setViewName("users/mypage");
 		return mView;
 	}
+	
+	@RequestMapping("/users/findid")
+	public ModelAndView findid(ModelAndView mView, HttpServletRequest req) {
+		service.findid(req, mView);
+		mView.setViewName("users/findid");
+		return mView;
+	}	
+
+	/* 비밀번호 찾기 
+	@@RequestMapping("/users/findpwd")
+	public ModelAndView findpwd(ModelAndView mView, UsersDto dto, HttpServletRequest req) {
+		service.findpwd(mView, dto, req);
+		mView.setViewName("users/findpwd");
+		return mView;
+	}*/
 }

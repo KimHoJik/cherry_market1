@@ -37,6 +37,27 @@
 		DELETE FROM users
 		WHERE id=#{id}
 	</delete>
+	
+	<select id="findId" parameterType="usersDto" resultType="usersDto">
+		SELECT id, name
+		FROM users 
+		WHERE name= #{name} AND email= #{email}
+	</select>
+	
+		<!--  안됨 
+	<select id="findPwd" parameterType="string" resultType="String">
+	SELECT pwd
+	FROM users
+	WHERE id = #{id}
+	</select>
+	
+	<update id="updatePwd" parameterType="usersDto" >
+	UPDATE users
+	SET pwd = #{pwd} 
+	WHERE id = #{id}
+	</update>  
+	-->
+	
 </mapper>
 
 
