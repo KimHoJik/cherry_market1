@@ -17,13 +17,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home.css" />
 <style>
 	
 </style>
 </head>
 <body>
-<div style="display:flex; justify-content:center;">
-	<div id="main" style="width:1200px; height:900px;">
+<div id="full" style="display:flex; justify-content:center;">
+	<div id="main" style="width:1200px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
 		<div id="goods" style="width:1000px;height:800px;float:left;">
 			<a href="${pageContext.request.contextPath }/private/goodsUploadForm.do">상품등록</a>
@@ -92,7 +93,5 @@
 		}
 	});
 </script>
-
-
 </body>
 </html>
