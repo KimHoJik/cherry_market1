@@ -5,15 +5,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.acorn.cherryM1.users.dto.UsersDto" alias="usersDto"/>
-		<typeAlias type="com.acorn.cherryM1.cafe.dto.CafeDto" alias="cafeDto"/>
-		<typeAlias type="com.acorn.cherryM1.file.dto.FileDto" alias="fileDto"/>
-		<typeAlias type="com.acorn.cherryM1.gallery.dto.GalleryDto" alias="galleryDto"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="com/acorn/cherryM1/mybatis/CafeMapper.xml"/>
-		<mapper resource="com/acorn/cherryM1/mybatis/FileMapper.xml"/>
 		<mapper resource="com/acorn/cherryM1/mybatis/ChatBatis.xml"/>
 		<mapper resource="com/acorn/cherryM1/mybatis/UsersMapper.xml"/>
-		<mapper resource="com/acorn/cherryM1/mybatis/GalleryMapper.xml"/>
+		<mapper resource="com/acorn/cherryM1/mybatis/GoodsBatis.xml"/>
 	</mappers>
 </configuration>

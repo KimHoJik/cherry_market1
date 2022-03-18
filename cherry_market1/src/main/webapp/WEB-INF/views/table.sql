@@ -10,40 +10,28 @@ CREATE TABLE users(
 	regdate DATE
 );
 CREATE SEQUENCE users_seq;
-
--- 게시글을 저장할 테이블 
-CREATE TABLE cherryboard(
-	num NUMBER PRIMARY KEY, --글번호
-	writer VARCHAR2(100) NOT NULL, --작성자 (로그인된 아이디)
-	title VARCHAR2(100) NOT NULL, --제목
-	content CLOB, --글 내용
-	viewCount NUMBER, -- 조회수
-	regdate DATE --글 작성일
-);
--- 게시글의 번호를 얻어낼 시퀀스
-CREATE SEQUENCE cherryboard_seq; 
-
--- 업로드된 파일의 정보를 저장할 테이블
-CREATE TABLE cherryfile(
+--상품 정보 저장 테이블
+CREATE TABLE goods(
 	num NUMBER PRIMARY KEY,
-	writer VARCHAR2(100) NOT NULL,
-	title VARCHAR2(100) NOT NULL,
-	orgFileName VARCHAR2(100) NOT NULL, -- 원본 파일명
-	saveFileName VARCHAR2(100) NOT NULL, -- 서버에 실제로 저장된 파일명
-	fileSize NUMBER NOT NULL, -- 파일의 크기 
-	regdate DATE
-);
-
-CREATE SEQUENCE cherryfile_seq; 
-
--- 이미지 겔러리를 만들기 위한 테이블 
-CREATE TABLE cherrygallery(
-	num NUMBER PRIMARY KEY,
-	writer VARCHAR2(100),
-	caption VARCHAR2(100), -- 이미지에 대한 설명
-	imagePath VARCHAR2(400), -- 업로드된 이미지의 경로  ex) /upload/xxx.jpg
-	regdate DATE -- 이미지 업로드 날짜 
-);
-
-CREATE SEQUENCE cherrygallery_seq;
-
+	price NUMBER,
+	title VARCHAR2(100),
+	regdate DATE,
+	isSaled NUMBER,
+	category VARCHAR2(30),
+	viewCount NUMBER,
+	imagepath VARCHAR2(1000),
+	explain	VARCHAR2(4000)
+	);
+CREATE SEQUENCE goods_seq;
+--찜목록 정보 저장 테이블
+CREATE TABLE wishlist(
+	num NUMBER,
+	price NUMBER,
+	title VARCHAR2(100),
+	regdate DATE,
+	isSaled NUMBER,
+	category VARCHAR2(30),
+	viewCount NUMBER,
+	imagepath VARCHAR2(100),
+	id VARCHAR2(100)
+	);
