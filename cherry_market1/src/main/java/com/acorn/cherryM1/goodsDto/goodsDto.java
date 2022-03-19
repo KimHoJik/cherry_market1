@@ -6,13 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class goodsDto {
 	private int num;
+	private String id;
 	private	int price;
-	private String pp;
 	private String title;
 	private int isSaled;
 	private String category;
 	private int viewCount;
 	private String imagePath;
+	private List<String> imagePaths;
 	private List<MultipartFile> images;
 	private String explain;
 	private String regdate;
@@ -20,20 +21,19 @@ public class goodsDto {
 	private int endRowNum;
 	private String search;
 	public goodsDto() {}
-	
-	
-	public goodsDto(int num, int price, String pp, String title, int isSaled, String category, int viewCount,
-			String imagePath, List<MultipartFile> images, String explain, String regdate, int startRowNum,
-			int endRowNum, String search) {
+	public goodsDto(int num, String id, int price, String pp, String title, int isSaled, String category, int viewCount,
+			String imagePath, List<String> imagePaths, List<MultipartFile> images, String explain, String regdate,
+			int startRowNum, int endRowNum, String search) {
 		super();
 		this.num = num;
+		this.id = id;
 		this.price = price;
-		this.pp = pp;
 		this.title = title;
 		this.isSaled = isSaled;
 		this.category = category;
 		this.viewCount = viewCount;
 		this.imagePath = imagePath;
+		this.imagePaths = imagePaths;
 		this.images = images;
 		this.explain = explain;
 		this.regdate = regdate;
@@ -41,25 +41,23 @@ public class goodsDto {
 		this.endRowNum = endRowNum;
 		this.search = search;
 	}
-
-
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getPrice() {
 		return price;
 	}
 	public void setPrice(int price) {
 		this.price = price;
-	}
-	public String getPp() {
-		return pp;
-	}
-	public void setPp(String pp) {
-		this.pp = pp;
 	}
 	public String getTitle() {
 		return title;
@@ -90,6 +88,12 @@ public class goodsDto {
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public List<String> getImagePaths() {
+		return imagePaths;
+	}
+	public void setImagePaths(List<String> imagePaths) {
+		this.imagePaths = imagePaths;
 	}
 	public List<MultipartFile> getImages() {
 		return images;
@@ -127,6 +131,10 @@ public class goodsDto {
 	public void setSearch(String search) {
 		this.search = search;
 	}
+	
+	
+	
+	
 	
 	
 	

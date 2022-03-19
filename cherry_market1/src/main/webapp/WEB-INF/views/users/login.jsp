@@ -13,7 +13,7 @@
 		<c:when test="${not empty sessionScope.id }">
 			<script>
 				alert("${param.id}님 로그인 되었습니다.");
-				location.href="${pageContext.request.contextPath}/";
+				location.href="${pageContext.request.contextPath}/home.do";
 			</script>
 		</c:when>
 		<c:otherwise>

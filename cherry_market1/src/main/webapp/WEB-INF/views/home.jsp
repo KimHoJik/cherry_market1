@@ -54,31 +54,73 @@
 </head>
 <body>
 <div id="full" style="display:flex; justify-content:center;">
-	<div id="main" style="width:1200px; height:100%;">
+	<div id="main" style="width:1240px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
-		<div id="goods" style="width:1000px;height:800px;float:left;">
+		<div id="goods" style="width:1000px;height:800px;float:left;margin:10px;">
 			<a href="${pageContext.request.contextPath }/private/goodsUploadForm.do">상품등록</a>
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
-					<div >
-		         		<div class="card">
-		            		<a href="${pageContext.request.contextPath}/gallery/detail.do?num=${tmp.num}">
+					<div class="col-6 col-md-4 col-lg-3">
+		         		<div class="card mb-3">
+		            		<a href="${pageContext.request.contextPath}/goodsDetail.do?num=${tmp.num}">
 			               		<div class="img-wrapper">
-			                  		<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath[0]}" />
+			                  		<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
 			               		</div>
 		            		</a>
 		            		<div class="card-body">
-		               			<p class="card-text">${tmp.caption}</p>
-		               			<p class="card-text">by <strong>${tmp.writer}</strong></p>
-		               			<p><small>${tmp.regdate}</small></p>
+		               			<p class="card-text">${tmp.title}</p>
+		               			<p class="card-text"><strong>${tmp.price}</strong></p>
+		               			<p><small>${tmp.id}</small></p>
 		            		</div>
 		         		</div>
 		      		</div>
 				</c:forEach>
 		   	</div>
-		   	
-		
-		<div id="openchat" style="width:200px;height:800px;display:inline-block;">
+		   	<nav>
+				<ul class="pagination justify-content-center">
+				<c:choose>
+					<c:when test="${startPageNum ne 1 }">
+						<li class="page-item">
+		               		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${startPageNum - 1}">Prev</a>
+		            	</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled">
+		               		<a class="page-link" href="javascript:">Prev</a>
+		            	</li>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+					<c:choose>
+						<c:when test="${i eq pageNum }">
+							<li class="page-item active">
+		                  		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${i}">${i }</a>
+		               		</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item">
+		                  		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${i}">${i}</a>
+		               		</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${endPageNum lt totalPageCount }">
+						<li class="page-item">
+		               		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${endPageNum + 1}">Next</a>
+		            	</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled">
+		               		<a class="page-link" href="javascript:">Next</a>
+		            	</li>
+					</c:otherwise>
+				</c:choose>
+		      </ul>
+		   </nav>  		
+		</div> 	
+	
+		<div id="openchat" style="width:200px;height:800px;display:inline-block;margin:10px">
 			<div>
 				<ul id="textBox">
 				

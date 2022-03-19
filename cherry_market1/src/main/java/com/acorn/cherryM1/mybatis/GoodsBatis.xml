@@ -1,60 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodsBatis">
+	<sql id="searchCondition">
+		<choose>
+			<when test="category !=null and search!=null">
+				where (title like '%'||#{search}||'%' 
+				or explain like '%'||#{search}||'%') 
+				and category=#{category} 
+			</when>
+			<when test="search !=null">
+				where title like '%'||#{search}||'%' 
+				or explain like '%'||#{search}||'%' 
+			</when>
+			<when test="category!=null">
+				where category=#{category}
+			</when>
+		</choose>
+	</sql>
+	
 	<insert id="uploadGoods" parameterType="com.acorn.cherryM1.goodsDto.goodsDto">
 		insert into goods 
-		(num,price,title,regdate,issaled,category,viewcount,imagepath,explain) 
-		values(goods_seq.nextval,#{price},#{title},SYSDATE,0,#{category},0,#{imagePath},#{explain})
+		(num,id,price,title,regdate,issaled,category,viewcount,imagepath,explain) 
+		values(goods_seq.nextval,#{id},#{price},#{title},SYSDATE,0,#{category},0,#{imagePath},#{explain})
 	</insert>
 	
 	<select id="getGoodsList" parameterType="com.acorn.cherryM1.goodsDto.goodsDto" resultType="com.acorn.cherryM1.goodsDto.goodsDto">
-		<choose>
-			<when test="chategory==null and search==null">
-				SELECT *
-					FROM	
-						(SELECT result1.*, ROWNUM as rnum
-						FROM
-							(SELECT num, price, title, issaled, category,viewcount,imagepath,explain 
-							FROM goods
-							ORDER BY num DESC) result1)
-					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
-			</when>
-			<when test="chategory==null">
-				SELECT *
-					FROM	
-						(SELECT result1.*, ROWNUM as rnum
-						FROM
-							(SELECT num, price, title, issaled, category,viewcount,imagepath,
-							FROM goods 
-							where title like '%'||#{search}||'%' 
-							or explain like '%'||#{search}||'%' 
-							ORDER BY num DESC) result1)
-					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
-			</when>
-			<when test="search==null">
-				SELECT *
-					FROM	
-						(SELECT result1.*, ROWNUM as rnum
-						FROM
-							(SELECT num, price, title, issaled, category,viewcount,imagepath,
-							FROM goods 
-							where category=#{category} 
-							ORDER BY num DESC) result1)
-					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}			
-			</when>
-			<otherwise>
-				SELECT *
-					FROM	
-						(SELECT result1.*, ROWNUM as rnum
-						FROM
-							(SELECT num, price, title, issaled, category,viewcount,imagepath,explain 
-							FROM goods 
-							where (title like '%'||#{search}||'%' 
-							or explain like '%'||#{search}||'%') 
-							and category=#{category} 
-							ORDER BY num DESC) result1)
-					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
-			</otherwise>
-		</choose>
+		SELECT *
+		FROM	
+			(SELECT result1.*, ROWNUM as rnum
+			FROM
+				(SELECT num,id, price, title, regdate, issaled, category,viewcount,imagepath,explain 
+				FROM goods
+				<include refid="searchCondition"/>
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
+	
+	<select id="getCount" parameterType="com.acorn.cherryM1.goodsDto.goodsDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM goods
+		<include refid="searchCondition"/>	
+	</select>
+	
+	<select id="getGoodsDetail" parameterType="int" resultType="com.acorn.cherryM1.goodsDto.goodsDto">
+		select * from goods where num=#{num}
+	</select>
+	
+	<update id="viewCount" parameterType="int">
+		update goods set viewCount=viewCount+1 where num=#{num}
+	</update>
+	
+	<delete id="deleteGoods" parameterType="int">
+		delete from goods where num=#{num}
+	</delete>
 </mapper>
