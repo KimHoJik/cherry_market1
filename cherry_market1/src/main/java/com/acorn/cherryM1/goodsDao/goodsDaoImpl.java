@@ -44,6 +44,26 @@ public class goodsDaoImpl implements goodsDao {
 		dto.setImagePath(imagePath);
 		Session.insert("goodsBatis.uploadGoods",dto);
 	}
+	@Override
+	public List<goodsDto> getGoodsList(HttpServletRequest request) {
+		goodsDto dto=new goodsDto();
+		int pageNum;
+		if (request.getAttribute("pageNum")==null) {
+			pageNum=1;
+		}else {
+			pageNum=Integer.parseInt((String) request.getAttribute("pageNum"));
+		}
+		dto.setStartRowNum((pageNum-1)*6+1);
+		dto.setEndRowNum(pageNum*6);
+		if (request.getAttribute("category")!=null) {
+			dto.setCategory((String)request.getAttribute("category"));
+		}
+		if(request.getAttribute("search")==null) {
+			dto.setSearch((String)request.getAttribute("search"));
+		}
+		List<goodsDto> list=Session.selectList("goodsBatis.getGoodsList", dto);
+		return list;
+	}
 
 	
 	

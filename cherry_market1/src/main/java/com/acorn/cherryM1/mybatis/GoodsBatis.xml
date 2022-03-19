@@ -6,4 +6,55 @@
 		(num,price,title,regdate,issaled,category,viewcount,imagepath,explain) 
 		values(goods_seq.nextval,#{price},#{title},SYSDATE,0,#{category},0,#{imagePath},#{explain})
 	</insert>
+	
+	<select id="getGoodsList" parameterType="com.acorn.cherryM1.goodsDto.goodsDto" resultType="com.acorn.cherryM1.goodsDto.goodsDto">
+		<choose>
+			<when test="chategory==null and search==null">
+				SELECT *
+					FROM	
+						(SELECT result1.*, ROWNUM as rnum
+						FROM
+							(SELECT num, price, title, issaled, category,viewcount,imagepath,explain 
+							FROM goods
+							ORDER BY num DESC) result1)
+					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+			</when>
+			<when test="chategory==null">
+				SELECT *
+					FROM	
+						(SELECT result1.*, ROWNUM as rnum
+						FROM
+							(SELECT num, price, title, issaled, category,viewcount,imagepath,
+							FROM goods 
+							where title like '%'||#{search}||'%' 
+							or explain like '%'||#{search}||'%' 
+							ORDER BY num DESC) result1)
+					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+			</when>
+			<when test="search==null">
+				SELECT *
+					FROM	
+						(SELECT result1.*, ROWNUM as rnum
+						FROM
+							(SELECT num, price, title, issaled, category,viewcount,imagepath,
+							FROM goods 
+							where category=#{category} 
+							ORDER BY num DESC) result1)
+					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}			
+			</when>
+			<otherwise>
+				SELECT *
+					FROM	
+						(SELECT result1.*, ROWNUM as rnum
+						FROM
+							(SELECT num, price, title, issaled, category,viewcount,imagepath,explain 
+							FROM goods 
+							where (title like '%'||#{search}||'%' 
+							or explain like '%'||#{search}||'%') 
+							and category=#{category} 
+							ORDER BY num DESC) result1)
+					WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+			</otherwise>
+		</choose>
+	</select>
 </mapper>
