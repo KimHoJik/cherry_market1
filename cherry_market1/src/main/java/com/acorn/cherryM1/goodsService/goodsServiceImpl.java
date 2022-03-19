@@ -26,23 +26,26 @@ public class goodsServiceImpl implements goodsService{
 	public void goodsUpload(HttpServletRequest request, goodsDto dto) {
 		List<MultipartFile> images=dto.getImages();
 		List<String> imagePaths=new ArrayList<String>();
-		
 		for(MultipartFile image :images) {
 			String orgFileName=image.getOriginalFilename();
-			String realPath=request.getServletContext().getRealPath("/upload");
-			String filePath=realPath+File.separator;
-			File upload=new File(filePath);
-			if(!upload.exists()) {
-				upload.mkdir();
+			if (orgFileName.equals("")) {
+				imagePaths.add("None");
+			}else {
+				String realPath=request.getServletContext().getRealPath("/upload");
+				String filePath=realPath+File.separator;
+				File upload=new File(filePath);
+				if(!upload.exists()) {
+					upload.mkdir();
+				}
+				String saveFileName= System.currentTimeMillis()+orgFileName;
+				try {
+					image.transferTo(new File(filePath+saveFileName));
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				String path="/upload/"+saveFileName;
+				imagePaths.add(path);
 			}
-			String saveFileName= System.currentTimeMillis()+orgFileName;
-			try {
-				image.transferTo(new File(filePath+saveFileName));
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			String path="/upload/"+saveFileName;
-			imagePaths.add(path);
 		}
 		String imagePath=new Gson().toJson(imagePaths);
 		dto.setImagePath(imagePath);
@@ -53,37 +56,36 @@ public class goodsServiceImpl implements goodsService{
 	@Override
 	public void getGoodsList(HttpServletRequest request) {
 		goodsDto dto=new goodsDto();
-		int pageNum;
-		if (request.getAttribute("pageNum")==null) {
-			pageNum=1;
-		}else {
-			pageNum=Integer.parseInt((String) request.getAttribute("pageNum"));
+		int pageNum=1;
+		try {
+			pageNum=Integer.parseInt((String) request.getParameter("pageNum"));
+		}catch (Exception e) {
+			
+		}finally {
+			dto.setStartRowNum((pageNum-1)*8+1);
+			dto.setEndRowNum(pageNum*8);
+			if (request.getParameter("category")!=null) {
+				dto.setCategory((String)request.getAttribute("category"));
+			}
+			if(request.getParameter("search")!=null) {
+				dto.setSearch((String)request.getAttribute("search"));
+			}
+			List<goodsDto> list=dao.getGoodsList(dto);
+			for(goodsDto dto1:list) {
+				String jsonImages=dto1.getImagePath();
+				List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
+				dto1.setImagePath(ImageList.get(0));
+			}
+			int totalRow=dao.getCount(dto);
+			int startPageNum=((pageNum-1)/5)*5+1;
+			int totalPageCount=((totalRow-1)/8)+1;
+			int endPageNum=Math.min(startPageNum+4,totalPageCount);
+			request.setAttribute("list", list);
+			request.setAttribute("startPageNum", startPageNum);	
+			request.setAttribute("endPageNum", endPageNum);	
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("totalPageCount",totalPageCount);
 		}
-		dto.setStartRowNum((pageNum-1)*8+1);
-		dto.setEndRowNum(pageNum*8);
-		if (request.getAttribute("category")!=null) {
-			dto.setCategory((String)request.getAttribute("category"));
-		}
-		if(request.getAttribute("search")==null) {
-			dto.setSearch((String)request.getAttribute("search"));
-		}
-		List<goodsDto> list=dao.getGoodsList(dto);
-		for(goodsDto dto1:list) {
-			String jsonImages=dto1.getImagePath();
-			List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
-			dto1.setImagePath(ImageList.get(0));
-		}
-		int totalRow=dao.getCount(dto);
-		int startPageNum=((pageNum-1)/5)*5+1;
-		int totalPageCount=((totalRow-1)/8)*8+1;
-		int endPageNum=Math.min(startPageNum+4,totalPageCount);
-		
-		request.setAttribute("list", list);
-		request.setAttribute("startPageNum", startPageNum);	
-		request.setAttribute("endPageNum", endPageNum);	
-		request.setAttribute("pageNum", pageNum);
-		request.setAttribute("totalPageCount",totalPageCount);
-		
 	}
 
 	@Override
@@ -98,7 +100,6 @@ public class goodsServiceImpl implements goodsService{
 	@Override
 	public void deleteGoods(int num) {
 		dao.deleteGoods(num);
-		
 	}
 	
 	

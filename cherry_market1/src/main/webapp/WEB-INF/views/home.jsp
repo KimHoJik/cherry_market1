@@ -50,13 +50,23 @@
 	   	*/
 		object-fit: contain;	
    	}
+   	#textBoxDiv::-webkit-scrollbar{
+   		width:5px;
+   	}
+   	#textBoxDiv::-webkit-scrollbar-thumb {
+        background-color: #DE3F3F; 
+    }
+
+    #textBoxDiv::-webkit-scrollbar-track {
+        background-color: gray; 
+    }
 </style>
 </head>
 <body>
 <div id="full" style="display:flex; justify-content:center;">
 	<div id="main" style="width:1240px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
-		<div id="goods" style="width:1000px;height:800px;float:left;margin:10px;">
+		<div id="goods" style="width:1000px;height:798px;float:left;margin:10px;">
 			<a href="${pageContext.request.contextPath }/private/goodsUploadForm.do">상품등록</a>
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
@@ -64,7 +74,15 @@
 		         		<div class="card mb-3">
 		            		<a href="${pageContext.request.contextPath}/goodsDetail.do?num=${tmp.num}">
 			               		<div class="img-wrapper">
-			                  		<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
+			               			<c:choose>
+			               				<c:when test="${tmp.imagePath eq 'None'}">
+			               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
+			               				</c:when>
+			               				<c:otherwise>
+			               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
+			               				</c:otherwise>
+			               			</c:choose>
+			                  		
 			               		</div>
 		            		</a>
 		            		<div class="card-body">
@@ -120,14 +138,14 @@
 		   </nav>  		
 		</div> 	
 	
-		<div id="openchat" style="width:200px;height:800px;display:inline-block;margin:10px">
-			<div>
+		<div id="openchat" style="width:200px;height:798px;display:inline-block;margin:10px;">
+			<div id="textBoxDiv"style="height:750px; overflow-y:auto;">
 				<ul id="textBox">
 				
 				</ul>
 			</div>
 			<div id="inputBox">
-				<input type="text" id="occomment" name="occomment" placeholder="메세지 보내기"/>
+				<textarea id="occomment" name="occomment" placeholder="메세지 보내기" style="resize:none;"></textarea>
 			</div>
 		</div>
 	</div>

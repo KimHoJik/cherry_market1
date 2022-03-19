@@ -40,6 +40,6 @@ public class goodsController {
 	@RequestMapping("/delete")
 	public String deleteGoods(@RequestParam int num) {
 		Service.deleteGoods(num);
-		return "home";
+		return "redirect:home.do";
 	}
 }	
