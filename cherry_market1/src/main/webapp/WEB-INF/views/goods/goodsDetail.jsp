@@ -27,7 +27,13 @@
 			<button type="button" onClick="location.href='delete.do?num=${dto.num}'">상품 내리기</button>
 		</c:when>
 		<c:otherwise>
-			<button id="putWishList">관심상품 등록</button>
+			<form action="">
+				<p>${dto.id }</p>
+				<p>${dto.priceWon }</p>
+				<p>${dto.title }</p>
+				<button id="putWishList">관심상품 등록</button>
+			</form>
+			
 			<form name="perChat" id="perChat" method="post" >
 				<input type="hidden" name="num" value="${dto.num }"/>
 				<input type="hidden" name="buyer" value="${sessionScope.id}"/>

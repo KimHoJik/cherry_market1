@@ -124,6 +124,13 @@
     #textBoxDiv::-webkit-scrollbar-track {
         background-color: gray; 
     }
+    #textBoxDiv ul{width:100%;list-style:none;}
+    #textBoxDiv ul li{width:100%;}
+    #textBoxDiv ul li > div {font-size:12px;}
+    #textBoxDiv ul li > div.sender{margin: 10px 20px 0 20px; font-weight:bold;}
+    #textBoxDiv ul li > div.message{ display: inline-block; word-break:break-all; margin: 3px; max-width: 100%; border: 1px solid #888; padding: 5px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
+	#textBoxDiv ul li.left { text-align: left; }
+	#textBoxDiv ul li.right { text-align: right; }
 </style>
 </head>
 <body>
@@ -261,7 +268,7 @@
 	
 		<div id="openchat" style="width:200px;height:798px;display:inline-block;margin:10px;">
 			<div id="textBoxDiv"style="height:750px; overflow-y:auto;">
-				<ul id="textBox">
+				<ul id="textBox" style="padding:0">
 				
 				</ul>
 			</div>
