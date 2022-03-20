@@ -5,62 +5,84 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 <title>/views/users/signup_form.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signupform.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<style>
+body 
+	{
+		color: #999;
+		background: #fc9091;
+		font-family: 'Roboto', sans-serif;
+	}
+</style>
 </head>
 <body>
-<div class="container">
-	<h1>체리마켓에 오신 것을 환영합니다~</h1>
-<form action="${pageContext.request.contextPath}/users/signup.do" method="post" id="myForm">
-		<br />
-		<div>
-			<label class="control-label" for="id">아이디</label>
-			<input class="form-control" type="text" name="id" id="id"/>
-			<small class="form-text text-muted">아이디는 2~8글자까지 가능합니다. 영문은 4글자부터 가능하며, 특수문자는 사용할 수 없습니다.</small>
-			<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
-		</div>
-		<br />
-		<div>
-			<label class="control-label" for="name">이름</label>
-			<input class="form-control" type="text" id="name" name="name"/>
-			<small class="form-text text-muted"></small>
-		</div>
-		<br />
-		<div>
-			<label class="control-label" for="pwd">비밀번호</label>
-			<input class="form-control" type="password" name="pwd" id="pwd"/>
-			<small class="form-text text-muted">비밀번호는 문자, 숫자, 특수문자를 최소 1회 이상 사용하여 6~20글자까지 사용 가능합니다.</small>
-			<div class="invalid-feedback">비밀번호를 확인 하세요.</div>
-		</div>
-		<br />
-		<div>
-			<label class="control-label" for="pwd2">비밀번호 확인</label>
-			<input class="form-control" type="password" name="pwd2" id="pwd2"/>
-		</div>
-		<br />
-		<div>
-			<label class="control-label" for="email">이메일</label>
-			<input class="form-control" type="text" name="email" id="email"/>
-			<div class="invalid-feedback">이메일 형식을 확인 하세요.</div>
-		</div>
-		<br />
-		<div>
-			<label class="control-label" for="profile">자기소개</label>
+
+<!-- test -->
+<div class="signup-form">
+    <form action="${pageContext.request.contextPath}/users/signup.do" method="post" class="form-horizontal">
+		<div class="col-xs-8 col-xs-offset-4">
+			<h2>Sign Up</h2>
+		</div>		
+        <div class="form-group">
+			<label class="control-label col-xs-4" for="id" style="text-align:left;">ID</label>
+			<div class="col-xs-8">
+                <input type="text" class="form-control" name="id" id="id">
+                <small class="form-text text-muted">아이디는 2~8글자까지 가능합니다. 영문은 4글자부터 가능하며, 특수문자는 사용할 수 없습니다.</small>
+				<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
+            </div>        	
+        </div>
+		 <div class="form-group">
+			<label class="control-label col-xs-4" for="name" style="text-align:left;">이름</label>
+			<div class="col-xs-8">
+                <input type="text" class="form-control" id="name" name="name">
+            	<small class="form-text text-muted"></small>
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4" style="text-align:left;">Password</label>
+			<div class="col-xs-8">
+                <input type="password" class="form-control" name="pwd" id="pwd">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4" style="text-align:left;">Confirm Password</label>
+			<div class="col-xs-8">
+                <input type="password" class="form-control" name="pwd2" id="pwd2">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4" style="text-align:left;">Email Address</label>
+			<div class="col-xs-8">
+                <input type="email" class="form-control" name="email" id="email">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4" for="profile" style="text-align:left;">자기소개</label>
 			<input class="form-control" type="text" id="profile" name="profile" placeholder="우리 같이 체리마켓에서 거래해요~^^"/>
 			<small class="form-text text-muted">욕설 및 비속어, 광고, 선정적인 내용 등 불쾌한 표현은 제제 및 법적 조치를 진행하겠습니다.</small>
 		</div>
-		<br />
-		<div>
-			<label class="control-label" for="addr">주소</label>
+		<div class="form-group">
+			<label class="control-label" for="addr" style="text-align:left;">주소</label>
 			<input class="form-control" type="text" id="addr" name="addr"/>
 			<small class="form-text text-muted">거주하시는 동네까지만 적어주세요. 원활한 거래에 도움이 됩니다~^^</small>
 		<br />	
 			<small class="form-text text-muted">예시) 서울특별시 송파구 가락동, 부산광역시 중구 남포동</small>
 		</div>
-		<br />
-		<br />
-		<button class="btn btn-primary" type="submit">가입</button>
-	</form>
+		<div class="form-group">
+			<div class="col-xs-8 col-xs-offset-4">
+				<button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+			</div>  
+		</div>		      
+    </form>
+	<div class="text-center">이미 CherryMarket 회원이신가요? <a href="${pageContext.request.contextPath}/users/loginform.do">Login here</a></div>
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script>

@@ -28,25 +28,16 @@
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="${pageContext.request.contextPath}/users/loginform">
+			<li><a href="${pageContext.request.contextPath}/users/mypage.do">
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
   			<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
   			<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
 			</a></li>
-			<li><a href="${pageContext.request.contextPath }/home.do">Home</a></li>
-			<li><a href="${pageContext.request.contextPath }/gallery/list.do">Photo</a></li>
-			<li><a href="${pageContext.request.contextPath}/cafe/list.do">Market</a></li>			
-				<li class="dropdown">
-				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
-				<ul class="dropdown-menu">					
-					<li><a href="#">남성의류</a></li>
-					<li><a href="#">여성의류</a></li>
-					<li><a href="#">가전/IT</a></li>
-					<li><a href="#">삽니다</a></li>
-				</ul>
-			</li>
+			
+			<li><a href="${pageContext.request.contextPath }/private/goodsUploadForm.do">상품 등록</a></li>
 			<li><a href="${pageContext.request.contextPath }/private/personalChatList.do">Chat</a></li>
+		
 		</ul>		
 		<ul class="nav navbar-nav navbar-right">			
 			<li class="dropdown">

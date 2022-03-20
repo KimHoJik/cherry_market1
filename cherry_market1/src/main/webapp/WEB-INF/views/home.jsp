@@ -27,11 +27,7 @@
 	<div id="main" style="width:1200px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
 		<div id="goods" style="width:1000px;height:800px;float:left;">
-			<a href="${pageContext.request.contextPath }/private/goodsUploadForm.do">상품등록</a>
-			<ul>
-				
-			</ul>
-		</div>
+	</div>
 		<div id="openchat" style="width:200px;height:800px;display:inline-block;">
 			<div>
 				<ul id="textBox">
