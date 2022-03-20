@@ -28,7 +28,7 @@ public class UsersServiceImpl implements UsersService {
     private UsersDao dao;
    
     @Override
-    public void loginProcess(UsersDto dto, HttpSession session) {
+    public boolean loginProcess(UsersDto dto, HttpSession session) {
         boolean isValid=false;
 
         UsersDto result=dao.getData(dto.getId());
@@ -40,7 +40,9 @@ public class UsersServiceImpl implements UsersService {
 
         if(isValid) {
            session.setAttribute("id", dto.getId());
+           return true;
         }
+        return false;
       
     }
     

@@ -18,7 +18,7 @@
 		</c:when>
 		<c:otherwise>
 			<script>
-				alert("회원정보가 틀립니다.");
+				alert("아이디 혹은 비밀번호가 다릅니다.");
 				location.href="${pageContext.request.contextPath }/users/loginform.do";
 			</script>
 		</c:otherwise>

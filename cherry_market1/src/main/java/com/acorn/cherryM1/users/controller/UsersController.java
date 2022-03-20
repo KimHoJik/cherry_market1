@@ -6,8 +6,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,12 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.cherryM1.users.dto.LoginRequestDto;
 import com.acorn.cherryM1.users.dto.UsersDto;
 import com.acorn.cherryM1.users.service.UsersService;
 
 
 @Controller
 public class UsersController {
+	
+	private static Logger log = LoggerFactory.getLogger(UsersController.class);
+	
     @Autowired
     private UsersService service;
    
@@ -29,18 +38,26 @@ public class UsersController {
       
         return "users/loginform";
     }
-   
-    @RequestMapping("/users/login")
-    public ModelAndView login(ModelAndView mView, UsersDto dto,
-    		@RequestParam String url, HttpSession session) {
-        service.loginProcess(dto, session);
-      
-        String encodedUrl=URLEncoder.encode(url);
-        mView.addObject("url", url);
-        mView.addObject("encodedUrl", encodedUrl);
-        mView.setViewName("users/login");
-        return mView;
+
+    @RequestMapping(value = "/users/login", method = RequestMethod.POST)
+	public @ResponseBody boolean login(@RequestBody UsersDto dto,HttpSession session) {
+    	
+    	boolean ret = service.loginProcess(dto, session);
+
+    	
+    	return ret;
     }
+//    @RequestMapping("/users/login")
+//    public ModelAndView login(ModelAndView mView, UsersDto dto,
+//    		@RequestParam String url, HttpSession session) {
+//        service.loginProcess(dto, session);
+//      
+//        String encodedUrl=URLEncoder.encode(url);
+//        mView.addObject("url", url);
+//        mView.addObject("encodedUrl", encodedUrl);
+//        mView.setViewName("redirect:/home.do");
+//        return mView;
+//    }
    
     @RequestMapping("/users/logout")
     public String logout(HttpSession session) {
@@ -61,6 +78,7 @@ public class UsersController {
 		return service.isExistId(inputId);
 	}
 	
+
 	//회원 가입 요청 처리
 	@RequestMapping(value = "/users/signup", method = RequestMethod.POST)
 	public ModelAndView signup(ModelAndView mView, UsersDto dto) {

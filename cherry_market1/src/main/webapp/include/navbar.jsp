@@ -15,7 +15,7 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-<nav class="navbar navbar-default navbar-expand-lg navbar-light">
+<nav class="navbar navbar-default navbar-expand-lg navbar-light animate__animated animate__backInDown">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/">Cherry<b>Market</b></a>  		
 		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
