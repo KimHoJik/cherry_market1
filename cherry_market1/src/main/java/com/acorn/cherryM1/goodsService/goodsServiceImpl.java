@@ -65,16 +65,29 @@ public class goodsServiceImpl implements goodsService{
 			dto.setStartRowNum((pageNum-1)*8+1);
 			dto.setEndRowNum(pageNum*8);
 			if (request.getParameter("category")!=null) {
-				dto.setCategory((String)request.getAttribute("category"));
+				dto.setCategory((String)request.getParameter("category"));
 			}
 			if(request.getParameter("search")!=null) {
-				dto.setSearch((String)request.getAttribute("search"));
+				dto.setSearch((String)request.getParameter("search"));
 			}
 			List<goodsDto> list=dao.getGoodsList(dto);
 			for(goodsDto dto1:list) {
 				String jsonImages=dto1.getImagePath();
 				List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
 				dto1.setImagePath(ImageList.get(0));
+				int price=dto1.getPrice();
+				String priceWon="원";
+				int c=0;
+				while (price!=0) {
+					priceWon+=price%10;
+					price/=10; c+=1;
+					if(c==3) {c=0;priceWon+=",";}
+				}
+				if(priceWon.charAt(priceWon.length()-1)==',') {
+					priceWon=priceWon.substring(0,priceWon.length()-1);
+				}
+				priceWon=new StringBuffer(priceWon).reverse().toString();
+				dto1.setPriceWon(priceWon);
 			}
 			int totalRow=dao.getCount(dto);
 			int startPageNum=((pageNum-1)/5)*5+1;

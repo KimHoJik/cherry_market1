@@ -87,7 +87,7 @@
 		            		</a>
 		            		<div class="card-body">
 		               			<p class="card-text">${tmp.title}</p>
-		               			<p class="card-text"><strong>${tmp.price}</strong></p>
+		               			<p class="card-text"><strong>${tmp.priceWon}</strong></p>
 		               			<p><small>${tmp.id}</small></p>
 		            		</div>
 		         		</div>
@@ -170,7 +170,7 @@
 			if(before!=data){
 				document.querySelector("#textBox").innerHTML=data;
 			//스크롤바 맨아래로 자동으로 내리기
-				var objDiv = document.getElementById("textBox");
+				var objDiv = document.getElementById("textBoxDiv");
 				objDiv.scrollTop = objDiv.scrollHeight;
 			}
 		})

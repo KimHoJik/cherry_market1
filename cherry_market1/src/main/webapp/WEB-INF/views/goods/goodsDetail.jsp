@@ -10,7 +10,7 @@
 <body>
 	<p>${dto.num}</p>
 	<p>${dto.id }</p>
-	<p>${dto.price }</p>
+	<p>${dto.priceWon }</p>
 	<p>${dto.title }</p>
 	<p>${dto.isSaled }</p>
 	<p>${dto.category }</p>
@@ -23,6 +23,7 @@
 	
 	<c:choose>
 		<c:when test="${dto.id eq sessionScope.id }">
+			<button type="button" onClick="location.href='sell.do?num=${dto.num}">판매완료</button>
 			<button type="button" onClick="location.href='delete.do?num=${dto.num}'">상품 내리기</button>
 		</c:when>
 		<c:otherwise>
