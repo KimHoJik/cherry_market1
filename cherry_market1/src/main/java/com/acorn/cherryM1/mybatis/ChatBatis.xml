@@ -43,4 +43,11 @@
 		update perchatlist set lastcomment=#{lastcomment},lastregdate=#{lastregdate} 
 		where num=#{num} and saller=#{saller} and buyer=#{buyer}
 	</update>
+	
+	<delete id="deletePerChatLog" parameterType="int">
+		delete from perchatlog where num=#{num}
+	</delete>
+	<delete id="deletePerChatList" parameterType="int">
+		delete from perchatlist where num=#{num}
+	</delete>
 </mapper>

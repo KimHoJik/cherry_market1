@@ -13,6 +13,7 @@ CREATE SEQUENCE users_seq;
 --상품 정보 저장 테이블
 CREATE TABLE goods(
 	num NUMBER PRIMARY KEY,
+	id VARCHAR2(100),
 	price NUMBER,
 	title VARCHAR2(100),
 	regdate DATE,
