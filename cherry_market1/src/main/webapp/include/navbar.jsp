@@ -29,10 +29,27 @@
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
 			<li>
+				<select name="category" id="category">
+	                     <option value="">선택</option>
+	                     <option value="디지털지지">디지털기기</option>
+	                     <option value="생활가전">생활가진</option>
+	                     <option value="가구/인테리어">가구/인테리어</option>
+	                     <option value="스포츠/레저">스포츠/레저</option>
+	                     <option value="여성패션">여성패션</option>
+	                     <option value="남성패션">남성패션</option>
+	                     <option value="게임/취미">게임/취미</option>
+	                     <option value="뷰티/미용">뷰티/미용</option>
+	                     <option value="반려동물">반려동물</option>   
+	                     <option value="도서/티켓/음반">도서/티켓/음반</option>
+	                     <option value="기타">기타</option>
+	                     <option value="삽니다">삽니다</option>
+	                  </select>						
+			</li>
+			<li>
+				<!-- 검색바 -->
 				<form action="home.do">
-                    <div class="input-group search-box" style="margin-top:6px; margin-right:100px;margin-left:100px;width:600px;">								
+                    <div class="input-group search-box" style="margin-top:6px; margin-right:100px;width:600px;">		
                         <input type="text" id="search" name="search" class="form-control" placeholder="Search here...">
-                        
 						<span class="input-group-btn">
 							<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 						</span>
