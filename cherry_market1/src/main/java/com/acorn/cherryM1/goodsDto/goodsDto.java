@@ -20,10 +20,11 @@ public class goodsDto {
 	private int startRowNum;
 	private int endRowNum;
 	private String search;
+	private String priceWon;
 	public goodsDto() {}
-	public goodsDto(int num, String id, int price, String pp, String title, int isSaled, String category, int viewCount,
+	public goodsDto(int num, String id, int price, String title, int isSaled, String category, int viewCount,
 			String imagePath, List<String> imagePaths, List<MultipartFile> images, String explain, String regdate,
-			int startRowNum, int endRowNum, String search) {
+			int startRowNum, int endRowNum, String search, String priceWon) {
 		super();
 		this.num = num;
 		this.id = id;
@@ -40,6 +41,7 @@ public class goodsDto {
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.search = search;
+		this.priceWon = priceWon;
 	}
 	public int getNum() {
 		return num;
@@ -131,7 +133,12 @@ public class goodsDto {
 	public void setSearch(String search) {
 		this.search = search;
 	}
-	
+	public String getPriceWon() {
+		return priceWon;
+	}
+	public void setPriceWon(String priceWon) {
+		this.priceWon = priceWon;
+	}
 	
 	
 	

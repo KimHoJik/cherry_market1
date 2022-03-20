@@ -42,4 +42,10 @@ public class goodsController {
 		Service.deleteGoods(num);
 		return "redirect:home.do";
 	}
+	
+	@RequestMapping("/sell")
+	public String sellGoods(@RequestParam int num) {
+		
+		return "redirect:home.do";
+	}
 }	

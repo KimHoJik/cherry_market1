@@ -19,6 +19,70 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home.css" />
 <style>
+	 .form-control:focus {
+        border-color: #8464ca;
+        box-shadow: 0 0 8px #beace3;
+    }
+    .contact-modal {
+        width: 600px;
+        padding: 50px;
+        margin: 30px auto;
+    }
+    .contact-modal h4 {
+        font-size: 26px;
+        display: inline-block;
+    }
+    .contact-modal .form-control, .contact-modal .btn  {
+        min-height: 38px;
+        border-radius: 1px;
+        outline: none;
+    }
+    .contact-modal .btn-primary {
+        min-width: 100px;
+        background: #8464ca;
+        border: none;
+    }
+    .contact-modal .btn-primary:hover {
+        background: #6d45c0;
+    }
+    .contact-modal .btn-primary:focus {
+        box-shadow: 0 0 8px rgba(132, 100, 202, 0.6);
+    }
+    .contact-modal .btn-link {
+        color: #6d45c0;
+    }
+    .contact-modal label {
+        opacity: 0.9;
+        font-weight: normal;
+        font-size: 95%;
+    }
+    .contact-modal textarea {
+        resize: vertical;
+    }
+    .contact-modal.modal-dialog {
+        width: 480px;
+    }
+    .contact-modal .modal-header {
+        padding: 20px 35px 14px;
+    }
+    .contact-modal .modal-content {
+        border-radius: 1px;
+    }
+    .contact-modal .close {
+        position: absolute;
+        right: 35px;
+        top: 25px;
+    }
+    .contact-modal .modal-body {
+        padding: 20px 35px 35px;
+    }
+    .hint-text {
+        opacity: 0.8;
+    }
+    .trigger-btn {
+      display: inline-block;
+   }
+	
    /* card 이미지 부모요소의 높이 지정 */
    .img-wrapper{
       height: 250px;
@@ -67,7 +131,64 @@
 	<div id="main" style="width:1240px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
 		<div id="goods" style="width:1000px;height:798px;float:left;margin:10px;">
-			<a href="${pageContext.request.contextPath }/private/goodsUploadForm.do">상품등록</a>
+			<div class="text-center">
+			   <!-- Button HTML (to Trigger Modal) -->
+			   <a href="#myModal" class="trigger-btn" data-toggle="modal">
+			   상품 등록 하기
+			   </a>
+			</div>
+			<!-- test -->
+			<div id="myModal" class="modal fade">
+			   <div class="modal-dialog contact-modal">
+			      <div class="modal-content">
+			         <div class="modal-header">            
+			            <h4 class="modal-title">상품 등록하기</h4>
+			            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			         </div>
+			         <div class="modal-body">
+			                <form id="uploadGoodsMain" action="${pageContext.request.contextPath }/goodsUpload.do" method="post" enctype="multipart/form-data">
+			                    <div class="form-group">
+			                        <label for="title">제목</label>
+			                        <input type="text" class="form-control" id="title" name="title">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="price">가격</label>
+			                        <input type="number" class="form-control" id="price" name="price">
+			                    </div>
+			                    <div class="form-group">
+			                    <label for="category">카테고리</label>
+			                  <select name="category" id="category">
+			                     <option value="선택">선택</option>
+			                     <option value="디지털지지">디지털기기</option>
+			                     <option value="생활가전">생활가진</option>
+			                     <option value="가구/인테리어">가구/인테리어</option>
+			                     <option value="스포츠/레저">스포츠/레저</option>
+			                     <option value="여성패션">여성패션</option>
+			                     <option value="남성패션">남성패션</option>
+			                     <option value="게임/취미">게임/취미</option>
+			                     <option value="뷰티/미용">뷰티/미용</option>
+			                     <option value="반려동물">반려동물</option>   
+			                     <option value="도서/티켓/음반">도서/티켓/음반</option>
+			                     <option value="기타">기타</option>
+			                     <option value="삽니다">삽니다</option>
+			                  </select>
+			               </div>   
+			                    <div class="form-group">
+			                        <label for="inputMessage">Message</label>
+			                        <textarea class="form-control" id="explain" name="explain" rows="4"></textarea>
+			                       <label for="filenames">상품 사진 등록</label>
+			                  <input multiple="multiple" type="file" name="images" id="images" multiple
+			                  accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+			                    </div>
+			                    
+			                    <button id="btn" class="btn btn-success">등록</button>
+			                    <button class="btn btn-danger"  data-dismiss="modal" value="Cancel">취소</button>
+			                   
+			                </form>
+			         </div>
+			      </div>
+			   </div>
+			</div>
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
 					<div class="col-6 col-md-4 col-lg-3">
@@ -87,7 +208,7 @@
 		            		</a>
 		            		<div class="card-body">
 		               			<p class="card-text">${tmp.title}</p>
-		               			<p class="card-text"><strong>${tmp.price}</strong></p>
+		               			<p class="card-text"><strong>${tmp.priceWon}</strong></p>
 		               			<p><small>${tmp.id}</small></p>
 		            		</div>
 		         		</div>
@@ -170,7 +291,7 @@
 			if(before!=data){
 				document.querySelector("#textBox").innerHTML=data;
 			//스크롤바 맨아래로 자동으로 내리기
-				var objDiv = document.getElementById("textBox");
+				var objDiv = document.getElementById("textBoxDiv");
 				objDiv.scrollTop = objDiv.scrollHeight;
 			}
 		})
