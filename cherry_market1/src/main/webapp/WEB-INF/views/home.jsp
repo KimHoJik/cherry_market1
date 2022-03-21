@@ -61,7 +61,7 @@
         resize: vertical;
     }
     .contact-modal.modal-dialog {
-        width: 480px;
+        width: 600px;
     }
     .contact-modal .modal-header {
         padding: 20px 35px 14px;
@@ -132,6 +132,12 @@
     #textBoxDiv ul li > div.message{ display: inline-block; word-break:break-all; margin: 3px; max-width: 100%; border: 1px solid #888; padding: 5px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
 	#textBoxDiv ul li.left { text-align: left; }
 	#textBoxDiv ul li.right { text-align: right; }
+	img{
+		width:350px;
+		height:350px;
+		object-fit:contain; 
+		align:center;
+	}
 </style>
 </head>
 <body>
@@ -232,19 +238,19 @@
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								</div>
 								<div class="modal-body">
-									<p>상품번호:${tmp.num}</p>
-									<p>판매자:${tmp.id }</p>
-									<p>가격:${tmp.priceWon }</p>
+									<div style="height:100%; text-align:center">									  									   
+										<c:forEach var="i" items="${tmp.imagePaths }">
+											<div style="margin-bottom:5px">
+												<img src="${pageContext.request.contextPath }${i}"/>
+											</div>
+											<br />
+										</c:forEach>
+									</div>
+									<br />
+									<p><strong>가격:${tmp.priceWon }</strong> <small>판매자:${tmp.id }</small></p>
 									<p>제목:${tmp.title }</p>
-									<p>판매여부:${tmp.isSaled }</p>
-									<p>카테고리:${tmp.category }</p>
-									<p>조회수:${tmp.viewCount }</p>
 									<p>상품설명:${tmp.explain }</p>
-									<p>업로드 시간:${tmp.regdate }</p>
-									<p>사진들</p>
-									<c:forEach var="i" items="${tmp.imagePaths }">
-										<p>사진:${i }</p>
-									</c:forEach>
+									<p>업로드 시간:${tmp.regdate }</p>	
 									<c:choose>
 										<c:when test="${tmp.id eq sessionScope.id }">
 											<button type="button" onClick="location.href='sell.do?num=${tmp.num}'">판매완료</button>
