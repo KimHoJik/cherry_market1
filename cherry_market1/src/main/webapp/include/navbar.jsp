@@ -115,12 +115,57 @@
 				</div>
 				<!-- 마이페이지 모달 끝 -->			
 			</li>		
-			<li><a href="${pageContext.request.contextPath }/private/personalChatList.do">Chat</a></li>
+			<li>
+				<!--  chatpage modal start-->
+				<div class="text-center">
+					<a href="#myModal2" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
+						Chat
+					</a>
+				</div>
+				<div id="myModal2" class="modal fade">
+					<div class="modal-dialog contact-modal">
+						<div class="modal-content">
+							<div class="modal-header">            
+								<h4 class="modal-title">진행중인 거래</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div id="perChatList">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+				<!-- chatpage modal end -->
+			</li>
 		</ul>		
 		
 	</div>
 </nav>
 <script>
+	let scripton=function(){
+		let list=document.querySelectorAll(".frm");
+		for(let i=0;i<list.length;i++){
+			list[i].addEventListener("click",function(){
+				let pop_title="chat";
+				window.open("",pop_title,"width = 500, height = 700, top = 100, left = 200, location = no");
+				this.action="${pageContext.request.contextPath}/private/chatPop.do";
+				this.target=pop_title;
+				this.submit();
+			})
+		}
+	}
+	function updateChatList(){
+		fetch("${pageContext.request.contextPath}/private/updatePerChatList.do")
+		.then(function(response){
+			return response.text();
+		})
+		.then(function(data){
+			document.querySelector("#perChatList").innerHTML=data;
+			scripton();
+		})
+	};
+	updateChatList();
 	function deleteConfirm(){
 		const isDelete=confirm("${id} 님 탈퇴 하시겠습니까?");
 		if(isDelete){
