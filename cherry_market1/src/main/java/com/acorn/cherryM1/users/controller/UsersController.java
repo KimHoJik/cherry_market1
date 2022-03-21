@@ -5,9 +5,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.cherryM1.users.dto.UsersDto;
 import com.acorn.cherryM1.users.service.UsersService;
-
+import com.acorn.cherryM1.users.dto.LoginRequestDto;
 
 @Controller
 public class UsersController {
@@ -30,17 +32,12 @@ public class UsersController {
         return "users/loginform";
     }
    
-    @RequestMapping("/users/login")
-    public ModelAndView login(ModelAndView mView, UsersDto dto,
-    		@RequestParam String url, HttpSession session) {
-        service.loginProcess(dto, session);
-      
-        String encodedUrl=URLEncoder.encode(url);
-        mView.addObject("url", url);
-        mView.addObject("encodedUrl", encodedUrl);
-        mView.setViewName("users/login");
-        return mView;
-    }
+    @RequestMapping(value = "/users/login", method = RequestMethod.POST)
+    public @ResponseBody boolean login(@RequestBody UsersDto dto,HttpSession session) {
+        
+    	boolean ret = service.loginProcess(dto, session);
+        return ret;
+     }
    
     @RequestMapping("/users/logout")
     public String logout(HttpSession session) {

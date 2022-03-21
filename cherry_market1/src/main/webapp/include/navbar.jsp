@@ -29,7 +29,7 @@
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
 			<li>
-				<select name="category" id="category">
+				<select class="form-select" name="category" id="category">
 	                     <option value="">선택</option>
 	                     <option value="디지털지지">디지털기기</option>
 	                     <option value="생활가전">생활가진</option>

@@ -14,54 +14,60 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<!-- animate -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <style>
     body 
-   {
+    {
       color: #999;
       background: #fc9091;
       font-family: 'Roboto', sans-serif;
-   
+    }
 </style>
 </head>
 <body>
 
 <!-- test -->
 <div class="signup-form">
-    <form action="${pageContext.request.contextPath}/users/signup.do" method="post" class="form-horizontal">
+<h1></h1>
+    <form action="${pageContext.request.contextPath}/users/signup.do" method="post" class="form-horizontal animate__animated animate__backInLeft" id="myForm">
       <div class="col-xs-8 col-xs-offset-4">
          <h2>Sign Up</h2>
       </div>      
         <div class="form-group">
-         <label class="control-label col-xs-4" for="id" style="text-align:left;">ID</label>
+         <label class="control-label col-xs-4" for="id" style="text-align:center; font-size:17px;">ID</label>
          <div class="col-xs-8">
                 <input type="text" class="form-control" name="id" id="id">
-                <small class="form-text text-muted">아이디는 2~8글자까지 가능합니다. 영문은 4글자부터 가능하며, 특수문자는 사용할 수 없습니다.</small>
+                <small class="form-text text-muted">아이디는 2~8글자까지 가능합니다. <br /> 영문은 4글자부터 가능하며, 특수문자는 사용할 수 없습니다.</small>
             <div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
             </div>           
         </div>
        <div class="form-group">
-         <label class="control-label col-xs-4" for="name" style="text-align:left;">이름</label>
+         <label class="control-label col-xs-4" for="name" style="text-align:center; font-size:17px;">이름</label>
          <div class="col-xs-8">
                 <input type="text" class="form-control" id="name" name="name">
                <small class="form-text text-muted"></small>
             </div>           
         </div>
       <div class="form-group">
-         <label class="control-label col-xs-4" style="text-align:left;">Password</label>
+         <label class="control-label col-xs-4" style="text-align:center; font-size:17px;">Password</label>
          <div class="col-xs-8">
                 <input type="password" class="form-control" name="pwd" id="pwd">
+            	<small class="form-text text-muted">6~20글자까지 사용 가능합니다. <br /> 비밀번호는 문자, 숫자, 특수문자를 최소 1회 이상 사용합니다.</small>
+            	<div class="invalid-feedback">비밀번호를 확인 하세요.</div>
             </div>           
         </div>
       <div class="form-group">
-         <label class="control-label col-xs-4" style="text-align:left;">Confirm Password</label>
+         <label class="control-label col-xs-4" style="text-align:center; font-size:17px;">Confirm Password</label>
          <div class="col-xs-8">
                 <input type="password" class="form-control" name="pwd2" id="pwd2">
             </div>           
         </div>
       <div class="form-group">
-         <label class="control-label col-xs-4" style="text-align:left;">Email Address</label>
+         <label class="control-label col-xs-4" style="text-align:center; font-size:17px;">Email Address</label>
          <div class="col-xs-8">
                 <input type="email" class="form-control" name="email" id="email">
+            	<div class="invalid-feedback">이메일 형식을 확인 하세요.</div>
             </div>           
         </div>
       <div class="form-group">
@@ -73,11 +79,11 @@
       </div>
       <div class="form-group">
          <div class="col-xs-8 col-xs-offset-4">
-            <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+            <button id="submitBtn" type="submit" class="btn btn-primary btn-lg">Sign Up</button>
          </div>  
       </div>            
     </form>
-   <div class="text-center">이미 CherryMarket 회원이신가요? <a href="${pageContext.request.contextPath}/users/loginform.do">Login here</a></div>
+   <div class="text-center" style="color:black;" >이미 CherryMarket 회원이신가요? <a href="${pageContext.request.contextPath}/users/loginform.do">Login here</a></div>
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script>
@@ -178,6 +184,18 @@
          //폼 전송 막기 
          e.preventDefault();
       }   
+   });
+   
+	// CSS
+    document.querySelector("#submitBtn").addEventListener("click", function(e){
+       //폼 전송이 되지 않도록 기본 동작을 막아준다.
+       e.preventDefault();
+       document.querySelector("#myForm").classList.add("animate__backOutRight");
+       document.querySelector("#myForm").addEventListener("animationend", function(){
+          // 폼 강제제출
+          this.submit();
+          
+       });
    });
    
 </script>
