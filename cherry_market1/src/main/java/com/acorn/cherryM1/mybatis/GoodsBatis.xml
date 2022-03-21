@@ -3,7 +3,7 @@
 <mapper namespace="goodsBatis">
 	<sql id="searchCondition">
 		<choose>
-			<when test="category !=null and search!=null">
+			<when test="category !='전체' and search!=null">
 				where (title like '%'||#{search}||'%' 
 				or explain like '%'||#{search}||'%') 
 				and category=#{category} and issaled=0
@@ -13,7 +13,7 @@
 				or explain like '%'||#{search}||'%') 
 				and issaled=0 
 			</when>
-			<when test="category!=null">
+			<when test="category!='전체'">
 				where category=#{category} and issaled=0 
 			</when>
 		</choose>
