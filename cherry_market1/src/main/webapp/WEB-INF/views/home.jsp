@@ -168,7 +168,7 @@
 			                  <select name="category" id="category">
 			                     <option value="선택">선택</option>
 			                     <option value="디지털기기">디지털기기</option>
-			                     <option value="생활가전">생활가진</option>
+			                     <option value="생활가전">생활가전</option>
 			                     <option value="가구/인테리어">가구/인테리어</option>
 			                     <option value="스포츠/레저">스포츠/레저</option>
 			                     <option value="여성패션">여성패션</option>
@@ -371,7 +371,7 @@
 	//채팅입력 함수 채팅바에 키가 눌렀다 떼면(keyup) 실행되도록 설정
 	document.querySelector("#occomment").addEventListener("keyup",function(e){
 		// 만약 엔터키가 눌렸는데 채팅파에 텍스트가 있는 상태면 다음 진행
-		if (e.key=="Enter"&&this.value!=''){
+		if (e.key=="Enter"&&this.value!='\n'){
 			//로그인 되어있는지 확인 아닐시 알림출력
 			if (id=="" || id==null){
 				alert("로그인 후 이용해주세요")

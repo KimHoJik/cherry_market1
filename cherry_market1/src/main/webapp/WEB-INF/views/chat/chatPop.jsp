@@ -60,7 +60,7 @@
 	}
 	let interval=setInterval(updateBox,100);
 	document.querySelector("#text").addEventListener("keyup",function(e){
-		if (e.key=="Enter"){
+		if (e.key=="Enter"&&this.value!="\n"){
 			fetch("uploadPerChatLog.do",{
 				method:"POST",
 				headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"},
