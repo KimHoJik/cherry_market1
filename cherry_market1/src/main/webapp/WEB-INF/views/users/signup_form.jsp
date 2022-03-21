@@ -65,11 +65,6 @@
             </div>           
         </div>
       <div class="form-group">
-         <label class="control-label col-xs-4" for="profile" style="text-align:left;">자기소개</label>
-         <input class="form-control" type="text" id="profile" name="profile" placeholder="우리 같이 체리마켓에서 거래해요~^^"/>
-         <small class="form-text text-muted">욕설 및 비속어, 광고, 선정적인 내용 등 불쾌한 표현은 제제 및 법적 조치를 진행하겠습니다.</small>
-      </div>
-      <div class="form-group">
          <label class="control-label" for="addr" style="text-align:left;">주소</label>
          <input class="form-control" type="text" id="addr" name="addr"/>
          <small class="form-text text-muted">거주하시는 동네까지만 적어주세요. 원활한 거래에 도움이 됩니다~^^</small>
