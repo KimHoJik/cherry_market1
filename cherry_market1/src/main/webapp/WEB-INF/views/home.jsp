@@ -138,13 +138,13 @@
 	<div id="main" style="width:1240px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
 		<div id="goods" style="width:1000px;height:798px;float:left;margin:10px;">
-			<div class="text-center">
+			<!-- 상품등록하기  modal -->
+			<div class="text-center" >
 			   <!-- Button HTML (to Trigger Modal) -->
 			   <a href="#myModal" class="trigger-btn" data-toggle="modal">
 			   상품 등록 하기
 			   </a>
 			</div>
-			<!-- test -->
 			<div id="myModal" class="modal fade">
 			   <div class="modal-dialog contact-modal">
 			      <div class="modal-content">
@@ -196,6 +196,7 @@
 			      </div>
 			   </div>
 			</div>
+			<!-- 상풍등록  modal 끝 -->
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
 					<div class="col-6 col-md-4 col-lg-3">
@@ -222,48 +223,50 @@
 		      		</div>
 				</c:forEach>
 		   	</div>
-		   	<nav>
-				<ul class="pagination justify-content-center">
-				<c:choose>
-					<c:when test="${startPageNum ne 1 }">
-						<li class="page-item">
-		               		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${startPageNum - 1}">Prev</a>
-		            	</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item disabled">
-		               		<a class="page-link" href="javascript:">Prev</a>
-		            	</li>
-					</c:otherwise>
-				</c:choose>
-				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+		   	<div id="navbarDiv" style="">
+			   	<nav>
+					<ul class="pagination justify-content-center">
 					<c:choose>
-						<c:when test="${i eq pageNum }">
-							<li class="page-item active">
-		                  		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${i}">${i }</a>
-		               		</li>
+						<c:when test="${startPageNum ne 1 }">
+							<li class="page-item">
+			               		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${startPageNum - 1}">Prev</a>
+			            	</li>
 						</c:when>
 						<c:otherwise>
-							<li class="page-item">
-		                  		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${i}">${i}</a>
-		               		</li>
+							<li class="page-item disabled">
+			               		<a class="page-link" href="javascript:">Prev</a>
+			            	</li>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${endPageNum lt totalPageCount }">
-						<li class="page-item">
-		               		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${endPageNum + 1}">Next</a>
-		            	</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item disabled">
-		               		<a class="page-link" href="javascript:">Next</a>
-		            	</li>
-					</c:otherwise>
-				</c:choose>
-		      </ul>
-		   </nav>  		
+					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+						<c:choose>
+							<c:when test="${i eq pageNum }">
+								<li class="page-item active">
+			                  		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${i}">${i }</a>
+			               		</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item">
+			                  		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${i}">${i}</a>
+			               		</li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${endPageNum lt totalPageCount }">
+							<li class="page-item">
+			               		<a class="page-link" href="${pageContext.request.contextPath}/home.do?pageNum=${endPageNum + 1}">Next</a>
+			            	</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled">
+			               		<a class="page-link" href="javascript:">Next</a>
+			            	</li>
+						</c:otherwise>
+					</c:choose>
+			      </ul>
+			   </nav>
+		   </div>  		
 		</div> 	
 	
 		<div id="openchat" style="width:200px;height:798px;display:inline-block;margin:10px;">
@@ -279,9 +282,7 @@
 	</div>
 </div>
 <script>
-	function updategoodsbox(){
-		
-	}
+	
 	var before;
 	var id="${sessionScope.id}";
 	//채팅박스 업로드 함수
