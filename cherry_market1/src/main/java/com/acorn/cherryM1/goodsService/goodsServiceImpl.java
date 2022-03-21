@@ -75,6 +75,7 @@ public class goodsServiceImpl implements goodsService{
 				String jsonImages=dto1.getImagePath();
 				List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
 				dto1.setImagePath(ImageList.get(0));
+				dto1.setImagePaths(ImageList);
 				int price=dto1.getPrice();
 				String priceWon="원";
 				int c=0;
