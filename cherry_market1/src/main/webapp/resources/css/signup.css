@@ -1,0 +1,129 @@
+@charset "UTF-8";
+*{
+   margin:0;
+   padding:0;
+}
+
+.container{
+   height:100vh;
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   justify-content:center;
+   padding-top:50px;
+   background:#fc9091;
+   color:#fff;
+   
+}
+.mypage-form{
+   height:100vh;
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   justify-content:center;
+   padding-top:50px;
+   background:#fc9091;
+   color:#fff;
+   
+}
+.mypage-form h1{
+   color:#fff;
+   margin-bottom:80px;
+}
+
+.mypage-cont{
+   width:350px;
+   font-size: 13px;
+    background: #ececec;
+    box-shadow: 0px 2px 2px rgb(0 0 0 / 30%);
+    color: #7a7a7a;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    padding:30px;
+    padding-top:80px;
+    box-sizing:border-box;
+    position:relative;
+}
+
+.mypage-cont .avatar {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: -50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    z-index: 9;
+    background: #70c5c0;
+    padding: 15px;
+    box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
+}
+
+.mypage-cont .avatar img{
+   width:100%;
+}
+
+.animate__fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+.animate__animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-duration: var(--animate-duration);
+    animation-duration: var(--animate-duration);
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.input-cont{
+   margin-bottom:20px;
+   display:flex;
+   justufy-content:center;
+}
+
+.input-cont label{
+   width:80px;
+   marign-right:10px;
+   vertical-align:middle;
+   padding-top:8px;
+   font-size:14px;
+}
+
+.input-cont input{
+   flex:1;
+   height:40px;
+   border:1px solid #ddd;
+   border-radius:2px;
+   padding:5px;
+   box-sizing:border-box;
+   
+}
+.input-cont div.txt{
+   flex:1;
+   height:40px;
+   padding:5px;
+   box-sizing:border-box;
+   
+}
+
+.btn-list{
+    text-align:center;
+    margin:20px 0;
+    
+}
+.btn-list a{
+   display:inline-block;
+   padding:10px 8px;
+   min-width:150px;
+   height:40px;
+   box-sizing:border-box;
+   border-radius:25px;
+   text-align:center;
+   background:#666;
+   color:#fff;
+   text-decoration:none;
+   
+}
