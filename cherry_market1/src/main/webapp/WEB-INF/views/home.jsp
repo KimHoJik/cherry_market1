@@ -167,7 +167,7 @@
 			                    <label for="category">카테고리</label>
 			                  <select name="category" id="category">
 			                     <option value="선택">선택</option>
-			                     <option value="디지털지지">디지털기기</option>
+			                     <option value="디지털기기">디지털기기</option>
 			                     <option value="생활가전">생활가진</option>
 			                     <option value="가구/인테리어">가구/인테리어</option>
 			                     <option value="스포츠/레저">스포츠/레저</option>
