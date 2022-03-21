@@ -138,6 +138,17 @@ public class UsersServiceImpl implements UsersService {
 		//ModelAndView 객체에 탈퇴한 회원의 아이디를 담아준다.
 		mView.addObject("id", id);
 	}
+	
+	@Override
+	public void findId(HttpServletRequest request, ModelAndView mView) {
+		String name=request.getParameter("name");
+		String email=request.getParameter("email");
+		UsersDto dto2=new UsersDto();
+		dto2.setName(name);
+		dto2.setEmail(email);
+		UsersDto dto=dao.findId(dto2);
+		mView.addObject("dto", dto);
+	}
 }
 
 

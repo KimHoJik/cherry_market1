@@ -37,6 +37,12 @@
 		DELETE FROM users
 		WHERE id=#{id}
 	</delete>
+	
+	<select id="findId" parameterType="usersDto" resultType="usersDto">
+		SELECT id, name
+		FROM users 
+		WHERE name= #{name} AND email= #{email}
+	</select>
 </mapper>
 
 
