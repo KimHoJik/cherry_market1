@@ -10,8 +10,8 @@
 
 	<insert id="insert" parameterType="usersDto">
 		INSERT INTO users
-		(num, id, name, pwd, email, profile, addr, regdate)
-		VALUES(users_seq.NEXTVAL, #{id}, #{name}, #{pwd}, #{email}, #{profile}, #{addr}, SYSDATE)
+		(num, id, name, pwd, email, addr, regdate)
+		VALUES(users_seq.NEXTVAL, #{id}, #{name}, #{pwd}, #{email}, #{addr}, SYSDATE)
 	</insert>
 	
 	<select id="getData" parameterType="string" 

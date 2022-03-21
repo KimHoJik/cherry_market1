@@ -29,7 +29,7 @@
 		FROM	
 			(SELECT result1.*, ROWNUM as rnum
 			FROM
-				(SELECT num,id, price, title, regdate, issaled, category,viewcount,imagepath,explain 
+				(SELECT * 
 				FROM goods
 				<include refid="searchCondition"/>
 				ORDER BY num DESC) result1)

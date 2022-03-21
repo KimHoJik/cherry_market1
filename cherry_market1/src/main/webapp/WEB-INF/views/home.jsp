@@ -189,7 +189,7 @@
 			                  accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 			                    </div>
 			                    
-			                    <button id="btn" class="btn btn-success">등록</button>
+			                    <button type="submit" id="btn" class="btn btn-success">등록</button>
 			                    <button class="btn btn-danger"  data-dismiss="modal" value="Cancel">취소</button>
 			                   
 			                </form>
@@ -200,28 +200,89 @@
 			<!-- 상풍등록  modal 끝 -->
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
-					<div class="col-6 col-md-4 col-lg-3">
-		         		<div class="card mb-3">
-		            		<a href="${pageContext.request.contextPath}/goodsDetail.do?num=${tmp.num}">
-			               		<div class="img-wrapper">
-			               			<c:choose>
-			               				<c:when test="${tmp.imagePath eq 'None'}">
-			               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
-			               				</c:when>
-			               				<c:otherwise>
-			               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
-			               				</c:otherwise>
-			               			</c:choose>
-			                  		
-			               		</div>
-		            		</a>
-		            		<div class="card-body">
-		               			<p class="card-text">${tmp.title}</p>
-		               			<p class="card-text"><strong>${tmp.priceWon}</strong></p>
-		               			<p><small>${tmp.id}</small></p>
-		            		</div>
-		         		</div>
-		      		</div>
+					<div  class="col-6 col-md-4 col-lg-3">
+						<a href="#detail${tmp.num }" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
+							<div>
+				         		<div class="card mb-3">
+					               		<div class="img-wrapper">
+					               			<c:choose>
+					               				<c:when test="${tmp.imagePath eq 'None'}">
+					               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
+					               				</c:when>
+					               				<c:otherwise>
+					               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
+					               				</c:otherwise>
+					               			</c:choose>
+					                  		
+					               		</div>
+				            		<div class="card-body">
+				               			<p class="card-text">${tmp.title}</p>
+				               			<p class="card-text"><strong>${tmp.priceWon}</strong></p>
+				               			<p><small>${tmp.id}</small></p>
+				            		</div>
+				         		</div>
+				      		</div>
+						</a>
+					</div>
+					<div id="detail${tmp.num }" class="modal fade">
+						<div class="modal-dialog contact-modal">
+							<div class="modal-content">
+								<div class="modal-header">            
+									<h4 class="modal-title">진행중인 거래</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>상품번호:${tmp.num}</p>
+									<p>판매자:${tmp.id }</p>
+									<p>가격:${tmp.priceWon }</p>
+									<p>제목:${tmp.title }</p>
+									<p>판매여부:${tmp.isSaled }</p>
+									<p>카테고리:${tmp.category }</p>
+									<p>조회수:${tmp.viewCount }</p>
+									<p>상품설명:${tmp.explain }</p>
+									<p>업로드 시간:${tmp.regdate }</p>
+									<p>사진들</p>
+									<c:forEach var="i" items="${tmp.imagePaths }">
+										<p>사진:${i }</p>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${tmp.id eq sessionScope.id }">
+											<button type="button" onClick="location.href='sell.do?num=${tmp.num}">판매완료</button>
+											<button type="button" onClick="location.href='delete.do?num=${tmp.num}'">상품 내리기</button>
+										</c:when>
+										<c:otherwise>
+											<form action="">
+												<input type="hidden" name="num"/>
+												<input type="hidden" name="id"/>
+												<input type="hidden" name=""/>
+												<input type="hidden" name=""/>
+												<input type="hidden" name=""/>
+												<button id="putWishList">관심상품 등록</button>
+											</form>
+											
+											<form name="perChat${tmp.num}" id="perChat${tmp.num}" method="post" >
+												<input type="hidden" name="num" value="${tmp.num }"/>
+												<input type="hidden" name="buyer" value="${sessionScope.id}"/>
+												<input type="hidden" name="saller" value="${tmp.id }"/>
+												<button id="chatPop${tmp.num}">판매자와 대화하기</button>
+											</form>
+											<script>
+												document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
+													let form=document.perChat${tmp.num}
+													let pop_title="chat";
+													window.open("",pop_title,"width = 500, height = 700, top = 100, left = 200, location = no");
+													form.action="${pageContext.request.contextPath }/private/chatPop.do";
+													form.target=pop_title;
+													form.submit();
+												})
+											</script>
+										</c:otherwise>
+									</c:choose>
+																										
+								</div>
+							</div>
+						</div>
+					</div>					
 				</c:forEach>
 		   	</div>
 		   	<div id="navbarDiv" style="">

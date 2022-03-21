@@ -29,7 +29,7 @@ public class goodsController {
 	public String goodsUpload(HttpServletRequest request,goodsDto dto,HttpSession session) {
 		dto.setId((String) session.getAttribute("id"));
 		Service.goodsUpload(request, dto);
-		return "goods/goodsUploaded";
+		return "redirect:home.do";
 	}
 	@RequestMapping("/goodsDetail")
 	public ModelAndView goodsDetail(ModelAndView mView,@RequestParam int num) {

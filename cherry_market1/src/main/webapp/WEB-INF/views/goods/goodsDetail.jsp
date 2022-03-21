@@ -29,6 +29,11 @@
 		</c:when>
 		<c:otherwise>
 			<form action="">
+				<input type="hidden" name="num"/>
+				<input type="hidden" name="id"/>
+				<input type="hidden" name=""/>
+				<input type="hidden" name=""/>
+				<input type="hidden" name=""/>
 				<button id="putWishList">관심상품 등록</button>
 			</form>
 			
@@ -50,6 +55,8 @@
 		form.target=pop_title;
 		form.submit();
 	})
+	
+	
 </script>
 </body>
 </html>
