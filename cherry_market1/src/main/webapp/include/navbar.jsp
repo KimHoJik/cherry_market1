@@ -2,18 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="loginbar" style="text-align:right;">
-	<c:choose>
-		<c:when test="${sessionScope.id eq null }">
-			<a href="${pageContext.request.contextPath}/users/signup_form.do">멤버 가입</a>
-			<a href="${pageContext.request.contextPath}/users/loginform.do">로그인</a>
-		</c:when>
-		<c:otherwise>
-			<p>
-				<a href="${pageContext.request.contextPath}/users/mypage.do">${sessionScope.id }</a> 로그인중...
-				<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
-			</p>
-		</c:otherwise>
-	</c:choose>
 </div>
 <nav class="navbar navbar-default navbar-expand-lg navbar-light" style="margin:20px">
 	<div class="navbar-header">
@@ -48,7 +36,7 @@
 			<li>
 				<!-- 검색바 -->
 				<form action="home.do">
-                    <div class="input-group search-box" style="margin-top:6px; margin-right:100px;width:600px;">		
+                    <div class="input-group search-box" style="margin-top:6px; margin-right:50px;width:600px;">		
                         <input type="text" id="search" name="search" class="form-control" placeholder="Search here...">
 						<span class="input-group-btn">
 							<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -56,32 +44,44 @@
                     </div>
                 </form>
 			</li>
-			<li>
-				<a href="${pageContext.request.contextPath }/users/mypage.do">MyPage</a>		
-			</li>		
-			<li>
-				<!--  chatpage modal start-->
-				<div class="text-center">
-					<a href="#myModal2" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
-						Chat
-					</a>
-				</div>
-				<div id="myModal2" class="modal fade">
-					<div class="modal-dialog contact-modal">
-						<div class="modal-content">
-							<div class="modal-header">            
-								<h4 class="modal-title">진행중인 거래</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							</div>
-							<div class="modal-body">
-								<div id="perChatList">
+			<c:choose>
+				<c:when test="${sessionScope.id eq null }">
+					<li><a href="${pageContext.request.contextPath}/users/signup_form.do">SignUp</a></li>
+					<li><a href="${pageContext.request.contextPath}/users/loginform.do">Login</a></li>
+				</c:when>
+				<c:otherwise>
+					<!-- 개인용 -->
+					<li>
+						<a href="${pageContext.request.contextPath }/users/mypage.do">MyPage</a>		
+					</li>		
+					<li>
+						<!--  chatpage modal start-->
+						<div class="text-center">
+							<a href="#myModal2" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
+								Chat
+							</a>
+						</div>
+						<div id="myModal2" class="modal fade">
+							<div class="modal-dialog contact-modal">
+								<div class="modal-content">
+									<div class="modal-header">            
+										<h4 class="modal-title">진행중인 거래</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									</div>
+									<div class="modal-body">
+										<div id="perChatList">
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>				
-				<!-- chatpage modal end -->
-			</li>
+						</div>				
+						<!-- chatpage modal end -->
+					</li>
+					<li><a href="${pageContext.request.contextPath}/users/logout.do">LogOut</a></li>
+					<!-- 개인용 -->
+				</c:otherwise>
+			</c:choose>
+			
 		</ul>		
 		
 	</div>
@@ -111,7 +111,7 @@
 		})
 	}
 	
-	let interval2=setInterval(updateChatList();,1000);
+	let interval2=setInterval(updateChatList(),1000);
 	$(document).ready(function(){
 		var dropdown = $(".navbar-right .dropdown");
 		var toogleBtn = $(".navbar-right .dropdown-toggle");

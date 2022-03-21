@@ -247,7 +247,7 @@
 									</c:forEach>
 									<c:choose>
 										<c:when test="${tmp.id eq sessionScope.id }">
-											<button type="button" onClick="location.href='sell.do?num=${tmp.num}">판매완료</button>
+											<button type="button" onClick="location.href='sell.do?num=${tmp.num}'">판매완료</button>
 											<button type="button" onClick="location.href='delete.do?num=${tmp.num}'">상품 내리기</button>
 										</c:when>
 										<c:otherwise>
