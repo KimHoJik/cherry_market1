@@ -49,7 +49,7 @@ public class UsersServiceImpl implements UsersService {
     public void getInfo(HttpSession session, ModelAndView mView) {
         String id=(String)session.getAttribute("id");
         UsersDto dto=dao.getData(id);
-        mView.addObject("dto", dto);
+        mView.addObject("usersDto", dto);
       
     }
     

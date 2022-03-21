@@ -106,6 +106,19 @@ public class goodsServiceImpl implements goodsService{
 		goodsDto dto=dao.getGoodsDetail(num);
 		String jsonImages=dto.getImagePath();
 		List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
+		int price=dto.getPrice();
+		String priceWon="원";
+		int c=0;
+		while (price!=0) {
+			priceWon+=price%10;
+			price/=10; c+=1;
+			if(c==3) {c=0;priceWon+=",";}
+		}
+		if(priceWon.charAt(priceWon.length()-1)==',') {
+			priceWon=priceWon.substring(0,priceWon.length()-1);
+		}
+		priceWon=new StringBuffer(priceWon).reverse().toString();
+		dto.setPriceWon(priceWon);
 		mView.addObject("dto", dto);
 		mView.addObject("imageList", ImageList);
 	}

@@ -8,17 +8,18 @@
 <title>goodsDetail</title>
 </head>
 <body>
-	<p>${dto.num}</p>
-	<p>${dto.id }</p>
-	<p>${dto.priceWon }</p>
-	<p>${dto.title }</p>
-	<p>${dto.isSaled }</p>
-	<p>${dto.category }</p>
-	<p>${dto.viewCount }</p>
-	<p>${dto.explain }</p>
-	<p>${dto.regdate }</p>
+	<p>상품번호:${dto.num}</p>
+	<p>판매자:${dto.id }</p>
+	<p>가격:${dto.priceWon }</p>
+	<p>제목:${dto.title }</p>
+	<p>판매여부:${dto.isSaled }</p>
+	<p>카테고리:${dto.category }</p>
+	<p>조회수:${dto.viewCount }</p>
+	<p>상품설명:${dto.explain }</p>
+	<p>업로드 시간:${dto.regdate }</p>
+	<p>사진들</p>
 	<c:forEach var="tmp" items="${imageList }">
-		<p>${tmp }</p>
+		<p>사진:${tmp }</p>
 	</c:forEach>
 	
 	<c:choose>
@@ -28,9 +29,6 @@
 		</c:when>
 		<c:otherwise>
 			<form action="">
-				<p>${dto.id }</p>
-				<p>${dto.priceWon }</p>
-				<p>${dto.title }</p>
 				<button id="putWishList">관심상품 등록</button>
 			</form>
 			
