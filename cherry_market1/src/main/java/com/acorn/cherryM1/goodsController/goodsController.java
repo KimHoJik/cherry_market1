@@ -45,6 +45,7 @@ public class goodsController {
 	
 	@RequestMapping("/sell")
 	public String sellGoods(@RequestParam int num) {
-		return "redrect:home.do";
+		Service.deleteGoods(num);
+		return "redirect:home.do";
 	}
 }	

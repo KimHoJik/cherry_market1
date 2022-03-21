@@ -128,6 +128,12 @@ public class goodsServiceImpl implements goodsService{
 	public void deleteGoods(int num) {
 		dao.deleteGoods(num);
 	}
+
+	@Override
+	public void goodsSaled(int num) {
+		dao.goodsSaled(num);
+		
+	}
 	
 	
 }

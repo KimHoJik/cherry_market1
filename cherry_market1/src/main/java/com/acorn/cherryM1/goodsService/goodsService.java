@@ -11,4 +11,5 @@ public interface goodsService {
 	public void getGoodsList(HttpServletRequest request);
 	public void getGoodsDetail(ModelAndView mView,int num);
 	public void deleteGoods(int num);
+	public void goodsSaled(int num);
 }

@@ -6,14 +6,15 @@
 			<when test="category !=null and search!=null">
 				where (title like '%'||#{search}||'%' 
 				or explain like '%'||#{search}||'%') 
-				and category=#{category} 
+				and category=#{category} and issaled=0
 			</when>
 			<when test="search !=null">
-				where title like '%'||#{search}||'%' 
-				or explain like '%'||#{search}||'%' 
+				where (title like '%'||#{search}||'%' 
+				or explain like '%'||#{search}||'%') 
+				and issaled=0 
 			</when>
 			<when test="category!=null">
-				where category=#{category}
+				where category=#{category} and issaled=0 
 			</when>
 		</choose>
 	</sql>
@@ -31,7 +32,7 @@
 			FROM
 				(SELECT * 
 				FROM goods
-				<include refid="searchCondition"/>
+				<include refid="searchCondition"/> 	
 				ORDER BY num DESC) result1)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -53,4 +54,8 @@
 	<delete id="deleteGoods" parameterType="int">
 		delete from goods where num=#{num}
 	</delete>
+	
+	<update id="goodsSaled" parameterType="int">
+		update goods set issaled=1 where num=#{num}
+	</update>
 </mapper>

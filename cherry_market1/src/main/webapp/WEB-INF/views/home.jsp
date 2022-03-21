@@ -285,7 +285,7 @@
 					</div>					
 				</c:forEach>
 		   	</div>
-		   	<div id="navbarDiv" style="">
+		   	<div id="navbarDiv" style="text-align:center;">
 			   	<nav>
 					<ul class="pagination justify-content-center">
 					<c:choose>

@@ -18,20 +18,20 @@
 		<ul class="nav navbar-nav">
 			<li>
 				<select class="form-select" name="category" id="category">
-	                     <option value="">선택</option>
-	                     <option value="디지털지지">디지털기기</option>
-	                     <option value="생활가전">생활가진</option>
-	                     <option value="가구/인테리어">가구/인테리어</option>
-	                     <option value="스포츠/레저">스포츠/레저</option>
-	                     <option value="여성패션">여성패션</option>
-	                     <option value="남성패션">남성패션</option>
-	                     <option value="게임/취미">게임/취미</option>
-	                     <option value="뷰티/미용">뷰티/미용</option>
-	                     <option value="반려동물">반려동물</option>   
-	                     <option value="도서/티켓/음반">도서/티켓/음반</option>
-	                     <option value="기타">기타</option>
-	                     <option value="삽니다">삽니다</option>
-	                  </select>						
+                    <option value="">선택</option>
+                    <option value="디지털지지">디지털기기</option>
+                    <option value="생활가전">생활가진</option>
+                    <option value="가구/인테리어">가구/인테리어</option>
+                    <option value="스포츠/레저">스포츠/레저</option>
+                    <option value="여성패션">여성패션</option>
+                    <option value="남성패션">남성패션</option>
+                    <option value="게임/취미">게임/취미</option>
+                    <option value="뷰티/미용">뷰티/미용</option>
+                    <option value="반려동물">반려동물</option>   
+                    <option value="도서/티켓/음반">도서/티켓/음반</option>
+                    <option value="기타">기타</option>
+                    <option value="삽니다">삽니다</option>
+                 </select>						
 			</li>
 			<li>
 				<!-- 검색바 -->

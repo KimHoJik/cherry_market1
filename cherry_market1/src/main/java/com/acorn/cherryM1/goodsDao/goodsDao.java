@@ -12,4 +12,5 @@ public interface goodsDao{
 	public int getCount(goodsDto dto);
 	public goodsDto	getGoodsDetail(int num);
 	public void deleteGoods(int num);
+	public void goodsSaled(int num);
 }
