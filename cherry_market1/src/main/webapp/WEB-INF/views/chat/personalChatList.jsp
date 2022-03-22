@@ -25,7 +25,7 @@
 		for(let i=0;i<list.length;i++){
 			list[i].addEventListener("click",function(){
 				let pop_title="chat";
-				window.open("",pop_title,"width = 500, height = 700, top = 100, left = 200, location = no");
+				window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
 				this.action="chatPop.do";
 				this.target=pop_title;
 				this.submit();
