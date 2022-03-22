@@ -90,7 +90,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public Map<String, Object> saveProfileImage(HttpServletRequest request, MultipartFile mFile) {
+	public Map<String, Object> saveProfileImage(HttpServletRequest request, MultipartFile mFile,HttpSession session) {
 		//업로드된 파일에 대한 정보를 MultipartFile 객체를 이용해서 얻어낼수 있다.	
 		//원본 파일명
 		String orgFileName=mFile.getOriginalFilename();
@@ -116,9 +116,12 @@ public class UsersServiceImpl implements UsersService {
 		// json 문자열을 출력하기 위한 Map 객체 생성하고 정보 담기 
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("imagePath", "/upload/"+saveFileName);
-		
+		String id=(String)session.getAttribute("id");
+		UsersDto dto=new UsersDto();
+		dto.setId(id);
+		dto.setProfile("/upload/"+saveFileName);
+		dao.updateProfile(dto);
 		return map;
-		
 	}
 
 	@Override
@@ -148,6 +151,15 @@ public class UsersServiceImpl implements UsersService {
 		dto2.setEmail(email);
 		UsersDto dto=dao.findId(dto2);
 		mView.addObject("dto", dto);
+	}
+
+	@Override
+	public void updateEamil(HttpSession session, String email) {
+		UsersDto dto=new UsersDto();
+		dto.setId((String)session.getAttribute("id"));
+		dto.setEmail(email);
+		dao.updateEmail(dto);
+		
 	}
 }
 

@@ -84,10 +84,10 @@ public class UsersController {
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request,
-			@RequestParam MultipartFile image){
+			@RequestParam MultipartFile image,HttpSession session){
 		
 		//서비스를 이용해서 이미지를 upload 폴더에 저장하고 리턴되는 Map 을 리턴해서 json 문자열 응답하기
-		return service.saveProfileImage(request, image);
+		return service.saveProfileImage(request, image,session);
 	}
 	
 	//회원정보 수정폼 요청처리
@@ -149,5 +149,9 @@ public class UsersController {
 	public ModelAndView findid_form(ModelAndView mView) {
 		mView.setViewName("users/findid_form");
 		return mView;
+	}
+	@RequestMapping("/users/emailUpdate")
+	public void emailUpdate(HttpSession session,@RequestParam String email) {
+		service.updateEamil(session, email);
 	}
 }

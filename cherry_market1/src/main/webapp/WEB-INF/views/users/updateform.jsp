@@ -58,6 +58,8 @@
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script>
+	
+	
 	//프로필 이미지 링크를 클릭하면 
 	document.querySelector("#profileLink").addEventListener("click", function(){
 		// input type="file" 을 강제 클릭 시킨다. 
@@ -78,7 +80,7 @@
 			console.log(data);
 			let img=`<img id="profileImage" src="${pageContext.request.contextPath}\${data.imagePath}"/>`;
 			document.querySelector("#profileLink").innerHTML=img;
-			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
+			// input name="profile" 요소의 value 값으로 이미지 경로 넣어주기z
 			document.querySelector("input[name=profile]").value=data.imagePath;
 		});
 	});

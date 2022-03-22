@@ -53,4 +53,16 @@ public class UsersDaoImpl implements UsersDao {
 		UsersDto dto2=session.selectOne("users.findId", dto);
 		return dto2;
 	}
+
+	@Override
+	public void updateProfile(UsersDto dto) {
+		session.update("users.updateProfile", dto);
+		
+	}
+
+	@Override
+	public void updateEmail(UsersDto dto) {
+		session.update("users.emailUpdate",dto);
+		
+	}
 }

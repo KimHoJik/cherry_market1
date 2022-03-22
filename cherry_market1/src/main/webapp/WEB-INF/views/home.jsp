@@ -104,7 +104,7 @@
 													document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
 														let form=document.perChat${tmp.num}
 														let pop_title="chat";
-														window.open("",pop_title,"width = 500, height = 700, top = 100, left = 200, location = no");
+														window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
 														form.action="${pageContext.request.contextPath }/private/chatPop.do";
 														form.target=pop_title;
 														form.submit();
