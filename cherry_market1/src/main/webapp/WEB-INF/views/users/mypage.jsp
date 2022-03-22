@@ -63,13 +63,16 @@
     height: 70px;
     border-radius: 50%;
     z-index: 9;
-    background: #70c5c0;
+    background: antiquewhite;
     padding: 15px;
     box-shadow: 0px 2px 2px rgb(0 0 0 / 10%);
+	overflow:hidden;
 }
 
 .mypage-cont .avatar img{
    width:100%;
+   height:100%;
+   border-radius:50%;
 }
 
 .animate__fadeIn {
