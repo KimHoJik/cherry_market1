@@ -187,8 +187,8 @@
 			scripton();
 		})
 	}
-	updateChatList();
-	//let interval2=setInterval(updateChatList,1000);
+
+	let interval2=setInterval(updateChatList,1000);
 	$(document).ready(function(){
 		var dropdown = $(".navbar-right .dropdown");
 		var toogleBtn = $(".navbar-right .dropdown-toggle");
