@@ -132,6 +132,16 @@
     #textBoxDiv ul li > div.message{ display: inline-block; word-break:break-all; margin: 3px; max-width: 100%; border: 1px solid #888; padding: 5px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
 	#textBoxDiv ul li.left { text-align: left; }
 	#textBoxDiv ul li.right { text-align: right; }
+	#inputBox{
+		 text-align: center;
+	}
+	#inputBox > textarea {
+		width:100%;
+		height:50px;
+		border:1px solid red;
+		outline:none;
+		
+	}
 </style>
 </head>
 <body>
@@ -200,7 +210,7 @@
 			<!-- 상풍등록  modal 끝 -->
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
-					<div  class="col-6 col-md-4 col-lg-3">
+					<div  class="col-6 col-md-4 col-lg-3" >
 						<a href="#detail${tmp.num }" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
 							<div>
 				         		<div class="card mb-3">
