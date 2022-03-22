@@ -26,24 +26,82 @@
 	<div id="main" style="width:1240px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
 		<div id="goods" style="width:1000px;height:798px;float:left;margin:10px;">
-			
+			<!-- 상품등록하기  modal -->
+			<div class="text-center" >
+			   <!-- Button HTML (to Trigger Modal) -->
+			   <a href="#myModal" class="trigger-btn" data-toggle="modal">
+			   상품 등록 하기
+			   </a>
+			</div>
+			<div id="myModal" class="modal fade">
+			   <div class="modal-dialog contact-modal">
+			      <div class="modal-content">
+			         <div class="modal-header">            
+			            <h4 class="modal-title">상품 등록하기</h4>
+			            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			         </div>
+			         <div class="modal-body">
+			                <form id="uploadGoodsMain" action="${pageContext.request.contextPath }/goodsUpload.do" method="post" enctype="multipart/form-data">
+			                    <div class="form-group">
+			                        <label for="title">제목</label>
+			                        <input type="text" class="form-control" id="title" name="title">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="price">가격</label>
+			                        <input type="number" class="form-control" id="price" name="price">
+			                    </div>
+			                    <div class="form-group">
+			                    <label for="category">카테고리</label>
+			                  <select name="category" id="category">
+			                     <option value="선택">선택</option>
+			                     <option value="디지털기기">디지털기기</option>
+			                     <option value="생활가전">생활가전</option>
+			                     <option value="가구/인테리어">가구/인테리어</option>
+			                     <option value="스포츠/레저">스포츠/레저</option>
+			                     <option value="여성패션">여성패션</option>
+			                     <option value="남성패션">남성패션</option>
+			                     <option value="게임/취미">게임/취미</option>
+			                     <option value="뷰티/미용">뷰티/미용</option>
+			                     <option value="반려동물">반려동물</option>   
+			                     <option value="도서/티켓/음반">도서/티켓/음반</option>
+			                     <option value="기타">기타</option>
+			                     <option value="삽니다">삽니다</option>
+			                  </select>
+			               </div>   
+			                    <div class="form-group">
+			                        <label for="inputMessage">Message</label>
+			                        <textarea class="form-control" id="explain" name="explain" rows="4"></textarea>
+			                       <label for="filenames">상품 사진 등록</label>
+			                  <input multiple="multiple" type="file" name="images" id="images" multiple
+			                  accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+			                    </div>
+			                    
+			                    <button type="submit" id="btn" class="btn btn-success">등록</button>
+			                    <button class="btn btn-danger"  data-dismiss="modal" value="Cancel">취소</button>
+			                   
+			                </form>
+			         </div>
+			      </div>
+			   </div>
+			</div>
+			<!-- 상풍등록  modal 끝 -->
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
 					<div  class="col-6 col-md-4 col-lg-3">
 						<a href="#detail${tmp.num }" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
 							<div>
 				         		<div class="card mb-3">
-				               		<div class="img-wrapper">
-				               			<c:choose>
-				               				<c:when test="${tmp.imagePath eq 'None'}">
-				               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
-				               				</c:when>
-				               				<c:otherwise>
-				               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
-				               				</c:otherwise>
-				               			</c:choose>
-				                  		
-				               		</div>
+					               		<div class="img-wrapper">
+					               			<c:choose>
+					               				<c:when test="${tmp.imagePath eq 'None'}">
+					               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
+					               				</c:when>
+					               				<c:otherwise>
+					               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
+					               				</c:otherwise>
+					               			</c:choose>
+					                  		
+					               		</div>
 				            		<div class="card-body">
 				               			<p class="card-text">${tmp.title}</p>
 				               			<p class="card-text"><strong>${tmp.priceWon}</strong></p>
@@ -57,25 +115,32 @@
 						<div class="modal-dialog contact-modal">
 							<div class="modal-content">
 								<div class="modal-header">            
-									<h4 class="modal-title">${tmp.title }</h4>
+									<h4 class="modal-title">진행중인 거래</h4>
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								</div>
 								<div class="modal-body">
 									<div style="height:100%; text-align:center">									  									   
 										<c:forEach var="i" items="${tmp.imagePaths }">
 											<div style="margin-bottom:5px">
-												<img src="${pageContext.request.contextPath }${i}"/>
+											<c:choose>
+												<c:when test="${i eq 'None' }">
+													<img src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" alt="" />
+												</c:when>
+												<c:otherwise>
+													<img src="${pageContext.request.contextPath }${i}"/>
+												</c:otherwise>
+											</c:choose>
 											</div>
 											<br />
 										</c:forEach>
 									</div>
 									<br />
 									<p><strong>가격:${tmp.priceWon }</strong> <small>판매자:${tmp.id }</small></p>
+									<p>제목:${tmp.title }</p>
 									<p>상품설명:${tmp.explain }</p>
 									<p>업로드 시간:${tmp.regdate }</p>	
 									<c:choose>
 										<c:when test="${tmp.id eq sessionScope.id }">
-											
 											<button type="button" onClick="location.href='sell.do?num=${tmp.num}'">판매완료</button>
 											<button type="button" onClick="location.href='delete.do?num=${tmp.num}'">상품 내리기</button>
 										</c:when>
@@ -86,15 +151,15 @@
 												<input type="hidden" name=""/>
 												<input type="hidden" name=""/>
 												<input type="hidden" name=""/>
+												<button id="putWishList">관심상품 등록</button>
 											</form>
 											
 											<form name="perChat${tmp.num}" id="perChat${tmp.num}" method="post" >
 												<input type="hidden" name="num" value="${tmp.num }"/>
 												<input type="hidden" name="buyer" value="${sessionScope.id}"/>
 												<input type="hidden" name="saller" value="${tmp.id }"/>
+												<button id="chatPop${tmp.num}">판매자와 대화하기</button>
 											</form>
-											<button id="putWishList">관심상품 등록</button>
-											<button id="chatPop${tmp.num}">판매자와 대화하기</button>
 											<script>
 												document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
 													let form=document.perChat${tmp.num}
