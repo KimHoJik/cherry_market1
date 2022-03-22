@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home2.css" />
-
 </head>
 <body>
 <div id="full" style="display:flex; justify-content:center;">
