@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="loginbar" style="text-align:right;">
 </div>
-<nav class="navbar navbar-default navbar-expand-lg navbar-light" style="margin:20px">
+<nav class="navbar navbar-default navbar-expand-lg navbar-light" style="margin:20px 20px 10px 20px">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do">Cherry<b>Market</b></a>  		
 		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">

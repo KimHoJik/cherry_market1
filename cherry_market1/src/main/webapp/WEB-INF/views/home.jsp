@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home2.css" />
-
 </head>
 <body>
 <div id="full" style="display:flex; justify-content:center;">
@@ -87,7 +86,7 @@
 			<!-- 상풍등록  modal 끝 -->
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
-					<div  class="col-6 col-md-4 col-lg-3">
+					<div  class="col-6 col-md-4 col-lg-3" >
 						<a href="#detail${tmp.num }" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
 							<div>
 				         		<div class="card mb-3">
@@ -122,7 +121,14 @@
 									<div style="height:100%; text-align:center">									  									   
 										<c:forEach var="i" items="${tmp.imagePaths }">
 											<div style="margin-bottom:5px">
-												<img src="${pageContext.request.contextPath }${i}"/>
+												<c:choose>
+													<c:when test="${i eq 'None'}">
+					               						<img src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
+					               					</c:when>
+					               					<c:otherwise>
+					               						<img src="${pageContext.request.contextPath }${i}" />
+					               					</c:otherwise>
+												</c:choose>
 											</div>
 											<br />
 										</c:forEach>

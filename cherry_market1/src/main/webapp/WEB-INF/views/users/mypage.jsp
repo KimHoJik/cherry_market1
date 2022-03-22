@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>/views/users/mypage.jsp</title>
 <style>
-	*{
+   *{
    margin:0;
    padding:0;
 }
@@ -148,29 +148,44 @@
    
    <div class="mypage-cont">
       <div class="avatar">
-      	<c:choose>
-      		<c:when test="${empty usersDto.profile }">
-      			<img src="${pageContext.request.contextPath }/resources/images/cherry.png">
-      		</c:when>
-      		<c:otherwise>
-      			<img src="${pageContext.request.contextPath }${usersDto.profile}" alt="" />
-      		</c:otherwise>
-      	</c:choose>
+         <c:choose>
+            <c:when test="${empty usersDto.profile }">
+               <img src="${pageContext.request.contextPath }/resources/images/cherry.png">
+            </c:when>
+            <c:otherwise>
+               <img src="${pageContext.request.contextPath }${usersDto.profile}" alt="" />
+            </c:otherwise>
+         </c:choose>
          
       </div>
       
       <div class="input-cont">
-         <label for="id">아이디</label>
-         <div class="txt">${usersDto.id }</div>
+          <label for="id">아이디</label>
+          <div class="txt">${usersDto.id }</div>
       </div>
       <div class="input-cont">
-         <label for="email">이메일</label>
-         <div class="txt">${usersDto.email }</div>
+          <label for="email">이메일</label>
+          <div>
+             <input type="text" value="${usersDto.email }"/>
+          </div>
+      </div>
+      
+   <form action="${pageContext.request.contextPath}/users/pwd_update.do" method="post" id="myForm">
+      <div class="input-cont">
+         <label for="pwd">기존 비밀 번호</label>
+         <input type="password" name="pwd" id="pwd" style="width:50px;"/>
       </div>
       <div class="input-cont">
-         <label for="date">가입일</label>
-         <div class="txt">${usersDto.regdate }</div>
+         <label for="newPwd">새 비밀번호</label>
+         <input type="password" name="newPwd" id="newPwd" style="width:50px;"/>
       </div>
+      <div class="input-cont">
+         <label for="newPwd2">새 비밀번호 확인</label>
+         <input type="password" id="newPwd2" style="width:50px;"/>
+      </div>
+      <button type="submit">수정하기</button>
+      <button type="reset">리셋</button>
+   </form>
       
       
    </div>
@@ -228,7 +243,18 @@
          location.href="${pageContext.request.contextPath}/users/delete.do";
       }
    }
+   
+   //폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
+   document.querySelector("#myForm").addEventListener("submit", function(e){
+      let pwd1=document.querySelector("#newPwd").value;
+      let pwd2=document.querySelector("#newPwd2").value;
+      //새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
+      if(pwd1 != pwd2){
+         alert("비밀번호를 확인 하세요!");
+         e.preventDefault();//폼 전송 막기 
+      }
+   });
+
 </script>
 </body>
 </html>
-
