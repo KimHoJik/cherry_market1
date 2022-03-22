@@ -151,15 +151,14 @@
 												<input type="hidden" name=""/>
 												<input type="hidden" name=""/>
 												<input type="hidden" name=""/>
-												<button id="putWishList">관심상품 등록</button>
 											</form>
-											
 											<form name="perChat${tmp.num}" id="perChat${tmp.num}" method="post" >
 												<input type="hidden" name="num" value="${tmp.num }"/>
 												<input type="hidden" name="buyer" value="${sessionScope.id}"/>
 												<input type="hidden" name="saller" value="${tmp.id }"/>
-												<button id="chatPop${tmp.num}">판매자와 대화하기</button>
 											</form>
+											<button id="putWishList">관심상품 등록</button>
+											<button id="chatPop${tmp.num}">판매자와 대화하기</button>
 											<script>
 												document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
 													let form=document.perChat${tmp.num}
@@ -225,14 +224,14 @@
 		   </div>  		
 		</div> 	
 	
-		<div id="openchat" style="width:200px;height:798px;display:inline-block;margin:10px;">
+		<div id="openchat" style="width:200px;height:803px;display:inline-block;margin:10px;background-color:#F3B78C;border:solid 3px #fdc3c2">
 			<div id="textBoxDiv"style="height:750px; overflow-y:auto;">
 				<ul id="textBox" style="padding:0">
 				
 				</ul>
 			</div>
 			<div id="inputBox">
-				<textarea id="occomment" name="occomment" placeholder="메세지 보내기" style="resize:none;"></textarea>
+				<textarea id="occomment" name="occomment" placeholder="메세지 보내기" style="resize:none;outline:none;width:100%;border:solid 3px #fbc3c2;"></textarea>
 			</div>
 		</div>
 	</div>

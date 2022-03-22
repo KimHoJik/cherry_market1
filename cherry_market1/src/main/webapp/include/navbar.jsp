@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="loginbar" style="text-align:right;">
 </div>
-<nav class="navbar navbar-default navbar-expand-lg navbar-light" style="margin:20px">
+<nav class="navbar navbar-default navbar-expand-lg navbar-light" style="margin:20px;background-color:#FCEEE4 ">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do">Cherry<b>Market</b></a>  		
 		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
@@ -170,7 +170,7 @@
 		for(let i=0;i<list.length;i++){
 			list[i].addEventListener("click",function(){
 				let pop_title="chat";
-				window.open("",pop_title,"width = 500, height = 700, top = 100, left = 200, location = no");
+				window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
 				this.action="${pageContext.request.contextPath}/private/chatPop.do";
 				this.target=pop_title;
 				this.submit();
