@@ -44,6 +44,7 @@
 		
     </form>
     <p class="text-center small">CherryMarket 회원이 아니신가요? <a href="signup_form.do">회원가입하러 가기</a></p>
+    <p class="text-center small">아이디가 기억나지 않으시나요? <a href="findid_form.do">아이디찾으러 가기</a></p>
 	
 </div>
 <script>

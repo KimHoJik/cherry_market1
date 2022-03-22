@@ -136,4 +136,18 @@ public class UsersController {
 		mView.setViewName("users/mypage");
 		return mView;
 	}
+	
+	//아이디찾기
+	@RequestMapping("/users/findid")
+	public ModelAndView findId(ModelAndView mView, HttpServletRequest req) {
+		service.findId(req, mView);
+		mView.setViewName("users/findid");
+		return mView;
+	}	
+
+	@RequestMapping("/users/findid_form")
+	public ModelAndView findid_form(ModelAndView mView) {
+		mView.setViewName("users/findid_form");
+		return mView;
+	}
 }
