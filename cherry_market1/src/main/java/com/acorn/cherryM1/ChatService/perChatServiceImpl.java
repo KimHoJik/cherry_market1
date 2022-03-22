@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.acorn.cherryM1.ChatDao.perChatDao;
 import com.acorn.cherryM1.ChatDto.perChatDto;
 import com.acorn.cherryM1.ChatDto.perChatListDto;
+import com.acorn.cherryM1.goodsDao.goodsDao;
+import com.acorn.cherryM1.goodsDto.goodsDto;
 
 @Repository
 public class perChatServiceImpl implements perChatService{
@@ -16,9 +18,34 @@ public class perChatServiceImpl implements perChatService{
 	@Autowired
 	private perChatDao dao;
 	
+	@Autowired
+	private goodsDao goodsDao;
+	
 	@Override
 	public void getPerChatList(ModelAndView mView,String id) {
 		List<perChatListDto> list=dao.getPerChatList(id);
+		for (perChatListDto dto:list) {
+			int num=dto.getNum();
+			goodsDto gDto=goodsDao.getGoodsDetail(num);
+			String title=gDto.getTitle();
+			if (title.length()>9) {
+				title=title.substring(0,8)+"...";
+			}
+			dto.setTitle(title);
+			int price=gDto.getPrice();
+			String priceWon="원";
+			int c=0;
+			while (price!=0) {
+				priceWon+=price%10;
+				price/=10; c+=1;
+				if(c==3) {c=0;priceWon+=",";}
+			}
+			if(priceWon.charAt(priceWon.length()-1)==',') {
+				priceWon=priceWon.substring(0,priceWon.length()-1);
+			}
+			priceWon=new StringBuffer(priceWon).reverse().toString();
+			dto.setPriceWon(priceWon);
+		}
 		mView.addObject("list",list);
 	}
 
