@@ -197,27 +197,39 @@
           <button id="emailChange">변경</button>
       </div>
       
-   <form action="${pageContext.request.contextPath}/users/pwd_update.do" method="post" id="myForm">
-      <div class="input-cont">
-         <label for="pwd">기존 비밀 번호</label>
-         <div>
-         <input type="password" name="pwd" id="pwd" />		
-		</div>
-      </div>
-      <div class="input-cont">
-         <label for="newPwd">새 비밀번호</label>
-         <div>
-         <input type="password" name="newPwd" id="newPwd"/>
-         </div>
-      </div>
-      <div class="input-cont">
-         <label for="newPwd2">비밀번호 확인</label>
-         <div>
-         <input type="password" id="newPwd2" >
-         </div>
-         <button id="pwdBtn">변경</button>
-      </div>
-   </form>
+	   <form action="${pageContext.request.contextPath}/users/pwd_update.do" method="post" id="myForm">
+	      <div class="input-cont">
+	         <label for="pwd">기존 비밀 번호</label>
+	         <div>
+	         <input type="password" name="pwd" id="pwd" />		
+			</div>
+	      </div>
+	      <div class="input-cont">
+	         <label for="newPwd">새 비밀번호</label>
+	         <div>
+	         <input type="password" name="newPwd" id="newPwd"/>
+	         </div>
+	      </div>
+	      <div class="input-cont">
+	         <label for="newPwd2">비밀번호 확인</label>
+	         <div>
+	         <input type="password" id="newPwd2" >
+	         </div>
+	         <button id="pwdBtn">변경</button>
+	      </div>
+	   </form>
+	   <div id="myGoods">
+	   		<p>mygoods</p>
+	   		<c:forEach var="temp" items="${myGoods }">
+	   			<p>${temp.imagePath}/${temp.title }</p>
+	   		</c:forEach>
+	   </div>
+	   <div id="wishList">
+	   		<p>wish</p>
+	   		<c:forEach var="temp2" items="${wishList }">
+	   			<p>${temp2.imagePath }/${temp2.title }</p>
+	   		</c:forEach>
+	   </div>
       
       
    </div>

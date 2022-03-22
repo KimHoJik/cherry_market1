@@ -19,12 +19,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.cherryM1.users.dto.UsersDto;
 import com.acorn.cherryM1.users.service.UsersService;
+import com.acorn.cherryM1.goodsService.goodsService;
 import com.acorn.cherryM1.users.dto.LoginRequestDto;
 
 @Controller
 public class UsersController {
     @Autowired
     private UsersService service;
+    @Autowired
+    private goodsService service2;
    
     @RequestMapping("/users/loginform")
     public String loginform() {
@@ -132,7 +135,7 @@ public class UsersController {
 			HttpServletRequest request) {
 		
 		service.getInfo(session, mView);
-		
+		service2.getMyList(session, request);
 		mView.setViewName("users/mypage");
 		return mView;
 	}
@@ -154,4 +157,5 @@ public class UsersController {
 	public void emailUpdate(HttpSession session,@RequestParam String email) {
 		service.updateEamil(session, email);
 	}
+	
 }

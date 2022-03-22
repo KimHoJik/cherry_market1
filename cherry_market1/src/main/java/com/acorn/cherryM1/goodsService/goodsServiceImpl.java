@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,21 @@ import com.google.gson.Gson;
 public class goodsServiceImpl implements goodsService{
 	@Autowired
 	private goodsDao dao;
-
+	
+	public String changeWon(int price) {
+		String priceWon="원";
+		int c=0;
+		while (price!=0) {
+			priceWon+=price%10;
+			price/=10; c+=1;
+			if(c==3) {c=0;priceWon+=",";}
+		}
+		if(priceWon.charAt(priceWon.length()-1)==',') {
+			priceWon=priceWon.substring(0,priceWon.length()-1);
+		}
+		priceWon=new StringBuffer(priceWon).reverse().toString();
+		return priceWon;
+	}
 	@Override
 	public void goodsUpload(HttpServletRequest request, goodsDto dto) {
 		List<MultipartFile> images=dto.getImages();
@@ -80,17 +95,7 @@ public class goodsServiceImpl implements goodsService{
 				dto1.setImagePath(ImageList.get(0));
 				dto1.setImagePaths(ImageList);
 				int price=dto1.getPrice();
-				String priceWon="원";
-				int c=0;
-				while (price!=0) {
-					priceWon+=price%10;
-					price/=10; c+=1;
-					if(c==3) {c=0;priceWon+=",";}
-				}
-				if(priceWon.charAt(priceWon.length()-1)==',') {
-					priceWon=priceWon.substring(0,priceWon.length()-1);
-				}
-				priceWon=new StringBuffer(priceWon).reverse().toString();
+				String priceWon=changeWon(price);
 				dto1.setPriceWon(priceWon);
 			}
 			int totalRow=dao.getCount(dto);
@@ -111,17 +116,7 @@ public class goodsServiceImpl implements goodsService{
 		String jsonImages=dto.getImagePath();
 		List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
 		int price=dto.getPrice();
-		String priceWon="원";
-		int c=0;
-		while (price!=0) {
-			priceWon+=price%10;
-			price/=10; c+=1;
-			if(c==3) {c=0;priceWon+=",";}
-		}
-		if(priceWon.charAt(priceWon.length()-1)==',') {
-			priceWon=priceWon.substring(0,priceWon.length()-1);
-		}
-		priceWon=new StringBuffer(priceWon).reverse().toString();
+		String priceWon=changeWon(price);
 		dto.setPriceWon(priceWon);
 		mView.addObject("dto", dto);
 		mView.addObject("imageList", ImageList);
@@ -136,6 +131,43 @@ public class goodsServiceImpl implements goodsService{
 	public void goodsSaled(int num) {
 		dao.goodsSaled(num);
 		
+	}
+
+	@Override
+	public void plusWish(int num, HttpSession session) {
+		goodsDto dto=new goodsDto();
+		dto.setId((String) session.getAttribute("id"));
+		dto.setNum(num);
+		dao.plusWish(dto);
+	}
+
+	@Override
+	public void getMyList(HttpSession session, HttpServletRequest request) {
+		String id=(String) session.getAttribute("id");
+		List<Integer> wishNums=dao.getWishList(id);
+		List<goodsDto> wishList=new ArrayList<goodsDto>();
+		for(int i:wishNums) {
+			goodsDto dto=dao.getGoodsDetail(i);
+			String jsonImages=dto.getImagePath();
+			List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
+			dto.setImagePath(ImageList.get(0));
+			int price=dto.getPrice();
+			String priceWon=changeWon(price);
+			dto.setPriceWon(priceWon);
+			wishList.add(dto);
+		}
+		request.setAttribute("wishList", wishList);
+		List<goodsDto> myGoods=dao.getMyGoods(id);
+		for(goodsDto dto1:myGoods) {
+			String jsonImages=dto1.getImagePath();
+			List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
+			dto1.setImagePath(ImageList.get(0));
+			dto1.setImagePaths(ImageList);
+			int price=dto1.getPrice();
+			String priceWon=changeWon(price);
+			dto1.setPriceWon(priceWon);
+		}
+		request.setAttribute("myGoods", myGoods);
 	}
 	
 	

@@ -36,13 +36,27 @@ public class goodsDaoImpl implements goodsDao {
 		Session.delete("goodsBatis.deleteGoods",num);
 		Session.delete("chatBatis.deletePerChatLog",num);
 		Session.delete("chatBatis.deletePerChatList",num);
+		Session.delete("goodsBatis.deleteWish",num);
 			
 	}
 	@Override
 	public void goodsSaled(int num) {
-		Session.update("goodsSaled",num);
+		Session.update("goodsBatis.goodsSaled",num);
 		Session.delete("chatBatis.deletePerChatLog",num);
 		Session.delete("chatBatis.deletePerChatList",num);
+		Session.delete("goodsBatis.deleteWish",num);
+	}
+	@Override
+	public void plusWish(goodsDto dto) {
+		Session.update("goodsBatis.plusWish",dto);
+	}
+	@Override
+	public List<Integer> getWishList(String id) {
+		return Session.selectList("goodsBatis.getWishList", id);
+	}
+	@Override
+	public List<goodsDto> getMyGoods(String id) {
+		return Session.selectList("goodsBatis.getMyGoods",id);
 	}
 	
 	

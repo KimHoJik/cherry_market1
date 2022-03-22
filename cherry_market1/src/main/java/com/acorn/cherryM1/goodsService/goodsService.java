@@ -1,6 +1,7 @@
 package com.acorn.cherryM1.goodsService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,4 +13,6 @@ public interface goodsService {
 	public void getGoodsDetail(ModelAndView mView,int num);
 	public void deleteGoods(int num);
 	public void goodsSaled(int num);
+	public void plusWish(int num,HttpSession session);
+	public void getMyList(HttpSession session,HttpServletRequest request);
 }

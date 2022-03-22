@@ -58,4 +58,19 @@
 	<update id="goodsSaled" parameterType="int">
 		update goods set issaled=1 where num=#{num}
 	</update>
+	<insert id="plusWish" parameterType="com.acorn.cherryM1.goodsDto.goodsDto">
+		insert into wishlist values(#{num},#{id},sysdate)	
+	</insert>
+	<delete id="deleteWish" parameterType="int">
+		delete from wishlist where num=#{num}
+	</delete>
+	<select id="isWish" parameterType="com.acorn.cherryM1.goodsDto.goodsDto" resultType="int">
+		select count(*) from wishlist where num=#{num} and id=#{id}
+	</select>
+	<select id="getWishList" parameterType="String" resultType="int">
+		select num from wishlist where id=#{id} order by regdate desc 
+	</select>
+	<select  id="getMyGoods" parameterType="String" resultType="com.acorn.cherryM1.goodsDto.goodsDto">
+		select * from goods where id=#{id} order by regdate desc
+	</select>
 </mapper>

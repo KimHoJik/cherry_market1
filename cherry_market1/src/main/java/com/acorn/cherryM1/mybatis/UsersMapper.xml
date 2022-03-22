@@ -54,6 +54,7 @@
 		SET email=#{email } 
 		WHERE id=#{id }
 	</update>
+
 </mapper>
 
 

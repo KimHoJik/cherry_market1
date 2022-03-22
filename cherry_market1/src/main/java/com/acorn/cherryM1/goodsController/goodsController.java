@@ -48,4 +48,9 @@ public class goodsController {
 		Service.deleteGoods(num);
 		return "redirect:home.do";
 	}
+	@RequestMapping("/pluswish")
+	public String plusWish(HttpSession session,@RequestParam int num) {
+		Service.plusWish(num, session);
+		return "chat/null";
+	}
 }	

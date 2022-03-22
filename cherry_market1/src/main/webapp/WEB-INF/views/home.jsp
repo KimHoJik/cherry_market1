@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home2.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 <div id="full" style="display:flex; justify-content:center;">
@@ -86,29 +87,48 @@
 												<button type="button" onClick="location.href='delete.do?num=${tmp.num}'">상품 내리기</button>
 											</c:when>
 											<c:otherwise>
-												<form action="">
-													<input type="hidden" name="num"/>
-													<input type="hidden" name="id"/>
-													<input type="hidden" name=""/>
-													<input type="hidden" name=""/>
-													<input type="hidden" name=""/>
-												</form>
 												<form name="perChat${tmp.num}" id="perChat${tmp.num}" method="post" >
 													<input type="hidden" name="num" value="${tmp.num }"/>
 													<input type="hidden" name="buyer" value="${sessionScope.id}"/>
 													<input type="hidden" name="saller" value="${tmp.id }"/>
 												</form>
-												<button id="putWishList">관심상품 등록</button>
+												<button id="wish${tmp.num }">관심상품 등록</button>
 												<button id="chatPop${tmp.num}">판매자와 대화하기</button>
 												<script>
 													document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
-														let form=document.perChat${tmp.num}
-														let pop_title="chat";
-														window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
-														form.action="${pageContext.request.contextPath }/private/chatPop.do";
-														form.target=pop_title;
-														form.submit();
+														if("${sessionScope.id}"==""){
+															swal({
+													    		  title: "로그인 후 이용해주세요",
+													    		  icon: "error"
+													    	})
+														}else{
+															let form=document.perChat${tmp.num}
+															let pop_title="chat";
+															window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
+															form.action="${pageContext.request.contextPath }/private/chatPop.do";
+															form.target=pop_title;
+															form.submit();
+														}
+														
 													})
+													document.querySelector("#wish${tmp.num}").addEventListener("click",function(){
+														if("${sessionScope.id}"==""){
+															swal({
+													    		  title: "로그인 후 이용해주세요",
+													    		  icon: "error"
+													    	})
+														}else{
+															fetch("${pageContext.request.contextPath }/pluswish.do",{
+																method:"POST",
+																headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+																body:"num=${tmp.num}"
+															})
+															.then(function(){
+																swal("관심상품에 추가됐습니다")
+															});
+														}
+														
+													});
 												</script>
 											</c:otherwise>
 										</c:choose>
@@ -210,8 +230,11 @@
 		// 만약 엔터키가 눌렸는데 채팅파에 텍스트가 있는 상태면 다음 진행
 		if (e.key=="Enter"&&this.value!='\n'){
 			//로그인 되어있는지 확인 아닐시 알림출력
-			if (id=="" || id==null){
-				alert("로그인 후 이용해주세요")
+			if ("${sessionScope.id}"==""){
+				swal({
+		    		  title: "로그인 후 이용해 주세요",
+		    		  icon: "error"
+		    		});
 			//로그인돼있고 입력텍스트가 있을시 id와 텍스트를 전송
 			} else {
 				fetch("uploadOpenChat.do",{
