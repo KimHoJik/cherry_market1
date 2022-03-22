@@ -56,6 +56,9 @@ public class goodsServiceImpl implements goodsService{
 	@Override
 	public void getGoodsList(HttpServletRequest request) {
 		goodsDto dto=new goodsDto();
+		if (request.getParameter("category")==null) {
+			dto.setCategory("전체");
+		}
 		int pageNum=1;
 		try {
 			pageNum=Integer.parseInt((String) request.getParameter("pageNum"));
@@ -127,6 +130,12 @@ public class goodsServiceImpl implements goodsService{
 	@Override
 	public void deleteGoods(int num) {
 		dao.deleteGoods(num);
+	}
+
+	@Override
+	public void goodsSaled(int num) {
+		dao.goodsSaled(num);
+		
 	}
 	
 	

@@ -39,6 +39,12 @@ public class goodsDaoImpl implements goodsDao {
 		Session.delete("chatBatis.deletePerChatList",num);
 			
 	}
+	@Override
+	public void goodsSaled(int num) {
+		Session.update("goodsSaled",num);
+		Session.delete("chatBatis.deletePerChatLog",num);
+		Session.delete("chatBatis.deletePerChatList",num);
+	}
 	
 	
 }
