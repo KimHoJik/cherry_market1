@@ -29,7 +29,6 @@ public class goodsDaoImpl implements goodsDao {
 	}
 	@Override
 	public goodsDto getGoodsDetail(int num) {
-		Session.update("goodsBatis.viewCount",num);
 		return Session.selectOne("goodsBatis.getGoodsDetail",num);
 	}
 	@Override

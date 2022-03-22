@@ -24,7 +24,7 @@
 	.input-div > textarea { resize:none; width: 94%; height: 80px; border: none; padding: 10px; outline:none; }
 </style>
 </head>
-<body>
+<body style="background-color:#FCEEE4 ">
 <div class="chat_wrap">
     <div class="header">
         CHAT

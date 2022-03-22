@@ -97,7 +97,7 @@
    		width:5px;
    	}
    	#textBoxDiv::-webkit-scrollbar-thumb {
-        background-color: #DE3F3F; 
+        background-color: #fdc3c2; 
     }
 
     #textBoxDiv::-webkit-scrollbar-track {
