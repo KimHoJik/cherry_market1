@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home2.css" />
-
 </head>
 <body>
 <div id="full" style="display:flex; justify-content:center;">
@@ -87,7 +86,7 @@
 			<!-- 상풍등록  modal 끝 -->
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
-					<div  class="col-6 col-md-4 col-lg-3">
+					<div  class="col-6 col-md-4 col-lg-3" >
 						<a href="#detail${tmp.num }" class="trigger-btn" data-toggle="modal" style="margin-top:15px">
 							<div>
 				         		<div class="card mb-3">
