@@ -10,4 +10,6 @@ public interface UsersDao {
 	public void update(UsersDto dto);
 	public void delete(String id);
 	public UsersDto findId(UsersDto dto);
+	public void updateProfile(UsersDto dto);
+	public void updateEmail(UsersDto dto);
 }

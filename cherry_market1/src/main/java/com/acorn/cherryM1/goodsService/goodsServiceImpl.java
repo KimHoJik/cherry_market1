@@ -2,10 +2,13 @@ package com.acorn.cherryM1.goodsService;
 
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +24,59 @@ import com.google.gson.Gson;
 public class goodsServiceImpl implements goodsService{
 	@Autowired
 	private goodsDao dao;
-
+	
+	public String changeWon(int price) {
+		String priceWon="원";
+		int c=0;
+		while (price!=0) {
+			priceWon+=price%10;
+			price/=10; c+=1;
+			if(c==3) {c=0;priceWon+=",";}
+		}
+		if(priceWon.charAt(priceWon.length()-1)==',') {
+			priceWon=priceWon.substring(0,priceWon.length()-1);
+		}
+		priceWon=new StringBuffer(priceWon).reverse().toString();
+		return priceWon;
+	}
+	public String changeRegdate(String regdate) {
+		String[] base=regdate.split(" ");
+		LocalDate now = LocalDate.now();
+		String date=base[0];
+		String[] date_split=date.split("-");
+		int reg_year=Integer.parseInt(date_split[0]);
+		int now_year=now.getYear();
+		if(reg_year<now_year) {
+			return Integer.toString(now_year-reg_year)+"년전";
+		}
+		int reg_month=Integer.parseInt(date_split[1]);
+		int now_month=now.getMonthValue();
+		if(reg_month<now_month) {
+			return Integer.toString(now_month-reg_month)+"달전";
+		}
+		int reg_day=Integer.parseInt(date_split[2]);
+		int now_day=now.getDayOfMonth();
+		if(reg_day<now_day) {
+			return Integer.toString(now_day-reg_day)+"일전";
+		}
+		
+		LocalTime now2=LocalTime.now();
+		String time=base[1];
+		String[] time_split=time.split(":");
+		int reg_hour=Integer.parseInt(time_split[0]);
+		int now_hour=now2.getHour();
+		if(reg_hour<now_hour) {
+			return Integer.toString(now_hour-reg_hour)+"시간전";
+		}
+		int reg_min=Integer.parseInt(time_split[1]);
+		int now_min=now2.getMinute();
+		if(reg_min<now_min) {
+			return Integer.toString(now_min-reg_min)+"분전";
+		}
+		int reg_sec=Integer.parseInt(time_split[2]);
+		int now_sec=now2.getSecond();
+		return Integer.toString(now_sec-reg_sec)+"초전";
+	}
 	@Override
 	public void goodsUpload(HttpServletRequest request, goodsDto dto) {
 		List<MultipartFile> images=dto.getImages();
@@ -49,12 +104,11 @@ public class goodsServiceImpl implements goodsService{
 		}
 		String imagePath=new Gson().toJson(imagePaths);
 		dto.setImagePath(imagePath);
-		System.out.println(imagePath);
 		dao.uploadGoods(dto);
 	}
 
 	@Override
-	public void getGoodsList(HttpServletRequest request) {
+	public void getGoodsList(HttpServletRequest request,HttpSession session) {
 		goodsDto dto=new goodsDto();
 		if (request.getParameter("category")==null) {
 			dto.setCategory("전체");
@@ -80,18 +134,17 @@ public class goodsServiceImpl implements goodsService{
 				dto1.setImagePath(ImageList.get(0));
 				dto1.setImagePaths(ImageList);
 				int price=dto1.getPrice();
-				String priceWon="원";
-				int c=0;
-				while (price!=0) {
-					priceWon+=price%10;
-					price/=10; c+=1;
-					if(c==3) {c=0;priceWon+=",";}
-				}
-				if(priceWon.charAt(priceWon.length()-1)==',') {
-					priceWon=priceWon.substring(0,priceWon.length()-1);
-				}
-				priceWon=new StringBuffer(priceWon).reverse().toString();
+				String priceWon=changeWon(price);
 				dto1.setPriceWon(priceWon);
+				if(session.getAttribute("id")==null) {
+					dto1.setWish(0);
+				}else {
+					String id =(String) session.getAttribute("id");
+					int num=dto1.getNum();
+					dto1.setWish(dao.isWish(num, id));
+				}
+				String regdate=dto1.getRegdate();
+				dto1.setRegdate(changeRegdate(regdate));
 			}
 			int totalRow=dao.getCount(dto);
 			int startPageNum=((pageNum-1)/5)*5+1;
@@ -106,28 +159,6 @@ public class goodsServiceImpl implements goodsService{
 	}
 
 	@Override
-	public void getGoodsDetail(ModelAndView mView,int num) {
-		goodsDto dto=dao.getGoodsDetail(num);
-		String jsonImages=dto.getImagePath();
-		List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
-		int price=dto.getPrice();
-		String priceWon="원";
-		int c=0;
-		while (price!=0) {
-			priceWon+=price%10;
-			price/=10; c+=1;
-			if(c==3) {c=0;priceWon+=",";}
-		}
-		if(priceWon.charAt(priceWon.length()-1)==',') {
-			priceWon=priceWon.substring(0,priceWon.length()-1);
-		}
-		priceWon=new StringBuffer(priceWon).reverse().toString();
-		dto.setPriceWon(priceWon);
-		mView.addObject("dto", dto);
-		mView.addObject("imageList", ImageList);
-	}
-
-	@Override
 	public void deleteGoods(int num) {
 		dao.deleteGoods(num);
 	}
@@ -135,6 +166,51 @@ public class goodsServiceImpl implements goodsService{
 	@Override
 	public void goodsSaled(int num) {
 		dao.goodsSaled(num);
+		
+	}
+
+	@Override
+	public void plusWish(int num, HttpSession session) {
+		goodsDto dto=new goodsDto();
+		dto.setId((String) session.getAttribute("id"));
+		dto.setNum(num);
+		dao.plusWish(dto);
+	}
+
+	@Override
+	public void getMyList(HttpSession session, HttpServletRequest request) {
+		String id=(String) session.getAttribute("id");
+		List<Integer> wishNums=dao.getWishList(id);
+		List<goodsDto> wishList=new ArrayList<goodsDto>();
+		for(int i:wishNums) {
+			goodsDto dto=dao.getGoodsDetail(i);
+			String jsonImages=dto.getImagePath();
+			List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
+			dto.setImagePath(ImageList.get(0));
+			int price=dto.getPrice();
+			String priceWon=changeWon(price);
+			dto.setPriceWon(priceWon);
+			wishList.add(dto);
+		}
+		request.setAttribute("wishList", wishList);
+		List<goodsDto> myGoods=dao.getMyGoods(id);
+		for(goodsDto dto1:myGoods) {
+			String jsonImages=dto1.getImagePath();
+			List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
+			dto1.setImagePath(ImageList.get(0));
+			dto1.setImagePaths(ImageList);
+			int price=dto1.getPrice();
+			String priceWon=changeWon(price);
+			dto1.setPriceWon(priceWon);
+		}
+		request.setAttribute("myGoods", myGoods);
+	}
+	@Override
+	public void minusWish(int num, HttpSession session) {
+		goodsDto dto=new goodsDto();
+		dto.setId((String) session.getAttribute("id"));
+		dto.setNum(num);
+		dao.minusWish(dto);
 		
 	}
 	

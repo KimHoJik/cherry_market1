@@ -187,8 +187,10 @@
 			scripton();
 		})
 	}
-
-	let interval2=setInterval(updateChatList,1000);
+	if("${sessionScope.id}"!=""){
+		let interval2=setInterval(updateChatList,1000);
+	}
+	
 	$(document).ready(function(){
 		var dropdown = $(".navbar-right .dropdown");
 		var toogleBtn = $(".navbar-right .dropdown-toggle");

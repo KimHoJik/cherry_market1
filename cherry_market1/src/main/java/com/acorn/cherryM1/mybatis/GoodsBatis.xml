@@ -6,15 +6,14 @@
 			<when test="category !='전체' and search!=null">
 				where (title like '%'||#{search}||'%' 
 				or explain like '%'||#{search}||'%') 
-				and category=#{category} and issaled=0
+				and category=#{category}
 			</when>
 			<when test="search !=null">
 				where (title like '%'||#{search}||'%' 
 				or explain like '%'||#{search}||'%') 
-				and issaled=0 
 			</when>
 			<when test="category!='전체'">
-				where category=#{category} and issaled=0 
+				where category=#{category}
 			</when>
 		</choose>
 	</sql>
@@ -32,9 +31,9 @@
 			FROM
 				(SELECT * 
 				FROM goods
-				<include refid="searchCondition"/> 	
+				<include refid="searchCondition"/>
 				ORDER BY num DESC) result1)
-		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+		WHERE issaled=0 and rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
 	<select id="getCount" parameterType="com.acorn.cherryM1.goodsDto.goodsDto" resultType="int">
@@ -58,4 +57,22 @@
 	<update id="goodsSaled" parameterType="int">
 		update goods set issaled=1 where num=#{num}
 	</update>
+	<insert id="plusWish" parameterType="com.acorn.cherryM1.goodsDto.goodsDto">
+		insert into wishlist values(#{num},#{id},sysdate)	
+	</insert>
+	<delete id="deleteWish" parameterType="int">
+		delete from wishlist where num=#{num}
+	</delete>
+	<select id="isWish" parameterType="com.acorn.cherryM1.goodsDto.goodsDto" resultType="int">
+		select count(*) from wishlist where num=#{num} and id=#{id}
+	</select>
+	<select id="getWishList" parameterType="String" resultType="int">
+		select num from wishlist where id=#{id} order by regdate desc 
+	</select>
+	<select  id="getMyGoods" parameterType="String" resultType="com.acorn.cherryM1.goodsDto.goodsDto">
+		select * from goods where id=#{id} order by regdate desc
+	</select>
+	<delete id="deleteWish2" parameterType="com.acorn.cherryM1.goodsDto.goodsDto">
+		delete from wishlist where num=#{num} and id=#{id}
+	</delete>
 </mapper>

@@ -13,4 +13,9 @@ public interface goodsDao{
 	public goodsDto	getGoodsDetail(int num);
 	public void deleteGoods(int num);
 	public void goodsSaled(int num);
+	public void plusWish(goodsDto dto);
+	public List<Integer> getWishList(String id);
+	public List<goodsDto> getMyGoods(String id);
+	public int isWish(int num,String id);
+	public void minusWish(goodsDto dto);
 }

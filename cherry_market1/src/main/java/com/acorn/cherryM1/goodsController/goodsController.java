@@ -31,12 +31,6 @@ public class goodsController {
 		Service.goodsUpload(request, dto);
 		return "redirect:home.do";
 	}
-	@RequestMapping("/goodsDetail")
-	public ModelAndView goodsDetail(ModelAndView mView,@RequestParam int num) {
-		Service.getGoodsDetail(mView,num);
-		mView.setViewName("goods/goodsDetail");
-		return mView;
-	}
 	@RequestMapping("/delete")
 	public String deleteGoods(@RequestParam int num) {
 		Service.deleteGoods(num);
@@ -45,7 +39,17 @@ public class goodsController {
 	
 	@RequestMapping("/sell")
 	public String sellGoods(@RequestParam int num) {
-		Service.deleteGoods(num);
+		Service.goodsSaled(num);
 		return "redirect:home.do";
+	}
+	@RequestMapping("/pluswish")
+	public String plusWish(HttpSession session,@RequestParam int num) {
+		Service.plusWish(num, session);
+		return "chat/null";
+	}
+	@RequestMapping("/minuswish")
+	public String minusWish(HttpSession session,@RequestParam int num) {
+		Service.minusWish(num, session);
+		return "chat/null";
 	}
 }	

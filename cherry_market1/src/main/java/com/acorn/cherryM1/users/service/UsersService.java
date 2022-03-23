@@ -18,10 +18,11 @@ public interface UsersService {
 	public void addUser(UsersDto dto);
 	public void updateUserPwd(HttpSession session, UsersDto dto, ModelAndView mView);
 	public Map<String, Object> saveProfileImage(HttpServletRequest request, 
-			MultipartFile mFile);
+			MultipartFile mFile,HttpSession session);
 	public void updateUser(UsersDto dto, HttpSession session);
 	public void deleteUser(HttpSession session, ModelAndView mView);
 	public void findId(HttpServletRequest req, ModelAndView mView);
+	public void updateEamil(HttpSession session,String email);
 }
 
 

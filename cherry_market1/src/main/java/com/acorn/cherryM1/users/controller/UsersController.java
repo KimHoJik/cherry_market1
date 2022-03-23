@@ -19,12 +19,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.cherryM1.users.dto.UsersDto;
 import com.acorn.cherryM1.users.service.UsersService;
+import com.acorn.cherryM1.goodsService.goodsService;
 import com.acorn.cherryM1.users.dto.LoginRequestDto;
 
 @Controller
 public class UsersController {
     @Autowired
     private UsersService service;
+    @Autowired
+    private goodsService service2;
    
     @RequestMapping("/users/loginform")
     public String loginform() {
@@ -84,10 +87,10 @@ public class UsersController {
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> authAjaxProfileUpload(HttpServletRequest request,
-			@RequestParam MultipartFile image){
+			@RequestParam MultipartFile image,HttpSession session){
 		
 		//서비스를 이용해서 이미지를 upload 폴더에 저장하고 리턴되는 Map 을 리턴해서 json 문자열 응답하기
-		return service.saveProfileImage(request, image);
+		return service.saveProfileImage(request, image,session);
 	}
 	
 	//회원정보 수정폼 요청처리
@@ -132,7 +135,7 @@ public class UsersController {
 			HttpServletRequest request) {
 		
 		service.getInfo(session, mView);
-		
+		service2.getMyList(session, request);
 		mView.setViewName("users/mypage");
 		return mView;
 	}
@@ -150,4 +153,9 @@ public class UsersController {
 		mView.setViewName("users/findid_form");
 		return mView;
 	}
+	@RequestMapping("/users/emailUpdate")
+	public void emailUpdate(HttpSession session,@RequestParam String email) {
+		service.updateEamil(session, email);
+	}
+	
 }

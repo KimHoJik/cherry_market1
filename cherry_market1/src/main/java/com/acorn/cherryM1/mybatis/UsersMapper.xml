@@ -27,6 +27,12 @@
 		WHERE id=#{id }
 	</update>
 	
+	<update id="updateProfile" parameterType="usersDto">
+		UPDATE users
+		SET profile=#{profile }
+		WHERE id=#{id }	
+	</update>
+	
 	<update id="update" parameterType="usersDto">
 		UPDATE users
 		SET email=#{email }, profile=#{profile }
@@ -43,6 +49,12 @@
 		FROM users 
 		WHERE name= #{name} AND email= #{email}
 	</select>
+	<update id="emailUpdate" parameterType="usersDto">
+		UPDATE users
+		SET email=#{email } 
+		WHERE id=#{id }
+	</update>
+
 </mapper>
 
 

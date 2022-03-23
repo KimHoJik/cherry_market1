@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbarcss.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home2.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 <div id="full" style="display:flex; justify-content:center;">
@@ -30,22 +31,22 @@
 					<div  class="col-6 col-md-4 col-lg-3">
 						<a href="#detail${tmp.num }" class="trigger-btn" data-toggle="modal" style="margin-top:15px;text-decoration:none;color:inherit;">
 							<div>
-				         		<div class="card mb-3">
-					               		<div class="img-wrapper">
-					               			<c:choose>
-					               				<c:when test="${tmp.imagePath eq 'None'}">
-					               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
-					               				</c:when>
-					               				<c:otherwise>
-					               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
-					               				</c:otherwise>
-					               			</c:choose>
-					                  		
-					               		</div>
-				            		<div class="card-body">
+				         		<div class="card mb-3" style="background-color:#fceee4">
+				               		<div class="img-wrapper">
+				               			<c:choose>
+				               				<c:when test="${tmp.imagePath eq 'None'}">
+				               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
+				               				</c:when>
+				               				<c:otherwise>
+				               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
+				               				</c:otherwise>
+				               			</c:choose>
+				                  		
+				               		</div>
+				            		<div class="card-body" style="margin:10px 0px 0px 10px">
 				               			<p class="card-text">${tmp.title}</p>
 				               			<p class="card-text"><strong>${tmp.priceWon}</strong></p>
-				               			<p><small>${tmp.id}</small></p>
+				               			<p><small>${tmp.id} | ${tmp.regdate }</small></p>
 				            		</div>
 				         		</div>
 				      		</div>
@@ -77,38 +78,75 @@
 									<br />
 									<div style="margin:0px 40px 0px 50px;">
 										<p style="font-size:30px;">${tmp.priceWon }</p>
-										<p>${tmp.id }</p>
+										<p>${tmp.id } <small>${tmp.regdate }</small></p>
 										<p>${tmp.explain }</p>
-										<p>업로드 시간:${tmp.regdate }</p>	
 										<c:choose>
 											<c:when test="${tmp.id eq sessionScope.id }">
 												<button type="button" onClick="location.href='sell.do?num=${tmp.num}'">판매완료</button>
 												<button type="button" onClick="location.href='delete.do?num=${tmp.num}'">상품 내리기</button>
 											</c:when>
 											<c:otherwise>
-												<form action="">
-													<input type="hidden" name="num"/>
-													<input type="hidden" name="id"/>
-													<input type="hidden" name=""/>
-													<input type="hidden" name=""/>
-													<input type="hidden" name=""/>
-												</form>
 												<form name="perChat${tmp.num}" id="perChat${tmp.num}" method="post" >
 													<input type="hidden" name="num" value="${tmp.num }"/>
 													<input type="hidden" name="buyer" value="${sessionScope.id}"/>
 													<input type="hidden" name="saller" value="${tmp.id }"/>
 												</form>
-												<button id="putWishList">관심상품 등록</button>
+												<c:choose>
+													<c:when test="${tmp.isWish==0}">
+														<button id="wish${tmp.num }">관심상품등록</button>
+													</c:when>
+													<c:otherwise>
+														<button id="wish${tmp.num }">관심상품해제</button>
+													</c:otherwise>
+												</c:choose>
 												<button id="chatPop${tmp.num}">판매자와 대화하기</button>
 												<script>
 													document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
-														let form=document.perChat${tmp.num}
-														let pop_title="chat";
-														window.open("",pop_title,"width = 500, height = 700, top = 100, left = 200, location = no");
-														form.action="${pageContext.request.contextPath }/private/chatPop.do";
-														form.target=pop_title;
-														form.submit();
+														if("${sessionScope.id}"==""){
+															swal({
+													    		  title: "로그인 후 이용해주세요",
+													    		  icon: "error"
+													    	})
+														}else{
+															let form=document.perChat${tmp.num}
+															let pop_title="chat";
+															window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
+															form.action="${pageContext.request.contextPath }/private/chatPop.do";
+															form.target=pop_title;
+															form.submit();
+														}
+														
 													})
+									
+													document.querySelector("#wish${tmp.num}").addEventListener("click",function(){
+														if("${sessionScope.id}"==""){
+															swal({
+													    		  title: "로그인 후 이용해주세요",
+													    		  icon: "error"
+													    	})
+														}else{
+															if (document.querySelector("#wish${tmp.num}").innerText=="관심상품등록"){
+																fetch("${pageContext.request.contextPath }/pluswish.do",{
+																	method:"POST",
+																	headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+																	body:"num=${tmp.num}"
+																})
+																.then(function(){
+																	document.querySelector("#wish${tmp.num}").innerText="관심상품해제";
+																});
+																return
+															}
+															fetch("${pageContext.request.contextPath }/minuswish.do",{
+																method:"POST",
+																headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+																body:"num=${tmp.num}"
+															})
+															.then(function(){
+																document.querySelector("#wish${tmp.num}").innerText="관심상품등록";
+															})
+														}
+														
+													});
 												</script>
 											</c:otherwise>
 										</c:choose>
@@ -210,8 +248,11 @@
 		// 만약 엔터키가 눌렸는데 채팅파에 텍스트가 있는 상태면 다음 진행
 		if (e.key=="Enter"&&this.value!='\n'){
 			//로그인 되어있는지 확인 아닐시 알림출력
-			if (id=="" || id==null){
-				alert("로그인 후 이용해주세요")
+			if ("${sessionScope.id}"==""){
+				swal({
+		    		  title: "로그인 후 이용해 주세요",
+		    		  icon: "error"
+		    		});
 			//로그인돼있고 입력텍스트가 있을시 id와 텍스트를 전송
 			} else {
 				fetch("uploadOpenChat.do",{

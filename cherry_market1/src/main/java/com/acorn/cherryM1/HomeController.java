@@ -25,7 +25,7 @@ public class HomeController {
 	
 	@RequestMapping("/home.do")
 	public ModelAndView home(ModelAndView mView,HttpServletRequest request,HttpSession session) {
-		Service1.getGoodsList(request);
+		Service1.getGoodsList(request,session);
 		mView.setViewName("home");
 		return mView;
 	}
