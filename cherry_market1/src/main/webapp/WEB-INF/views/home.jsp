@@ -25,7 +25,7 @@
 <div id="full" style="display:flex; justify-content:center;">
 	<div id="main" style="width:1240px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
-		<div id="goods" style="width:1000px;height:798px;float:left;margin:10px;">
+		<div id="goods" style="width:1000px;height:825px;float:left;margin:10px;">
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
 					<div  class="col-6 col-md-4 col-lg-3">
