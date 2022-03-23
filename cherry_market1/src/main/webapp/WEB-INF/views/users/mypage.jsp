@@ -93,6 +93,7 @@ img{
    width:100%;
    height:100%;
    border-radius:50%;
+   object-fit:cover;
 }
 
 .animate__fadeIn {
@@ -119,6 +120,7 @@ img{
 	margin-top:10px;
 	display:flex;
 	height:80px;
+	color:black;
 }
 .input-cont label{
    width:110px;
@@ -247,6 +249,7 @@ img{
 .modal-body img{
 	width:350px;
 	height:350px;
+	margin-right:0px;
 }
 </style>
 
@@ -487,6 +490,14 @@ img{
 		deleteConfirm();
 	})
 	document.querySelector("#emailChange").addEventListener("click",function(){
+		const reg_email=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		if(!reg_email.test(document.querySelector("#email").value)){
+			swal({
+    		  title: "이메일 형식을 확인하세요",
+    		  icon: "warning"
+    		});
+			return
+		}
 		let form=document.querySelector("#emailAjax");
 		fetch("${pageContext.request.contextPath }/users/emailUpdate.do",{
 			method:"POST",
@@ -525,10 +536,17 @@ img{
 		});
 	});	
    function deleteConfirm(){
-      const isDelete=confirm("${id} 님 탈퇴 하시겠습니까?");
-      if(isDelete){
-         location.href="${pageContext.request.contextPath}/users/delete.do";
-      }
+      const isDelete=swal({
+      	title:"정말 탈퇴하시겠습니까?",
+      	buttons:true,
+      	dangerMode: true,
+      })
+      .then((willDelete) => {
+	  if (willDelete) {
+		  location.href="${pageContext.request.contextPath}/users/delete.do";
+	  } 
+	});
+
    }
    
    //폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
@@ -536,8 +554,8 @@ img{
 	  let pwd1=document.querySelector("#newPwd").value;
       let pwd2=document.querySelector("#newPwd2").value;
       //새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
-     
-      if(pwd1 != pwd2){
+     	
+      if(pwd1 != pwd2||pwd1==""){
     	  swal({
     		  title: "비밀번호를 확인하세요",
     		  icon: "warning",

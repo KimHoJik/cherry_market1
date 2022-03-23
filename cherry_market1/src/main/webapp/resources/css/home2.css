@@ -115,4 +115,9 @@
 		height:350px;
 		object-fit:contain; 
 		align:center;
+		background-color:#fceee4;
+	}
+	.detailImage img{
+		
+		margin-bottom:15px;
 	}
