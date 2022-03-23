@@ -31,22 +31,22 @@
 					<div  class="col-6 col-md-4 col-lg-3">
 						<a href="#detail${tmp.num }" class="trigger-btn" data-toggle="modal" style="margin-top:15px;text-decoration:none;color:inherit;">
 							<div>
-				         		<div class="card mb-3">
-					               		<div class="img-wrapper">
-					               			<c:choose>
-					               				<c:when test="${tmp.imagePath eq 'None'}">
-					               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
-					               				</c:when>
-					               				<c:otherwise>
-					               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
-					               				</c:otherwise>
-					               			</c:choose>
-					                  		
-					               		</div>
-				            		<div class="card-body">
+				         		<div class="card mb-3" style="background-color:#fceee4">
+				               		<div class="img-wrapper">
+				               			<c:choose>
+				               				<c:when test="${tmp.imagePath eq 'None'}">
+				               					<img class="card-img-top" src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" />
+				               				</c:when>
+				               				<c:otherwise>
+				               					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imagePath}" />
+				               				</c:otherwise>
+				               			</c:choose>
+				                  		
+				               		</div>
+				            		<div class="card-body" style="margin:10px 0px 0px 10px">
 				               			<p class="card-text">${tmp.title}</p>
 				               			<p class="card-text"><strong>${tmp.priceWon}</strong></p>
-				               			<p><small>${tmp.id}</small></p>
+				               			<p><small>${tmp.id} | ${tmp.regdate }</small></p>
 				            		</div>
 				         		</div>
 				      		</div>
@@ -78,9 +78,8 @@
 									<br />
 									<div style="margin:0px 40px 0px 50px;">
 										<p style="font-size:30px;">${tmp.priceWon }</p>
-										<p>${tmp.id }</p>
+										<p>${tmp.id } <small>${tmp.regdate }</small></p>
 										<p>${tmp.explain }</p>
-										<p>업로드 시간:${tmp.regdate }</p>	
 										<c:choose>
 											<c:when test="${tmp.id eq sessionScope.id }">
 												<button type="button" onClick="location.href='sell.do?num=${tmp.num}'">판매완료</button>
@@ -97,7 +96,7 @@
 														<button id="wish${tmp.num }">관심상품등록</button>
 													</c:when>
 													<c:otherwise>
-														<button id="Wish${tmp.num }">관신상품해제</button>
+														<button id="wish${tmp.num }">관심상품해제</button>
 													</c:otherwise>
 												</c:choose>
 												<button id="chatPop${tmp.num}">판매자와 대화하기</button>

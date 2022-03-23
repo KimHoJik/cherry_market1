@@ -2,6 +2,8 @@ package com.acorn.cherryM1.goodsService;
 
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,44 @@ public class goodsServiceImpl implements goodsService{
 		}
 		priceWon=new StringBuffer(priceWon).reverse().toString();
 		return priceWon;
+	}
+	public String changeRegdate(String regdate) {
+		String[] base=regdate.split(" ");
+		LocalDate now = LocalDate.now();
+		String date=base[0];
+		String[] date_split=date.split("-");
+		int reg_year=Integer.parseInt(date_split[0]);
+		int now_year=now.getYear();
+		if(reg_year<now_year) {
+			return Integer.toString(now_year-reg_year)+"년전";
+		}
+		int reg_month=Integer.parseInt(date_split[1]);
+		int now_month=now.getMonthValue();
+		if(reg_month<now_month) {
+			return Integer.toString(now_month-reg_month)+"달전";
+		}
+		int reg_day=Integer.parseInt(date_split[2]);
+		int now_day=now.getDayOfMonth();
+		if(reg_day<now_day) {
+			return Integer.toString(now_day-reg_day)+"일전";
+		}
+		
+		LocalTime now2=LocalTime.now();
+		String time=base[1];
+		String[] time_split=time.split(":");
+		int reg_hour=Integer.parseInt(time_split[0]);
+		int now_hour=now2.getHour();
+		if(reg_hour<now_hour) {
+			return Integer.toString(now_hour-reg_hour)+"시간전";
+		}
+		int reg_min=Integer.parseInt(time_split[1]);
+		int now_min=now2.getMinute();
+		if(reg_min<now_min) {
+			return Integer.toString(now_min-reg_min)+"분전";
+		}
+		int reg_sec=Integer.parseInt(time_split[2]);
+		int now_sec=now2.getSecond();
+		return Integer.toString(now_sec-reg_sec)+"초전";
 	}
 	@Override
 	public void goodsUpload(HttpServletRequest request, goodsDto dto) {
@@ -103,6 +143,8 @@ public class goodsServiceImpl implements goodsService{
 					int num=dto1.getNum();
 					dto1.setWish(dao.isWish(num, id));
 				}
+				String regdate=dto1.getRegdate();
+				dto1.setRegdate(changeRegdate(regdate));
 			}
 			int totalRow=dao.getCount(dto);
 			int startPageNum=((pageNum-1)/5)*5+1;
