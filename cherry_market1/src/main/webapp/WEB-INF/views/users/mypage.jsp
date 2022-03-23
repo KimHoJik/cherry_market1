@@ -354,9 +354,9 @@ img{
 										<p>${tmp.id } <small>${tmp.regdate }</small></p>
 										<p>${tmp.explain }</p>
 										<c:if test="${tmp.isSaled==0 }">
-											<button type="button" onClick="location.href='${pageContext.request.contextPath }/sell.do?num=${tmp.num}'">판매완료</button>
+											<button type="button" onClick="location.href='${pageContext.request.contextPath }/sellFromMy.do?num=${tmp.num}'">판매완료</button>
 										</c:if>
-										<button type="button" onClick="location.href='${pageContext.request.contextPath }/delete.do?num=${tmp.num}'">상품 내리기</button>
+										<button type="button" onClick="location.href='${pageContext.request.contextPath }/deleteFromMy.do?num=${tmp.num}'">상품 내리기</button>
 									</div>																
 								</div>
 							</div>
@@ -403,11 +403,71 @@ img{
 									</div>
 									<br />
 									<div style="margin:0px 40px 0px 50px;">
+										<form name="perChat${tmp.num}" id="perChat${tmp.num}" method="post" >
+											<input type="hidden" name="num" value="${tmp.num }"/>
+											<input type="hidden" name="buyer" value="${sessionScope.id}"/>
+											<input type="hidden" name="saller" value="${tmp.id }"/>
+										</form>
 										<p style="font-size:30px;">${tmp.priceWon }</p>
 										<p>${tmp.id } <small>${tmp.regdate }</small></p>
 										<p>${tmp.explain }</p>
-										<button type="button" onClick="location.href='sell.do?num=${tmp.num}'">판매완료</button>
-										<button type="button" onClick="location.href='delete.do?num=${tmp.num}'">상품 내리기</button>
+										<c:choose>
+											<c:when test="${tmp.isWish==0}">
+												<button id="wish${tmp.num }">관심상품등록</button>
+											</c:when>
+											<c:otherwise>
+												<button id="wish${tmp.num }">관심상품해제</button>
+											</c:otherwise>
+										</c:choose>
+										<button id="chatPop${tmp.num}">판매자와 대화하기</button>
+										<script>
+											document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
+												if("${sessionScope.id}"==""){
+													swal({
+											    		  title: "로그인 후 이용해주세요",
+											    		  icon: "error"
+											    	})
+												}else{
+													let form=document.perChat${tmp.num}
+													let pop_title="chat";
+													window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
+													form.action="${pageContext.request.contextPath }/private/chatPop.do";
+													form.target=pop_title;
+													form.submit();
+												}
+												
+											})
+							
+											document.querySelector("#wish${tmp.num}").addEventListener("click",function(){
+												if("${sessionScope.id}"==""){
+													swal({
+											    		  title: "로그인 후 이용해주세요",
+											    		  icon: "error"
+											    	})
+												}else{
+													if (document.querySelector("#wish${tmp.num}").innerText=="관심상품등록"){
+														fetch("${pageContext.request.contextPath }/pluswish.do",{
+															method:"POST",
+															headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+															body:"num=${tmp.num}"
+														})
+														.then(function(){
+															document.querySelector("#wish${tmp.num}").innerText="관심상품해제";
+														});
+														return
+													}
+													fetch("${pageContext.request.contextPath }/minuswish.do",{
+														method:"POST",
+														headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+														body:"num=${tmp.num}"
+													})
+													.then(function(){
+														document.querySelector("#wish${tmp.num}").innerText="관심상품등록";
+													})
+												}
+												
+											});
+										</script>
 									</div>																
 								</div>
 							</div>
