@@ -33,10 +33,9 @@ public class perChatDaoImpl implements perChatDao{
 		long time=System.currentTimeMillis();
 		listDto.setBuyer(dto.getBuyer());
 		listDto.setSaller(dto.getSaller());
-		listDto.setLastcomment(dto.getpccomment());
+		listDto.setLastcomment(dto.getPccomment());
 		listDto.setNum(dto.getNum());
 		listDto.setLastregdate(time);
-		dto.setRegdate(time);
 		session.update("chatBatis.uploadPerChatLog",dto);
 		int num=session.selectOne("chatBatis.CheckPerChatList", listDto);
 		if (num==0) {

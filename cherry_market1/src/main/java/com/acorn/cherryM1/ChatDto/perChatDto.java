@@ -7,10 +7,13 @@ public class perChatDto {
 	private String talker;
 	private String pccomment;
 	private long regdate;
+	private String stregdate;
 	
 	public perChatDto() {}
 
-	public perChatDto(int num, String saller, String buyer, String talker, String pccomment, long regdate) {
+	
+	public perChatDto(int num, String saller, String buyer, String talker, String pccomment, long regdate,
+			String stregdate) {
 		super();
 		this.num = num;
 		this.saller = saller;
@@ -18,7 +21,9 @@ public class perChatDto {
 		this.talker = talker;
 		this.pccomment = pccomment;
 		this.regdate = regdate;
+		this.stregdate = stregdate;
 	}
+
 
 	public int getNum() {
 		return num;
@@ -52,11 +57,11 @@ public class perChatDto {
 		this.talker = talker;
 	}
 
-	public String getpccomment() {
+	public String getPccomment() {
 		return pccomment;
 	}
 
-	public void setpccomment(String pccomment) {
+	public void setPccomment(String pccomment) {
 		this.pccomment = pccomment;
 	}
 
@@ -67,6 +72,15 @@ public class perChatDto {
 	public void setRegdate(long regdate) {
 		this.regdate = regdate;
 	}
+
+	public String getStregdate() {
+		return stregdate;
+	}
+
+	public void setStregdate(String stregdate) {
+		this.stregdate = stregdate;
+	}
+	
 	
 	
 }

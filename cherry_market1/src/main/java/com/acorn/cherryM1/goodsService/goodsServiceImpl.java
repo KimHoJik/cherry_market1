@@ -84,7 +84,7 @@ public class goodsServiceImpl implements goodsService{
 		for(MultipartFile image :images) {
 			String orgFileName=image.getOriginalFilename();
 			if (orgFileName.equals("")) {
-				imagePaths.add("None");
+				imagePaths.add("/resources/images/cherrythumbnail.jpg");
 			}else {
 				String realPath=request.getServletContext().getRealPath("/upload");
 				String filePath=realPath+File.separator;
@@ -187,10 +187,13 @@ public class goodsServiceImpl implements goodsService{
 			String jsonImages=dto.getImagePath();
 			List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
 			dto.setImagePath(ImageList.get(0));
+			dto.setImagePaths(ImageList);
 			int price=dto.getPrice();
 			String priceWon=changeWon(price);
 			dto.setPriceWon(priceWon);
 			wishList.add(dto);
+			String regdate=dto.getRegdate();
+			dto.setRegdate(changeRegdate(regdate));
 		}
 		request.setAttribute("wishList", wishList);
 		List<goodsDto> myGoods=dao.getMyGoods(id);
@@ -202,6 +205,8 @@ public class goodsServiceImpl implements goodsService{
 			int price=dto1.getPrice();
 			String priceWon=changeWon(price);
 			dto1.setPriceWon(priceWon);
+			String regdate=dto1.getRegdate();
+			dto1.setRegdate(changeRegdate(regdate));
 		}
 		request.setAttribute("myGoods", myGoods);
 	}

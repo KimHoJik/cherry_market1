@@ -25,7 +25,7 @@
 <div id="full" style="display:flex; justify-content:center;">
 	<div id="main" style="width:1240px; height:100%;">
 		<jsp:include page="/include/navbar.jsp"/>
-		<div id="goods" style="width:1000px;height:798px;float:left;margin:10px;">
+		<div id="goods" style="width:1000px;height:825px;float:left;margin:10px;">
 			<div class="row">
 				<c:forEach var="tmp" items="${list }">
 					<div  class="col-6 col-md-4 col-lg-3">
@@ -63,14 +63,7 @@
 									<div style="height:100%; text-align:center">									  									   
 										<c:forEach var="i" items="${tmp.imagePaths }">
 											<div style="margin-bottom:5px">
-											<c:choose>
-												<c:when test="${i eq 'None' }">
-													<img src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" alt="" />
-												</c:when>
-												<c:otherwise>
-													<img src="${pageContext.request.contextPath }${i}"/>
-												</c:otherwise>
-											</c:choose>
+												<img src="${pageContext.request.contextPath }${i}"/>
 											</div>
 											<br />
 										</c:forEach>
@@ -209,7 +202,7 @@
 		<div id="openchat" style="width:200px;height:803px;display:inline-block;margin:10px;background-color:#F3B78C;border:solid 3px #fdc3c2">
 			<div id="textBoxDiv"style="height:750px; overflow-y:auto;">
 				<ul id="textBox" style="padding:0">
-				
+					
 				</ul>
 			</div>
 			<div id="inputBox">
@@ -246,7 +239,7 @@
 	//채팅입력 함수 채팅바에 키가 눌렀다 떼면(keyup) 실행되도록 설정
 	document.querySelector("#occomment").addEventListener("keyup",function(e){
 		// 만약 엔터키가 눌렸는데 채팅파에 텍스트가 있는 상태면 다음 진행
-		if (e.key=="Enter"&&this.value!='\n'){
+		if (e.key=="Enter"){
 			//로그인 되어있는지 확인 아닐시 알림출력
 			if ("${sessionScope.id}"==""){
 				swal({

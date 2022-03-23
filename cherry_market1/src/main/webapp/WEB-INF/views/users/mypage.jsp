@@ -6,12 +6,32 @@
 <head>
 <meta charset="UTF-8">
 <title>/views/users/mypage.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/mypage.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <style>
    *{
    margin:0;
    padding:0;
 }
-
+.goods{
+	margin-top:10px;
+}
+.goods p{
+	font-size:14px;
+}
+img{
+	height:80px;
+	width:80px;
+	object-fit:contain;
+	background-color:#fceee4;
+	margin-right: 48px;
+	
+}
 .container{
    height:100vh;
    display:flex;
@@ -59,8 +79,8 @@
     left: 0;
     right: 0;
     top: -50px;
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     z-index: 9;
     background: antiquewhite;
@@ -73,6 +93,7 @@
    width:100%;
    height:100%;
    border-radius:50%;
+   object-fit:cover;
 }
 
 .animate__fadeIn {
@@ -95,7 +116,12 @@
    justufy-content:center;
    height:30px;
 }
-
+.goods-div{
+	margin-top:10px;
+	display:flex;
+	height:80px;
+	color:black;
+}
 .input-cont label{
    width:110px;
    margin-right:15px;
@@ -117,7 +143,7 @@
 .input-cont p{
 	margin-top:6px;
 	font-size:14px;
-	margin-right:149px;
+	width:195px;
 }
 .input-cont button{
 	border:solid 1px #fc9091;
@@ -157,10 +183,76 @@
 #imageForm{
 	display: none;
 }
+.form-control:focus {
+     border-color: #8464ca;
+     box-shadow: 0 0 8px #beace3;
+ }
+ .contact-modal {
+     width: 600px;
+     padding: 50px;
+     margin: 30px auto;
+ }
+ .contact-modal h4 {
+     font-size: 26px;
+     display: inline-block;
+ }
+ .contact-modal .form-control, .contact-modal .btn  {
+     min-height: 38px;
+     border-radius: 1px;
+     outline: none;
+ }
+ .contact-modal .btn-primary {
+     min-width: 100px;
+     background: #8464ca;
+     border: none;
+ }
+ .contact-modal .btn-primary:hover {
+     background: #6d45c0;
+ }
+ .contact-modal .btn-primary:focus {
+     box-shadow: 0 0 8px rgba(132, 100, 202, 0.6);
+ }
+ .contact-modal .btn-link {
+     color: #6d45c0;
+ }
+ .contact-modal label {
+     opacity: 0.9;
+     font-weight: normal;
+     font-size: 95%;
+ }
+ .contact-modal textarea {
+     resize: vertical;
+ }
+ .contact-modal.modal-dialog {
+     width: 600px;
+ }
+ .contact-modal .modal-header {
+     padding: 20px 35px 14px;
+ }
+ .contact-modal .modal-content {
+     border-radius: 1px;
+ }
+ .contact-modal .close {
+     position: absolute;
+     right: 35px;
+     top: 25px;
+ }
+ .contact-modal .modal-body {
+     padding: 20px 35px 35px;
+ }
+ .hint-text {
+     opacity: 0.8;
+ }
+ .trigger-btn {
+   display: inline-block;
+}
+.modal-body img{
+	width:350px;
+	height:350px;
+	margin-right:0px;
+}
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/mypage.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 <body>
 <div class="mypage-form">
@@ -218,16 +310,173 @@
 	         <button id="pwdBtn">변경</button>
 	      </div>
 	   </form>
-	   <div id="myGoods">
-	   		<p>mygoods</p>
-	   		<c:forEach var="temp" items="${myGoods }">
-	   			<p>${temp.imagePath}/${temp.title }</p>
+	   <div class="goods">
+	   		<p>내 상품</p>
+	   		<c:forEach var="tmp" items="${myGoods }">
+	   			<div class="goods-div">
+					
+	   			 	<a href="#goods${tmp.num }" class="trigger-btn" data-toggle="modal">
+	   			 		<img src="${pageContext.request.contextPath }${tmp.imagePath}"/>
+	   			 		
+	   			 	</a>
+	   			 	<div>
+		   				<p>${tmp.title }</p>
+		   				<h3>${tmp.priceWon }</h3>
+   					</div>
+   					<div>
+   						<c:if test="${tmp.isSaled==1 }">
+   							<p>판매 완료</p>
+   						</c:if>
+   					</div>
+		   			<div id="goods${tmp.num }" class="modal fade">
+						<div class="modal-dialog contact-modal">
+							<div class="modal-content">
+								<div class="modal-header">            
+									<h4 class="modal-title">${tmp.title }</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div style="height:100%; text-align:center">									  									   
+										<c:forEach var="i" items="${tmp.imagePaths }">
+											<div style="margin-bottom:5px">
+											<c:choose>
+												<c:when test="${i eq 'None' }">
+													<img src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" alt="" />
+												</c:when>
+												<c:otherwise>
+													<img src="${pageContext.request.contextPath }${i}"/>
+												</c:otherwise>
+											</c:choose>
+											</div>
+											<br />
+										</c:forEach>
+									</div>
+									<br />
+									<div style="margin:0px 40px 0px 50px;">
+										<p style="font-size:30px;">${tmp.priceWon }</p>
+										<p>${tmp.id } <small>${tmp.regdate }</small></p>
+										<p>${tmp.explain }</p>
+										<c:if test="${tmp.isSaled==0 }">
+											<button type="button" onClick="location.href='${pageContext.request.contextPath }/sellFromMy.do?num=${tmp.num}'">판매완료</button>
+										</c:if>
+										<button type="button" onClick="location.href='${pageContext.request.contextPath }/deleteFromMy.do?num=${tmp.num}'">상품 내리기</button>
+									</div>																
+								</div>
+							</div>
+						</div>
+					</div>
+	   			</div>
 	   		</c:forEach>
 	   </div>
-	   <div id="wishList">
-	   		<p>wish</p>
-	   		<c:forEach var="temp2" items="${wishList }">
-	   			<p>${temp2.imagePath }/${temp2.title }</p>
+	   <div class="goods">
+	   		<p>관심 목록</p>
+	   		<c:forEach var="tmp" items="${wishList }">
+				<div class="goods-div">
+					
+	   			 	<a href="#goods${tmp.num }" class="trigger-btn" data-toggle="modal">
+	   			 		<img src="${pageContext.request.contextPath }${tmp.imagePath}"/>
+	   			 		
+	   			 	</a>
+	   			 	<div>
+		   				<p>${tmp.title }</p>
+		   				<h3>${tmp.priceWon }</h3>
+   					</div>
+		   			<div id="goods${tmp.num }" class="modal fade">
+						<div class="modal-dialog contact-modal">
+							<div class="modal-content">
+								<div class="modal-header">            
+									<h4 class="modal-title">${tmp.title }</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div style="height:100%; text-align:center">									  									   
+										<c:forEach var="i" items="${tmp.imagePaths }">
+											<div style="margin-bottom:5px">
+											<c:choose>
+												<c:when test="${i eq 'None' }">
+													<img src="${pageContext.request.contextPath }/resources/images/cherrythumbnail.jpg" alt="" />
+												</c:when>
+												<c:otherwise>
+													<img src="${pageContext.request.contextPath }${i}"/>
+												</c:otherwise>
+											</c:choose>
+											</div>
+											<br />
+										</c:forEach>
+									</div>
+									<br />
+									<div style="margin:0px 40px 0px 50px;">
+										<form name="perChat${tmp.num}" id="perChat${tmp.num}" method="post" >
+											<input type="hidden" name="num" value="${tmp.num }"/>
+											<input type="hidden" name="buyer" value="${sessionScope.id}"/>
+											<input type="hidden" name="saller" value="${tmp.id }"/>
+										</form>
+										<p style="font-size:30px;">${tmp.priceWon }</p>
+										<p>${tmp.id } <small>${tmp.regdate }</small></p>
+										<p>${tmp.explain }</p>
+										<c:choose>
+											<c:when test="${tmp.isWish==0}">
+												<button id="wish${tmp.num }">관심상품등록</button>
+											</c:when>
+											<c:otherwise>
+												<button id="wish${tmp.num }">관심상품해제</button>
+											</c:otherwise>
+										</c:choose>
+										<button id="chatPop${tmp.num}">판매자와 대화하기</button>
+										<script>
+											document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
+												if("${sessionScope.id}"==""){
+													swal({
+											    		  title: "로그인 후 이용해주세요",
+											    		  icon: "error"
+											    	})
+												}else{
+													let form=document.perChat${tmp.num}
+													let pop_title="chat";
+													window.open("",pop_title,"width = 350, height = 500, top = 100, left = 200, location = no");
+													form.action="${pageContext.request.contextPath }/private/chatPop.do";
+													form.target=pop_title;
+													form.submit();
+												}
+												
+											})
+							
+											document.querySelector("#wish${tmp.num}").addEventListener("click",function(){
+												if("${sessionScope.id}"==""){
+													swal({
+											    		  title: "로그인 후 이용해주세요",
+											    		  icon: "error"
+											    	})
+												}else{
+													if (document.querySelector("#wish${tmp.num}").innerText=="관심상품등록"){
+														fetch("${pageContext.request.contextPath }/pluswish.do",{
+															method:"POST",
+															headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+															body:"num=${tmp.num}"
+														})
+														.then(function(){
+															document.querySelector("#wish${tmp.num}").innerText="관심상품해제";
+														});
+														return
+													}
+													fetch("${pageContext.request.contextPath }/minuswish.do",{
+														method:"POST",
+														headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+														body:"num=${tmp.num}"
+													})
+													.then(function(){
+														document.querySelector("#wish${tmp.num}").innerText="관심상품등록";
+													})
+												}
+												
+											});
+										</script>
+									</div>																
+								</div>
+							</div>
+						</div>
+					</div>
+	   			</div>
 	   		</c:forEach>
 	   </div>
       
@@ -241,6 +490,14 @@
 		deleteConfirm();
 	})
 	document.querySelector("#emailChange").addEventListener("click",function(){
+		const reg_email=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		if(!reg_email.test(document.querySelector("#email").value)){
+			swal({
+    		  title: "이메일 형식을 확인하세요",
+    		  icon: "warning"
+    		});
+			return
+		}
 		let form=document.querySelector("#emailAjax");
 		fetch("${pageContext.request.contextPath }/users/emailUpdate.do",{
 			method:"POST",
@@ -279,10 +536,17 @@
 		});
 	});	
    function deleteConfirm(){
-      const isDelete=confirm("${id} 님 탈퇴 하시겠습니까?");
-      if(isDelete){
-         location.href="${pageContext.request.contextPath}/users/delete.do";
-      }
+      const isDelete=swal({
+      	title:"정말 탈퇴하시겠습니까?",
+      	buttons:true,
+      	dangerMode: true,
+      })
+      .then((willDelete) => {
+	  if (willDelete) {
+		  location.href="${pageContext.request.contextPath}/users/delete.do";
+	  } 
+	});
+
    }
    
    //폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
@@ -290,8 +554,8 @@
 	  let pwd1=document.querySelector("#newPwd").value;
       let pwd2=document.querySelector("#newPwd2").value;
       //새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
-     
-      if(pwd1 != pwd2){
+     	
+      if(pwd1 != pwd2||pwd1==""){
     	  swal({
     		  title: "비밀번호를 확인하세요",
     		  icon: "warning",

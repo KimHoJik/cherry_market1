@@ -18,7 +18,7 @@
 		<ul class="nav navbar-nav">
 			<li>
 				<!-- 검색바 -->
-				<form action="home.do">
+				<form action="${pageContext.request.contextPath }/home.do">
 					 <div class="input-group" style="margin-top:9px;margin-left:150px; margin-right:80px">
 					     <div class="input-group-btn">
 					     	

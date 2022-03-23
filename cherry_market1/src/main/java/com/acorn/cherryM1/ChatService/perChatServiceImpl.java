@@ -52,6 +52,20 @@ public class perChatServiceImpl implements perChatService{
 	@Override
 	public void getPerChatLog(ModelAndView mView, perChatDto dto) {
 		List<perChatDto> list=dao.getPerChatLog(dto);
+		for(perChatDto temp:list) {
+			long regdate=temp.getRegdate();
+			int hour=(int) ((regdate%1000000000)/10000000)%12;
+			if (hour==0) {
+				hour=12;
+			}
+			int min=(int) (regdate%10000000)/100000;
+			String mm=Integer.toString(min);
+			if(min<10) {
+				mm="0"+mm;
+			}
+			String stregdate=Integer.toString(hour)+":"+mm;
+			temp.setStregdate(stregdate);
+		}
 		mView.addObject("list",list);
 	}
 

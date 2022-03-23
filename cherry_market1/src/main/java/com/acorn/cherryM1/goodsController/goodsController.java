@@ -52,4 +52,15 @@ public class goodsController {
 		Service.minusWish(num, session);
 		return "chat/null";
 	}
+	@RequestMapping("/sellFromMy")
+	public String sellGoodsFromMy(@RequestParam int num) {
+		Service.goodsSaled(num);
+		return "redirect:users/mypage.do";
+	}
+	@RequestMapping("/deleteFromMy")
+	public String deleteFromMy(@RequestParam int num) {
+		Service.deleteGoods(num);
+		return "redirect:users/mypage.do";
+	}
+	
 }	

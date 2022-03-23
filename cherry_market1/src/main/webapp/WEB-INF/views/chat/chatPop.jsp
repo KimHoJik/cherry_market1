@@ -9,19 +9,31 @@
 <style>
 	*{ margin: 0; padding: 0; }
  
-	.chat_wrap .header {position:fixed; font-size: 14px; width:100%;padding: 15px 0; background: #F18C7E; color: white; text-align: center;  }
+	.chat_wrap .header {position:fixed; font-size: 14px; width:100%;padding: 15px 0; background:  #fc9091; color: white; text-align: center;  }
 	.chat_wrap .chat { padding:50px 5px 110px 5px; overflow-y:auto;}
 	.chat_wrap .chat ul { width: 100%; list-style: none; }
 	.chat_wrap .chat ul li { width: 100%; }
 	.chat_wrap .chat ul li.left { text-align: left; }
 	.chat_wrap .chat ul li.right { text-align: right; }
 	 
-	.chat_wrap .chat ul li > div { font-size: 13px;  }
+	.chat_wrap .chat ul li > div { font-size: 13px; } 	
 	.chat_wrap .chat ul li > div.sender { margin: 10px 20px 0 20px; font-weight: bold; }
-	.chat_wrap .chat ul li > div.message { display: inline-block; word-break:break-all; margin: 5px 20px; max-width: 75%; border: 1px solid #888; padding: 10px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
-	 
+	.chat_wrap .chat ul li div > div.message { display: inline-block; word-break:break-all; margin: 5px 10px; max-width: 75%; border: 1px solid #888; padding: 10px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
+	.chat_wrap .chat ul li small{font-size:8px;margin-bottom:0px}
 	.input-div {  position: fixed; bottom: 0; width: 99%; background-color: #FFF; text-align: center; border: 1px solid #F18C7E; }
 	.input-div > textarea { resize:none; width: 94%; height: 80px; border: none; padding: 10px; outline:none; }
+	.chat{
+		overflow-y:auto;
+	}
+	body::-webkit-scrollbar{
+   		width:5px;
+   	}
+   	body::-webkit-scrollbar-thumb {
+        background-color: #fc9091; 
+    }
+    body::-webkit-scrollbar-track {
+        background-color:#FCEEE4; 
+    }
 </style>
 </head>
 <body style="background-color:#FCEEE4 ">
