@@ -92,7 +92,14 @@
 													<input type="hidden" name="buyer" value="${sessionScope.id}"/>
 													<input type="hidden" name="saller" value="${tmp.id }"/>
 												</form>
-												<button id="wish${tmp.num }">관심상품 등록</button>
+												<c:choose>
+													<c:when test="${tmp.isWish==0}">
+														<button id="wish${tmp.num }">관심상품등록</button>
+													</c:when>
+													<c:otherwise>
+														<button id="Wish${tmp.num }">관신상품해제</button>
+													</c:otherwise>
+												</c:choose>
 												<button id="chatPop${tmp.num}">판매자와 대화하기</button>
 												<script>
 													document.querySelector("#chatPop${tmp.num}").addEventListener("click",function(){
@@ -111,6 +118,7 @@
 														}
 														
 													})
+									
 													document.querySelector("#wish${tmp.num}").addEventListener("click",function(){
 														if("${sessionScope.id}"==""){
 															swal({
@@ -118,14 +126,25 @@
 													    		  icon: "error"
 													    	})
 														}else{
-															fetch("${pageContext.request.contextPath }/pluswish.do",{
+															if (document.querySelector("#wish${tmp.num}").innerText=="관심상품등록"){
+																fetch("${pageContext.request.contextPath }/pluswish.do",{
+																	method:"POST",
+																	headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+																	body:"num=${tmp.num}"
+																})
+																.then(function(){
+																	document.querySelector("#wish${tmp.num}").innerText="관심상품해제";
+																});
+																return
+															}
+															fetch("${pageContext.request.contextPath }/minuswish.do",{
 																method:"POST",
 																headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
 																body:"num=${tmp.num}"
 															})
 															.then(function(){
-																swal("관심상품에 추가됐습니다")
-															});
+																document.querySelector("#wish${tmp.num}").innerText="관심상품등록";
+															})
 														}
 														
 													});

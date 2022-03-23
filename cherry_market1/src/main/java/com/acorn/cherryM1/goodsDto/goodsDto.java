@@ -21,10 +21,11 @@ public class goodsDto {
 	private int endRowNum;
 	private String search;
 	private String priceWon;
+	private int isWish;
 	public goodsDto() {}
 	public goodsDto(int num, String id, int price, String title, int isSaled, String category, int viewCount,
 			String imagePath, List<String> imagePaths, List<MultipartFile> images, String explain, String regdate,
-			int startRowNum, int endRowNum, String search, String priceWon) {
+			int startRowNum, int endRowNum, String search, String priceWon, int isWish) {
 		super();
 		this.num = num;
 		this.id = id;
@@ -42,6 +43,7 @@ public class goodsDto {
 		this.endRowNum = endRowNum;
 		this.search = search;
 		this.priceWon = priceWon;
+		this.isWish = isWish;
 	}
 	public int getNum() {
 		return num;
@@ -139,6 +141,13 @@ public class goodsDto {
 	public void setPriceWon(String priceWon) {
 		this.priceWon = priceWon;
 	}
+	public int getIsWish() {
+		return isWish;
+	}
+	public void setWish(int isWish) {
+		this.isWish = isWish;
+	}
+	
 	
 	
 	

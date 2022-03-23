@@ -72,4 +72,7 @@
 	<select  id="getMyGoods" parameterType="String" resultType="com.acorn.cherryM1.goodsDto.goodsDto">
 		select * from goods where id=#{id} order by regdate desc
 	</select>
+	<delete id="deleteWish2" parameterType="com.acorn.cherryM1.goodsDto.goodsDto">
+		delete from wishlist where num=#{num} and id=#{id}
+	</delete>
 </mapper>

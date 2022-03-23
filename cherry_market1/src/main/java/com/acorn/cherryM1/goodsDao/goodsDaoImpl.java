@@ -58,6 +58,18 @@ public class goodsDaoImpl implements goodsDao {
 	public List<goodsDto> getMyGoods(String id) {
 		return Session.selectList("goodsBatis.getMyGoods",id);
 	}
+	@Override
+	public int isWish(int num, String id) {
+		goodsDto dto=new goodsDto();
+		dto.setId(id);
+		dto.setNum(num);
+		return Session.selectOne("goodsBatis.isWish", dto);
+	}
+	@Override
+	public void minusWish(goodsDto dto) {
+		Session.delete("goodsBatis.deleteWish",dto);
+		
+	}
 	
 	
 }

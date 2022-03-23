@@ -64,12 +64,11 @@ public class goodsServiceImpl implements goodsService{
 		}
 		String imagePath=new Gson().toJson(imagePaths);
 		dto.setImagePath(imagePath);
-		System.out.println(imagePath);
 		dao.uploadGoods(dto);
 	}
 
 	@Override
-	public void getGoodsList(HttpServletRequest request) {
+	public void getGoodsList(HttpServletRequest request,HttpSession session) {
 		goodsDto dto=new goodsDto();
 		if (request.getParameter("category")==null) {
 			dto.setCategory("전체");
@@ -97,6 +96,13 @@ public class goodsServiceImpl implements goodsService{
 				int price=dto1.getPrice();
 				String priceWon=changeWon(price);
 				dto1.setPriceWon(priceWon);
+				if(session.getAttribute("id")==null) {
+					dto1.setWish(0);
+				}else {
+					String id =(String) session.getAttribute("id");
+					int num=dto1.getNum();
+					dto1.setWish(dao.isWish(num, id));
+				}
 			}
 			int totalRow=dao.getCount(dto);
 			int startPageNum=((pageNum-1)/5)*5+1;
@@ -108,18 +114,6 @@ public class goodsServiceImpl implements goodsService{
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("totalPageCount",totalPageCount);
 		}
-	}
-
-	@Override
-	public void getGoodsDetail(ModelAndView mView,int num) {
-		goodsDto dto=dao.getGoodsDetail(num);
-		String jsonImages=dto.getImagePath();
-		List<String> ImageList=new Gson().fromJson(jsonImages, List.class);
-		int price=dto.getPrice();
-		String priceWon=changeWon(price);
-		dto.setPriceWon(priceWon);
-		mView.addObject("dto", dto);
-		mView.addObject("imageList", ImageList);
 	}
 
 	@Override
@@ -168,6 +162,14 @@ public class goodsServiceImpl implements goodsService{
 			dto1.setPriceWon(priceWon);
 		}
 		request.setAttribute("myGoods", myGoods);
+	}
+	@Override
+	public void minusWish(int num, HttpSession session) {
+		goodsDto dto=new goodsDto();
+		dto.setId((String) session.getAttribute("id"));
+		dto.setNum(num);
+		dao.minusWish(dto);
+		
 	}
 	
 	
