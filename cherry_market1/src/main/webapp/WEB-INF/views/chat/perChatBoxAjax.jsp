@@ -6,24 +6,32 @@
 		<c:when test="${tmp.talker eq sessionScope.id }">
 		<li class="right">
 			<div class="right">
-				<div class="sender">
-					<span>${tmp.talker }</span>
+				<div class="sender" style="margin:5px 10px 0px 10px;">
+					<span> ${tmp.talker }</span>
 				</div>
 			</div>
-			<div class="message">
-				<span>${tmp.pccomment }</span>
+			<div class="mpt">
+				<small>${tmp.stregdate }</small>
+				<div class="message">
+					<span>${tmp.pccomment }</span>
+				</div>
+
 			</div>
+			
 		</li>
 		</c:when>
 		<c:otherwise>
 		<li class="left">
 			<div class="right">
-				<div class="sender">
-					<span>${tmp.talker }</span>
+				<div class="sender" style="margin:5px 10px 0px 10px;">
+					<span>${tmp.talker }   </span>
 				</div>
 			</div>
-			<div class="message">
-				<span>${tmp.pccomment }</span>
+			<div>
+				<div class="message">
+					<span>${tmp.pccomment }</span>
+				</div>
+				<small>${tmp.stregdate }</small>
 			</div>
 		</li>	
 		</c:otherwise>

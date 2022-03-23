@@ -26,7 +26,8 @@
 	
 	<insert id="uploadPerChatLog" parameterType="com.acorn.cherryM1.ChatDto.perChatDto">
 		insert into perchatlog 
-		values(#{num},#{saller},#{buyer},#{talker},#{pccomment},#{regdate})
+		(num,saller,buyer,talker,pccomment,regdate) 
+		values(#{num},#{saller},#{buyer},#{talker},#{pccomment},to_number(to_char(systimestamp,'yymmddhh24missff3')))
 	</insert>
 	
 	<select id="CheckPerChatList" parameterType="com.acorn.cherryM1.ChatDto.perChatListDto" resultType="int">
