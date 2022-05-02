@@ -25,14 +25,10 @@ CREATE TABLE goods(
 	);
 CREATE SEQUENCE goods_seq;
 --찜목록 정보 저장 테이블
-CREATE TABLE wishlist(
-	num NUMBER,
-	price NUMBER,
-	title VARCHAR2(100),
-	regdate DATE,
-	isSaled NUMBER,
-	category VARCHAR2(30),
-	viewCount NUMBER,
-	imagepath VARCHAR2(100),
-	id VARCHAR2(100)
-	);
+create table wishlist(num number,id varchar2(100),regdate date);
+--오픈쳇 로그
+create table openchatlog(id varchar2(100),ocregdate number,occomment varchar2(400));
+
+create table perchatlog(num number,saller varchar2(100),buyer varchar2(100),talker varchar2(100),pccomment varchar2(400),regdate number)
+
+create table perchatlist(num number,saller varchar2(100),buyer varchar2(100),lastcomment varchar2(400),lastregdate number)
